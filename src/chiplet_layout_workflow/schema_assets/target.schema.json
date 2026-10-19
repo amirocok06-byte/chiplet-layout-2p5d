@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://chiplet-layout-workflow.local/schemas/target.schema.json",
+  "title": "ResearchTarget",
+  "$comment": "Draft 2020-12 validates receipt structure only; equality between outer target metadata and approval_receipt.proposal is enforced by runtime semantic validation.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "target_id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "display_name": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "revision": {"type": "integer", "minimum": 0},
+    "source": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "evidence_checksum": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "approved": {"type": "boolean"},
+    "approval_receipt": {"anyOf": [{"$ref": "#/$defs/approval_receipt"}, {"type": "null"}]}
+  },
+  "required": ["display_name", "revision", "source", "evidence_checksum", "approved"],
+  "anyOf": [{"required": ["id"]}, {"required": ["target_id"]}],
+  "not": {"required": ["id", "target_id"]},
+  "allOf": [
+    {
+      "if": {"properties": {"approved": {"const": true}}, "required": ["approved"]},
+      "then": {"required": ["approval_receipt"], "properties": {"approval_receipt": {"$ref": "#/$defs/approval_receipt"}}}
+    },
+    {
+      "if": {"properties": {"approved": {"const": false}}, "required": ["approved"]},
+      "then": {"properties": {"approval_receipt": {"type": "null"}}}
+    }
+  ],
+  "$defs": {
+    "target_proposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "display_name": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "source": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "evidence_checksum": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "approved": {"type": "boolean"},
+        "requires_human_approval": {"const": true},
+        "approval_state": {"enum": ["pending", "approved"]}
+      },
+      "required": ["id", "display_name", "source", "evidence_checksum", "approved", "requires_human_approval", "approval_state"],
+      "allOf": [
+        {"if": {"properties": {"approved": {"const": true}}, "required": ["approved"]}, "then": {"properties": {"approval_state": {"const": "approved"}}}},
+        {"if": {"properties": {"approved": {"const": false}}, "required": ["approved"]}, "then": {"properties": {"approval_state": {"const": "pending"}}}}
+      ]
+    },
+    "target_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "approved": {"const": true},
+        "evidence_checksum": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "source": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "decision": {"const": "approve"},
+        "proposal": {"$ref": "#/$defs/target_proposal"}
+      },
+      "required": ["id", "approved", "evidence_checksum", "source", "decision", "proposal"]
+    },
+    "approval_receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "receipt_version": {"const": 1},
+        "proposal": {"$ref": "#/$defs/target_proposal"},
+        "decision": {"$ref": "#/$defs/target_decision"}
+      },
+      "required": ["receipt_version", "proposal", "decision"]
+    }
+  }
+}

@@ -1,0 +1,392 @@
+\documentclass[UTF8,a4paper,12pt]{ctexart}
+
+\usepackage[a4paper,margin=2.25cm]{geometry}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{booktabs,longtable,array,tabularx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!55!black,
+  citecolor=blue!55!black,
+  urlcolor=blue!55!black,
+  pdftitle={基于大模型智能体协同的2.5D芯粒多阶段布局优化方法：统一设计方案}
+}
+
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.35em}
+\renewcommand{\arraystretch}{1.25}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{基于大模型智能体协同的2.5D芯粒多阶段布局优化方法}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{15pt}
+
+\newcommand{\state}{\boldsymbol{s}}
+\newcommand{\action}{\boldsymbol{a}}
+\newcommand{\wiremask}{M_{\mathrm{wire}}}
+\newcommand{\legalitymask}{M_{\mathrm{legal}}}
+\newcommand{\thermalmask}{M_{\mathrm{thermal}}}
+
+\title{基于大模型智能体协同的2.5D芯粒多阶段布局优化方法\\
+\large 统一状态--动作--物理反馈设计方案（修订稿）}
+\author{}
+\date{2026年10月}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+本文提出一种面向2.5D芯粒布局的LLM多智能体优化框架。本文的核心判断是：大模型不应替代精确物理评估器，也不直接生成完整布局坐标或近似物理梯度；大模型的职责是基于当前布局状态选择优化目标、算子及其有限参数。布局执行由传统EDA算子完成，合法性和线长、温度等物理指标由确定性评估器裁决。为避免OrderPlace、热优化和几何修复仅形成方法拼接，本文将不同阶段统一表示为共享状态--动作--反馈闭环中的不同operator family。进一步引入wiremask，将当前部分布局下候选动作的互连代价编码为结构化输入和软动作约束。wiremask只负责低成本候选筛选与排序，不承担最终物理裁决。本文给出统一问题定义、wiremask构造方法、各agent职责、调度流程以及用于区分mask贡献和LLM策略贡献的实验设计。
+\end{abstract}
+
+\section{研究定位与核心主线}
+
+\subsection{原方案的价值}
+
+原方案已经形成了三个重要基础。第一，明确采用“LLM高层决策、EDA工具执行、物理指标评价”的分工，避免让LLM直接输出不可验证的完整坐标。第二，Order Agent、Thermal Agent和Geometry Agent分别对应布局顺序、热--线长权衡以及合法性修复，具有较清晰的工程职责。第三，方案保留了确定性Physics Evaluator作为最终裁决者，这使得布局结果能够通过WL、峰值温度、重叠和边界等指标复核。
+
+这些设计使项目具有可实施性，但还不能自动形成一个统一的科学问题。当前稿件存在四个需要收紧的问题：
+
+\begin{enumerate}[leftmargin=2.5em]
+  \item 不同agent主要按照参考论文分组，尚未说明它们是否共享同一个状态、动作和反馈接口；
+  \item AI的作用容易被同时表述为策略学习、物理评估替代和梯度近似，导致贡献边界不清；
+  \item 各阶段输出之间的传递关系不足，Order阶段的决策如何影响Thermal阶段和Geometry阶段没有统一表示；
+  \item mask如果只作为一个额外模块加入，会再次形成“把不同论文的方法并排组合”的问题。
+\end{enumerate}
+
+\subsection{本文建议的主线}
+
+本文将研究问题收敛为：
+
+\begin{quote}
+在精确物理评估预算有限、布局动作空间离散且约束复杂的条件下，LLM多智能体能否利用结构化物理先验，在统一动作接口上动态选择更合适的布局算子，并通过物理反馈逐步改善2.5D芯粒布局？
+\end{quote}
+
+对应的计算主线为：
+
+\begin{equation}
+\begin{aligned}
+\state_t &\xrightarrow{\text{Goal/Policy Router}} \text{operator family}
+\xrightarrow{\text{mask-guided candidates}} \action_t \\
+&\xrightarrow{\text{EDA executor+legalizer}} \text{placement}_{t+1}
+\xrightarrow{\text{exact evaluator}} (\Delta W,\Delta T,\text{legality})
+\xrightarrow{\text{critic}} \state_{t+1}.
+\end{aligned}
+\end{equation}
+
+因此，Order、Thermal和Geometry不是三个相互独立的算法，而是同一布局决策过程中的三类动作族：
+
+\begin{table}[htbp]
+\centering
+\caption{AI、mask、EDA执行器和物理评估器的职责边界}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.6cm}X X}
+\toprule
+对象 & 负责什么 & 不负责什么 \\
+\midrule
+LLM agent & 识别主导问题；选择operator family；选择候选动作；调整受限参数 & 不直接生成任意坐标；不绕过合法性检查；不裁决最终物理结果 \\
+Mask & 将可计算的几何、互连和热风险转化为结构化输入、候选排序和动作约束 & 不替代精确WL/热仿真；不被直接解释为物理梯度 \\
+EDA executor & 按候选动作执行移动、旋转、排序、形状调整和合法化 & 不负责解释当前优化目标 \\
+Physics Evaluator & 计算真实WL、温度和合法性，并提供接受/拒绝依据 & 不负责生成高层优化策略 \\
+Critic/Memory & 记录动作、代价、结果和mask预测误差，更新后续选择依据 & 不与物理评估器重复计算同一裁决 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{2.5D芯粒布局的统一问题定义}
+
+设芯粒集合为 $\mathcal C$，中介层区域为 $\Omega$，布局状态为：
+
+\begin{equation}
+\state_t=(P_t,O_t,S_t,H_t,G_t,M_t),
+\end{equation}
+
+其中 $P_t$ 为当前芯粒位置，$O_t$ 为方向或旋转，$S_t$ 为软模块形状状态，$H_t$ 为热场，$G_t$ 为互连图，$M_t$ 为当前mask及其统计信息。对于芯粒布局，$S_t$ 可以退化为面积和外接尺寸；对于直角多边形软模块，$S_t$ 还应包括轮廓、凹槽和可用形状参数。
+
+动作写成：
+
+\begin{equation}
+\action_t=(f_t,i_t,o_t,p_t,\theta_t),
+\end{equation}
+
+其中 $f_t$ 是operator family，$i_t$ 是目标芯粒或模块，$o_t$ 是算子类型，$p_t$ 是候选位置、顺序或形状方案，$\theta_t$ 是步长、阈值、搜索宽度等有限参数。
+
+候选动作必须满足硬约束：
+
+\begin{equation}
+\mathcal A_{\mathrm{legal}}(\state_t)=
+\{\action: \legalitymask(\action|\state_t)=1\}.
+\end{equation}
+
+最终物理指标至少包括：
+
+\begin{align}
+ W(\state)&=\text{总互连线长},\\
+ T(\state)&=\text{峰值温度},\\
+ V(\state)&=\text{重叠、越界和最小间距违反量}.
+\end{align}
+
+本项目不把所有指标预先压缩为一个固定加权和，而是由Goal/Policy Router根据约束违反和近期改进情况选择当前主导目标。最终结果仍必须同时报告 $W$、$T$、$V$ 和物理评估次数。
+
+\section{统一多agent架构}
+
+\subsection{闭环结构}
+
+每一个优化轮次执行以下流程：
+
+\begin{enumerate}[leftmargin=2.5em]
+  \item Physics Evaluator读取当前布局并输出 $W_t,T_t,V_t$；
+  \item Goal Agent判断当前是Feasibility、Thermal还是Wirelength主导；
+  \item Router选择一个operator family和允许的算法参数集合；
+  \item Candidate Generator根据当前状态和mask生成有限候选集；
+  \item LLM Agent从候选集选择动作，不直接生成无约束坐标；
+  \item EDA Executor执行动作，Geometry Legalizer进行确定性投影或修复；
+  \item Physics Evaluator对候选布局进行精确评价；
+  \item Critic根据实际结果与预测结果决定接受、拒绝、回滚并记录经验。
+\end{enumerate}
+
+该结构将“决定做什么”和“具体怎么执行”分开：LLM负责策略层，候选生成器和EDA负责操作层，物理评估器负责裁决层。
+
+\subsection{三类operator family}
+
+\begin{table}[htbp]
+\centering
+\caption{统一动作接口下的三个专家agent}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{2.2cm}X X X}
+\toprule
+Agent & 主要状态输入 & 允许动作 & 物理角色 \\
+\midrule
+Order Agent & 芯粒面积、连接度、已有邻居、当前部分布局、芯粒级wiremask & 选择下一个芯粒、调整候选顺序、选择顺序算法 & 改变后续搜索空间和线长形成过程，不直接决定最终合法坐标 \\
+Thermal Agent & 热场、功耗、wiremask、候选位置和旋转 & 局部移动、旋转、分离、低热区迁移 & 在热风险和线长增量之间选择候选动作 \\
+Geometry Agent & 合法性mask、重叠区域、边界距离、间距约束 & 投影、局部平移、旋转、空白区域重新分配 & 负责可行化；wiremask只作为多个合法修复方案的次级排序依据 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+OrderPlace、MAGE、MacroAgent等参考方法在本文中不再作为三个并列创新点，而分别作为上述operator family的候选规则、候选算子或候选算法来源。它们必须通过相同的状态、动作和物理反馈接口接入，才能被公平比较。
+
+\section{wiremask的定义与使用}
+
+\subsection{wiremask的准确定位}
+
+wiremask定义为当前部分布局状态下，候选动作对互连代价的低成本估计场：
+
+\begin{equation}
+\wiremask(\action|\state_t)
+=\operatorname{Normalize}\left[\widehat{\Delta W}(\action|\state_t)\right].
+\end{equation}
+
+数值越小表示候选动作预计带来的互连代价越低。它可以表现为：
+
+\begin{itemize}[leftmargin=2.5em]
+  \item 对固定芯粒和方向的二维位置热图；
+  \item 对不同方向或不同形状方案的多通道热图；
+  \item 对Order Agent的芯粒级顺序评分向量；
+  \item 对LLM可读取的候选动作表。
+\end{itemize}
+
+因此，wiremask不是一张静态全局图，而是条件化对象：
+
+\begin{equation}
+\wiremask=\wiremask(\text{current state},\text{target},\text{operator family}).
+\end{equation}
+
+\subsection{第一版wiremask的计算}
+
+建议第一版采用可解释的增量HPWL估计，而不是一开始引入一个隐藏的学习模型。对候选动作 $\action$，定义：
+
+\begin{equation}
+\widehat{\Delta W}(\action|\state_t)
+=\sum_{e\in E(i)}w_e\left[
+\widehat{\operatorname{HPWL}}_e(\state_t\oplus\action)
+-
+\widehat{\operatorname{HPWL}}_e(\state_t)
+\right],
+\end{equation}
+
+其中 $E(i)$ 是与目标芯粒或模块 $i$ 相连的网络集合，$w_e$ 是可选的网络权重。对于尚未放置的端点，可使用预计锚点、接口中心或位置区间估计。mask中必须同时记录估计器类型和不确定性，不能将估计线长直接写成真实线长。
+
+将候选动作在合法集合中按分位数归一化：
+
+\begin{equation}
+\bar M_{\mathrm{wire}}(\action)=
+\operatorname{clip}\left(
+\frac{\widehat{\Delta W}(\action)-q_{0.05}}
+{q_{0.95}-q_{0.05}+\epsilon},0,1\right).
+\end{equation}
+
+这样可以避免不同规模实例之间直接比较未经归一化的线长。
+
+\subsection{mask的三层使用方式}
+
+\begin{enumerate}[leftmargin=2.5em]
+  \item \textbf{硬约束：} $\legalitymask$排除越界、重叠和不满足最小间距的动作，LLM无权绕过；
+  \item \textbf{软排序：} $\wiremask$对合法候选动作排序或形成Top-$K$候选集；
+  \item \textbf{目标调节：} $\thermalmask$与$\wiremask$共同形成Pareto候选集，具体偏好由Goal Agent在有限策略集合中选择。
+\end{enumerate}
+
+不建议把所有mask一开始就压缩成固定加权和。对于热优化阶段，更稳妥的规则是：当热约束违反时，优先减少热违反量；当温度进入可接受区间后，再在合法候选中优先选择wiremask较优的动作。
+
+\subsection{LLM的结构化输入和输出}
+
+LLM不直接读取大尺寸连续矩阵并生成坐标，而是读取候选摘要：
+
+\begin{verbatim}
+state: {wire_gap, thermal_gap, legal_gap, placed_ratio}
+target: chiplet_7
+candidate_actions:
+  - id: c03, position: [12,8], orientation: 0
+    wire_cost: 0.12, thermal_cost: 0.48
+    legal: true, confidence: 0.83
+allowed_operators: [local_shift, rotate, separate]
+parameter_range: {wire_threshold: [0.1,0.5], beam_width: [4,16]}
+\end{verbatim}
+
+LLM输出的对象应绑定到候选ID：
+
+\begin{verbatim}
+{agent: thermal_agent,
+ operator: separate,
+ candidate_id: c03,
+ parameters: {step: 2, wire_threshold: 0.2}}
+\end{verbatim}
+
+这种接口允许agent选择不同算法和参数，但选择空间由预先登记的operator library约束。第一版不允许LLM临时发明任意代码或任意物理模型。
+
+\section{各阶段之间的联系}
+
+\subsection{阶段一：顺序选择}
+
+Order Agent输出的不是最终布局，而是当前部分布局下的下一步选择。可为每个芯粒计算：
+
+\begin{equation}
+M_{\mathrm{order}}(i|\state_t)=
+\mathbb E[\widehat{\Delta W}\mid i\text{ next},\state_t].
+\end{equation}
+
+该阶段需要比较Random、Area-first、Connectivity-first、Learning-to-Rank和LLM-order，但所有方法必须使用同一个后端placer和同一个Physics Evaluator。已有2.5D placement-order研究说明顺序确实可能显著影响后续线长，但该影响依赖于具体placer、数据集和评估器，不能被表述为普遍定律。
+
+\subsection{阶段二：热--线长协同移动}
+
+Thermal Agent读取热场和wiremask，选择移动、旋转或分离等算子。其候选选择遵循：
+
+\begin{equation}
+\mathcal A_t^{\mathrm{thermal}}=
+\operatorname{Pareto}
+\left(\Delta T,\widehat{\Delta W}\right)
+\cap\mathcal A_{\mathrm{legal}}.
+\end{equation}
+
+这样，Thermal Agent不是简单执行“远离热点”的固定规则，而是在当前布局状态下选择热收益和线长代价之间较合适的候选动作。
+
+\subsection{阶段三：几何合法化}
+
+Geometry Agent不应被设计成另一个自由优化器。建议采用：
+
+\begin{equation}
+\text{LLM选择修复模式}
+\rightarrow
+\text{deterministic projection/repair}
+\rightarrow
+\text{legal placement}.
+\end{equation}
+
+当存在多个合法修复结果时，才使用wiremask作为次级排序依据。这可以防止Geometry Agent为了局部线长而破坏热目标，也能保持合法性判断的可复现性。
+
+\section{Goal Agent、Critic与经验更新}
+
+Goal Agent的作用不是增加一个孤立阶段，而是作为operator router。它根据以下状态量选择当前目标：
+
+\begin{itemize}[leftmargin=2.5em]
+  \item 合法性违反量及其变化；
+  \item 当前总线长与历史最好值的差距；
+  \item 峰值温度和热点面积；
+  \item 最近若干动作的改善量；
+  \item wiremask与真实评估之间的预测误差。
+\end{itemize}
+
+Critic应记录的不只是接受或拒绝，还应包括：
+
+\begin{equation}
+\text{record}_t=(\state_t,\action_t,\wiremask{}_t,
+\text{predicted cost},\text{exact cost},\text{accepted}).
+\end{equation}
+
+其中预测误差用于判断wiremask是否可靠。如果某类状态下wiremask长期错误，Manager可以降低其筛选强度，而不是继续把错误候选硬编码为约束。
+
+\section{实验设计与论文贡献的可验证性}
+
+\subsection{实验一：wiremask的有效性}
+
+固定候选生成器、EDA执行器和精确评估器，对比无mask、hard wiremask、soft wiremask和对全部候选动作进行精确评估。报告wiremask排序与真实增量线长之间的Spearman或Kendall相关性、Top-$K$命中率、候选regret、最终WL/T和精确评估次数。
+
+该实验只回答“wiremask是否是有效的低成本互连先验”，不能直接证明LLM策略有效。
+
+\subsection{实验二：LLM策略贡献}
+
+固定wiremask和候选动作集，对比随机选择、固定贪心规则、人工规则和LLM agent选择。保持动作预算、精确物理评估次数和初始布局一致。若LLM没有优于固定规则，应修改论文主张，而不能把收益全部归因于多agent协同。
+
+\subsection{实验三：统一多阶段接口}
+
+比较Order-only、Thermal-only、Geometry-only和Joint multi-agent四种配置。所有配置使用相同的状态表示、动作编码、合法化器和Physics Evaluator，只改变可调用的operator family。报告最终指标和每个阶段的边际改善，以判断收益来自单个模块、阶段交互还是仅来自更多计算预算。
+
+\subsection{建议的消融矩阵}
+
+\begin{table}[htbp]
+\centering
+\caption{修订方案的最小消融矩阵}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3.1cm}X X}
+\toprule
+配置 & 改变内容 & 主要回答的问题 \\
+\midrule
+固定序列+固定规则 & 不使用Goal Agent和LLM选择 & 多agent是否优于固定流程 \\
+LLM无mask & 保留LLM但取消wiremask & LLM是否受到物理先验帮助 \\
+mask无LLM & 使用wiremask贪心选择 & 收益是否只是候选排序带来的 \\
+LLM+wiremask & 统一主方案 & LLM策略与mask协同是否有效 \\
+加入cross-stage mask & 在主方案上增加未来指标预测mask & 跨阶段mask是否提供额外收益，且代价是什么 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+LaMPlace风格的cross-stage mask可以作为后续扩展，但不建议在第一版中与wiremask同时作为核心创新。前者是对最终指标影响的预测场，后者是当前动作的局部互连代价场；二者应在实验中分开验证。
+
+\section{预期贡献与边界}
+
+本文方案的合理贡献表述应为：
+
+\begin{enumerate}[leftmargin=2.5em]
+  \item 提出一种以统一状态--动作--物理反馈接口组织2.5D芯粒布局多agent的方法；
+  \item 将wiremask定义为条件化的候选动作敏感度场，并将其作为LLM agent的结构化输入和软动作约束；
+  \item 研究LLM的目标诊断、operator选择和参数选择是否能够在固定EDA执行器和精确评估器下改善布局搜索；
+  \item 通过mask、LLM和多阶段接口的独立消融，区分各部分的真实贡献。
+\end{enumerate}
+
+不应在当前阶段宣称：LLM替代了物理评估器、LLM学习了精确物理梯度、wiremask能够准确预测最终布线结果，或不同阶段的所有算法都已经被统一证明有效。这些结论需要额外的预测误差、梯度一致性或跨数据集泛化实验。
+
+\section{结论}
+
+修订后的核心叙事不是“OrderPlace+MAGE+MacroAgent+GoalEvolve的串联”，而是：在同一个2.5D布局环境中，LLM agent根据当前状态选择不同的布局operator，wiremask把互连后果转化为可读、可约束的候选动作信息，EDA执行器完成具体操作，确定性Physics Evaluator提供最终反馈，Critic记录结果并影响后续选择。这样，阶段差异体现在动作族和目标条件上，而不是体现在彼此独立的方法模块上。
+
+\begin{thebibliography}{99}
+
+\bibitem{orderplace2024}
+Chiplet Placement Order Exploration based on Learning to Rank with Graph Representation. ISEDA, 2024.
+
+\bibitem{maskplace2026}
+MaskPlace2.5D: Mask-guided Thermal-aware Chiplet Placement for Large-scale 2.5D ICs. Integration, the VLSI Journal, 2026. DOI: \url{https://doi.org/10.1016/j.vlsi.2026.102796}.
+
+\bibitem{lamplace2025}
+LaMPlace: Learning Cross-stage Metrics for Macro Placement. ICLR, 2025. \url{https://proceedings.iclr.cc/paper_files/paper/2025/hash/04c0399a47ee4107cd03b08f1f8c3eeb-Abstract-Conference.html}.
+
+\bibitem{rlplanner}
+RLPlanner: An Efficient Reinforcement Learning Approach for Large-scale Chip Placement. 相关芯片布局研究工作。
+
+\bibitem{thermalplacement}
+TAP-2.5D, ATPlace2.5D and TACPlace: thermal-aware and constraint-aware 2.5D chiplet placement methods.
+
+\end{thebibliography}
+
+\end{document}

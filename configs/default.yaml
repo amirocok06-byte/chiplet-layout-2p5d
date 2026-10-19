@@ -1,0 +1,29 @@
+topic: ai42.5Dic
+data_root: D:/chiplet-layout-workflow-data
+
+research_target:
+  id: ai42.5Dic
+  display_name: ai42.5Dic
+  revision: 0
+  source: user_seed
+  evidence_checksum: seed
+  approved: false
+
+obsidian:
+  vault: C:/Users/Lenovo/Documents/Obsidian Vault
+  write_back: false
+
+web_retrieval:
+  enabled: false
+
+execution:
+  mode: local
+  command_allowlist:
+    local: []
+    ssh: []
+
+human_gates:
+  enabled: true
+
+upload:
+  default_policy: deny
