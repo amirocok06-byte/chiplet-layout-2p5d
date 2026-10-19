@@ -51,15 +51,15 @@
 
 - [x] 在副本中运行 `python -m pytest -q`，结果为 `323 passed, 7 skipped`。
 - [x] 在副本中运行 `python -m compileall -q src`。
-- [ ] 运行发布清单检查和 `git diff --check`。
-- [ ] 初始化 Git、创建 `main`、提交筛选后的内容。
+- [x] 运行发布清单检查和 `git diff --check`。
+- [x] 初始化 Git、创建 `main`、提交筛选后的内容，提交号为 `3b73ba9`。
 
 ### Task 5: 创建 Private GitHub 仓库并核验
 
 **Files:**
 - External: `https://github.com/amirocok06-byte/chiplet-layout-2p5d`
 
-- [ ] 使用已登录的 GitHub CLI 创建 Private 仓库。
-- [ ] 添加 `origin` 并推送 `main`。
-- [ ] 核验仓库可见性、默认分支、远端提交和 README 内容。
-- [ ] 在进度文件中记录本地路径、远程地址和验证结果，不记录任何令牌。
+- [x] 使用已登录的 GitHub CLI 创建 Private 仓库。
+- [x] 添加 `origin` 并推送 `main`。
+- [x] 核验仓库可见性、默认分支、远端提交和 README 内容。
+- [x] 在进度文件中记录本地路径、远程地址和验证结果，不记录任何令牌。
