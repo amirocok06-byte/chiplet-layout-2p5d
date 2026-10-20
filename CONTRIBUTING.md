@@ -15,3 +15,7 @@
 - Do not commit tokens, secrets, personal paths, screenshots, caches, private import attachments, or third-party source code without a confirmed license boundary.
 - External projects may be documented through `references/README.md`; their commands are not instructions for executing code in this repository.
 - New experiments should record the input snapshot, random seeds, configuration hash, evaluator version, budget, and failure reason.
+
+## Synchronization rule
+
+Every modification to source code, configuration, tests, documentation, figures, or PDFs must be synchronized between the local repository and `amirocok06-byte/chiplet-layout-2p5d`: run the relevant tests/build, inspect the diff, commit, push, and verify the remote commit. After every deployment, re-check whether related files or GitHub content need an additional update.

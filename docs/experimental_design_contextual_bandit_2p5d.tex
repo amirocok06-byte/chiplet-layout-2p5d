@@ -23,7 +23,7 @@
 \renewcommand{\arraystretch}{1.25}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{2.5D 芯粒布局：CNN--Contextual Bandit 实验设计}
+\fancyhead[L]{2.5D 芯粒布局：状态化宏动作与算法组合}
 \fancyhead[R]{实验方案底稿}
 \fancyfoot[C]{\thepage}
 \setlength{\headheight}{14pt}
@@ -41,7 +41,7 @@
 \vspace*{1.2cm}
 {\LARGE\bfseries 面向2.5D系统集成的芯粒布局方法\par}
 \vspace{0.35cm}
-{\Huge\bfseries CNN--Contextual Bandit 算法组合实验设计方案\par}
+{\Huge\bfseries 状态化宏动作与 CNN--Contextual Bandit 实验设计方案\par}
 \vspace{0.8cm}
 {\Large ——基于状态表征、宏动作选择与统一物理反馈的多算法布局优化\par}
 \vspace{1.2cm}
@@ -55,7 +55,7 @@
 \vfill
 \begin{flushleft}
 \textbf{文档定位：}正式实验前的实验设计、接口定义、消融方案和开源实现清单。\\
-\textbf{当前方法版本：}第一版采用 2D CNN + 有限配置库 + Contextual Bandit；第二版扩展到 3D CNN/ConvLSTM。\\
+\textbf{当前方法版本：}第一版采用 2D CNN + 有限配置库 + Contextual Bandit；后续按需扩展到 CNN+GRU、ConvLSTM 和低分辨率局部注意力。\\
 \textbf{重要边界：}本文档中的性能结论均为待验证的实验假设，不将已有项目的报告数值当作本项目结果。
 \end{flushleft}
 \vspace{0.8cm}
@@ -101,7 +101,7 @@
 
 \begin{equation}
 X_t \xrightarrow{\text{CNN encoder}} z_t
-\xrightarrow{\text{Contextual Bandit}} a_t=(k_t,c_t,H_t)
+\xrightarrow{\text{Contextual Bandit}} a_t=(k_t,c_t,H_t,M_t)
 \xrightarrow{\text{worker }k_t}
 Y_{t+1}
 \xrightarrow{\text{Physics Evaluator}}
@@ -109,6 +109,34 @@ Y_{t+1}
 \end{equation}
 
 其中 \(X_t\) 是当前布局状态，\(k_t\) 是算法类别，\(c_t\) 是算法配置，\(H_t\) 是本次宏动作的预算，\(Y_{t+1}\) 是候选布局，\(m_{t+1}\) 是合法性和物理指标，\(r_t\) 是控制器根据目标函数计算的奖励。只有当候选布局满足硬合法性约束或经过确定性修复后，才允许进入下一次决策。
+
+\subsection{决策单位：微步、宏步与完整优化过程}
+
+本方案将 Contextual Bandit 的“一步”定义为一次\important{宏动作（macro-action）}，而不是 SA 的一次随机移动、RL 的一次环境动作，也不是让某个算法一直运行到收敛。三个层级必须严格区分：
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabularx}{\textwidth}{p{0.18\textwidth}p{0.34\textwidth}X}
+\toprule
+层级 & 定义 & 记录与控制方式 \\
+\midrule
+微步（micro-step） & SA 的一次邻域移动、解析法的一次更新或 RL 的一个环境动作 & 由 worker 内部执行，可用于调试和重放，不由上层 Bandit 逐次选择 \\
+宏步（macro-step） & 一个 worker 在固定 evaluator/时间预算下连续执行若干微步后，返回一个候选布局 & Bandit 选择一次，记录起点状态、动作、终点状态、指标差分和资源成本 \\
+episode & 从初始布局到停止条件的完整优化过程 & 记录宏动作序列、累计收益、总预算和最终布局 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+因此动作定义为
+\begin{equation}
+a_t=(k_t,c_t,H_t,M_t),
+\end{equation}
+其中 \(k_t\) 是算法类别，\(c_t\) 是离散配置，\(H_t\) 是 evaluator 或迭代预算，\(M_t\) 是本次动作使用的 wiremask 及其约束。宏步在达到预算、worker 主动停止、超时或产生不可修复的非法布局时结束。该定义既允许 agent 自主选择算法和参数，又避免让控制器承担三个算法内部循环的全部细节。
+
+\begin{tcolorbox}[colback=lightorange,colframe=orange!70!black,title=实验边界]
+第一版只学习有限的 \((\text{算法},\text{配置},\text{预算})\) arm；连续超参数优化不与算法选择同时作为首个研究问题。只有当有限 arm 版本证明状态能够区分算法适用条件后，才引入分层或连续参数 Bandit，并将参数搜索成本计入 reward。
+\end{tcolorbox}
 
 \begin{tcolorbox}[colback=lightorange,colframe=orange!70!black,title=与原多阶段 Agent 方案的关系]
 原方案中的 order、thermal、geometry 不再作为三个固定顺序的 agent。它们被改写为 \textbf{可学习的诊断通道/动作约束}：order 结构、热热点和几何拥挤分别进入状态张量与 wiremask；最终实际执行的是一个算法 worker。若实验发现某类状态稳定需要先做热修复，再可把“热修复宏动作”加入动作库，但这个顺序应由对照实验支持，而不是在系统结构中预先假定。
@@ -141,6 +169,8 @@ X_t=[M_{\rm occ},M_{\rm power},M_{\rm conn},M_{\rm thermal},M_{\rm wire},M_{\rm 
 \end{enumerate}
 
 第一版不要求 wiremask 具有端到端可学习的生成器。建议先用确定性规则生成 baseline mask，再把 mask 的阈值、膨胀半径和指标权重加入配置库，作为可控消融因素。
+
+建议同时记录 hard mask、soft mask 和 mask version。hard mask 用于限制候选移动区域、方向和移动半径；soft mask 作为 CNN/注意力输入的连续权重；mask version 用于保证不同实验不会隐式使用不同的候选区域。只有在确定性 mask 的离线结果证明有收益后，才让诊断头预测软 mask。
 
 \section{分阶段实验设计}
 
@@ -267,7 +297,7 @@ r_t = -\lambda_w\Delta \widetilde{WL}_t
 
 \subsection{阶段 4：3D CNN/ConvLSTM 学习状态流}
 
-第二版不是“把 2D CNN 换成更大的网络”，而是改变学习目标：预测某个算法宏动作造成的状态变化。
+第二版不是“把 2D CNN 换成更大的网络”，而是改变学习目标：预测某个算法宏动作造成的状态变化。推荐先用 CNN/ECA + GRU 处理压缩后的历史特征；只有当历史本身有增益且空间位置仍然重要时，再升级为小型 ConvLSTM。全局 Transformer 不作为默认第二版。
 
 给定长度为 \(L\) 的快照序列：
 
@@ -293,6 +323,117 @@ r_t = -\lambda_w\Delta \widetilde{WL}_t
     \item 3D CNN/ConvLSTM + 状态差分通道；
     \item 3D 模型去掉 wiremask 或去掉 thermal 通道。
 \end{enumerate}
+
+\section{状态化扩展：诊断、记忆与流程级收益}
+
+\subsection{从静态上下文到三个可验证的预测任务}
+
+为了避免把 CNN、注意力和 Bandit 拼成并列模块，建议把控制器拆成三个具有不同实验含义的输出头：
+
+\begin{enumerate}
+    \item \textbf{诊断头 \(D_t\)：}预测当前最值得干预的区域、指标和异常类型，例如线长拥挤、热热点或合法性风险；
+    \item \textbf{转移头 \(F_t(a)\)：}给定候选宏动作 \(a\)，预测它对空间 map 和全局指标的变化；
+    \item \textbf{选择头 \(Q_t(a)\)：}综合预测收益、执行成本、不确定性和后续价值，决定是否选择该 arm。
+\end{enumerate}
+
+该划分使“哪里有问题”“执行后会怎样”和“现在是否值得执行”成为三个可分别验证的假设。注意力权重只能作为诊断线索，不能直接等同于物理因果解释；必须用 evaluator 的实际增量 map 和指标差分进行校验。
+
+\subsection{推荐的轻量网络路线}
+
+不建议在 \(256\times256\) 的像素级 map 上直接使用全局 Transformer。推荐按成本由低到高推进：
+
+\begin{enumerate}
+    \item \textbf{第一版：CNN/ECA + Contextual Bandit。}共享 CNN 提取局部结构，ECA 或 CBAM 风格的轻量通道/空间门控突出重要 map 通道，LinUCB 或 linear Thompson Sampling 选择有限 arm；
+    \item \textbf{第二版：CNN/ECA + GRU。}将最近 \(L\) 个宏步压缩为全局特征和 memory packet，先检验“历史变化方向”是否有增益；
+    \item \textbf{第三版：小型 ConvLSTM。}只有当 GRU 证明空间位置对状态转移有额外贡献时，才保留空间维度建模；
+    \item \textbf{第四版：低分辨率局部注意力。}将 map 下采样为 \(16\times16\) 或 \(32\times32\) patch token，使用局部窗口、shifted-window 或 chiplet/热点 token 进行跨图和跨时间交互。
+\end{enumerate}
+
+这个顺序的理由不是网络越大越好，而是每一步都对应一个明确的可证伪问题：空间信息是否有用、历史是否有用、空间化历史是否有用、局部注意力是否进一步改善决策。
+
+\subsection{状态输入与结构化 memory packet}
+
+状态输入扩展为
+\begin{equation}
+X_t=[M_{\rm occ},M_{\rm power},M_{\rm thermal},M_{\rm wire},
+M_{\rm legal},M_{\rm order},M_{\rm phase},\,v_t],
+\end{equation}
+其中 \(M_{\rm phase}\) 是当前阶段或历史动作的空间投影，\(v_t\) 包含 HPWL、峰值温度、重叠面积、利用率、剩余预算和最近动作。
+
+内循环不使用自然语言 prompt 传递状态，而使用可序列化的结构化记忆：
+
+\begin{verbatim}
+{
+  "step": 7,
+  "phase": "repair_or_refine",
+  "focus_region": [[x0, y0, x1, y1]],
+  "focus_metric": "hpwl",
+  "mask_version": "wire-v2",
+  "last_action": {"worker": "sa", "config": "sa-wire", "budget": 4},
+  "predicted_delta": {"hpwl": -2.1, "peak_temperature": 0.3},
+  "observed_delta": {"hpwl": -0.4, "peak_temperature": 0.1},
+  "uncertainty": 0.28,
+  "remaining_budget": 96
+}
+\end{verbatim}
+
+GRU/ConvLSTM 读取该信息的张量化版本。若后续使用 LLM，它只承担外层实验配置、异常审计或可读解释，不参与每个 inner-loop 的算法选择，从而保持控制协议可复现。
+
+\subsection{wiremask 的定义与使用}
+
+wiremask 不是一个额外的优化阶段，而是同时承担结构化输入和动作约束两种职责：
+
+\begin{enumerate}
+    \item \textbf{输入通道：}由 HPWL 贡献、net bounding box、连接拥挤度、热图和合法性膨胀规则生成，告诉编码器哪些区域最值得关注；
+    \item \textbf{动作约束：}限制 SA 邻域、解析更新或 RL 动作的候选区域、方向、移动半径和可行域，减少无效 evaluator 调用；
+    \item \textbf{状态差分：}记录动作前后的 \(M_{\rm wire}\) 及其变化，用于训练转移头和评估 mask 是否真正改变了布局；
+    \item \textbf{可控消融：}第一版使用确定性 mask，阈值、膨胀半径和通道权重进入有限配置库；只有在离线结果证明有收益后，才让诊断头预测软 mask。
+\end{enumerate}
+
+建议同时记录 hard mask、soft mask 和 mask version，避免不同实验隐式使用不同的候选区域。
+
+\subsection{从单步 reward 到流程级价值}
+
+纯 Contextual Bandit 只估计当前宏步的短期收益。为体现“这一步对整个流程的作用”，按以下三层推进：
+
+\begin{equation}
+r_t^{\rm local}=J(X_t)-J(X_{t+1})-\lambda C_t-\rho I_t,
+\end{equation}
+其中 \(J\) 是归一化目标，\(C_t\) 是时间或 evaluator 调用成本，\(I_t\) 是非法或修复惩罚。
+
+当短期基线稳定后，使用 \(K\)-step return：
+\begin{equation}
+R_t^{(K)}=\sum_{i=0}^{K-1}\gamma^i r_{t+i}+\gamma^K V(X_{t+K}).
+\end{equation}
+
+进一步学习动作条件的 flow critic：
+\begin{equation}
+F_\theta(X_t,a_t)\rightarrow
+(\widehat{\Delta M},\widehat{\Delta v},\widehat{cost},\widehat{uncertainty}).
+\end{equation}
+
+其中 \(\widehat{\Delta M}\) 描述 wire/thermal/legal map 的变化，\(\widehat{\Delta v}\) 描述全局指标变化。这样控制器比较的是一个动作在后续流程中的预期作用，而不只是下一步分数。
+
+
+\subsection{轨迹、宏观转移与状态流}
+
+三类数据对象必须分开保存：
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabularx}{\textwidth}{p{0.2\textwidth}X}
+\toprule
+对象 & 含义与用途 \\
+\midrule
+算法轨迹 & worker 内部的完整事件序列，如 SA 的每次移动/接受概率、RL 的每步 observation/action 和解析法的每次更新；用于调试和重放。 \\
+宏观状态转移 & \((X_t,a_t,X_{t+1},\Delta X,\Delta m,c_t)\)；是第一版 CNN + Bandit 的基本训练单元。 \\
+状态流 & 固定宏步时间尺度上的 \(X_t\rightarrow X_{t+1}\rightarrow\cdots\)，强调状态如何变化；是 GRU/ConvLSTM/时序注意力的输入。 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+第一版只需完整保存宏观状态转移；第二版再按固定窗口构造状态流。数据集必须按 benchmark instance 划分，不能将同一个 case 的不同中间状态随机拆到训练集和测试集。
 
 \section{物理评估器设计}
 
@@ -365,7 +506,9 @@ Exact & 几何合法性 + 路由线长 + HotSpot 热评价 & 验证集、最终�
 全局指标 Bandit & 只有标量上下文时，空间状态是否必要 \\
 2D CNN + Bandit & 主方法：静态空间状态能否改善算法选择 \\
 2D CNN + wiremask & mask 作为输入和动作约束是否进一步改善选择与局部修复 \\
+CNN + GRU & 最近宏步的历史是否提升收益预测与在线选择 \\
 3D/ConvLSTM + Bandit & 状态流是否带来超过静态状态的增益 \\
+ConvLSTM/局部注意力 + flow critic & 动作条件的状态转移预测是否改善流程级质量--成本折中 \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -409,6 +552,19 @@ Exact & 几何合法性 + 路由线长 + HotSpot 热评价 & 验证集、最终�
 热评估器 & TAP-2.5D 与 ATPlace\_pub 中的 HotSpot wrapper；HotSpot 官方源码需按所采用版本固定 & Fast/Medium/Exact thermal evaluator 的接口参考与最终验证 & 快速模型不能替代最终 HotSpot；记录版本、网格、边界条件和材料参数 \\
 \end{longtable}
 
+\subsection{状态表征与时序建模参考}
+
+以下工作用于支持网络组件、状态流和注意力设计的动机，不直接证明其在本项目 2.5D 芯粒布局中有效。最终结论仍以本项目统一 evaluator、固定预算和跨实例消融为准。
+
+\begin{itemize}
+    \item CBAM：\urlbreak{https://openaccess.thecvf.com/content_ECCV_2018/html/Sanghyun_Woo_Convolutional_Block_Attention_ECCV_2018_paper.html}，通道/空间注意力的轻量设计参考；
+    \item Swin Transformer：\urlbreak{https://arxiv.org/abs/2103.14030}，局部窗口和层次化视觉表示参考；
+    \item PredRNN：\urlbreak{https://arxiv.org/abs/2103.09504}，空间--时间状态流建模参考；
+    \item Self-Attention ConvLSTM：\urlbreak{https://ojs.aaai.org/index.php/AAAI/article/view/6819}，循环记忆与注意力结合的参考；
+    \item TimeSformer：\urlbreak{https://arxiv.org/abs/2102.05095}，时空注意力分解参考；
+    \item RL-DAS：\urlbreak{https://arxiv.org/abs/2403.02131}，布局设计空间中的状态、动作和长期优化背景参考。
+\end{itemize}
+
 \subsection{建议的代码目录}
 
 为避免把第三方代码和新方法混成不可解释的整体，建议实验仓库采用以下分层：
@@ -447,8 +603,9 @@ experiment/
     \item \textbf{MVP-1：}建立有限 arm 配置库，跑全臂采样，得到每个 case 的宏观状态转移数据。
     \item \textbf{MVP-2：}训练 2D CNN，先做收益预测，再接 LinUCB/Thompson Sampling；与固定算法、随机选择和全局标量 Bandit 对比。
     \item \textbf{MVP-3：}加入 wiremask 的输入与动作约束，验证它是否真正改变选择质量和局部修改效果。
-    \item \textbf{MVP-4：}只有当静态上下文存在明确不足时，采集连续状态快照，训练 3D CNN/ConvLSTM，并报告状态流带来的增益。
-    \item \textbf{MVP-5：}最后加入连续超参数优化或分层 Bandit；不得用它替代第一版有限配置库的归因实验。
+    \item \textbf{MVP-4：}只有当静态上下文存在明确不足时，采集连续状态快照，先训练 CNN+GRU，报告历史状态带来的增益。
+    \item \textbf{MVP-5：}若 GRU 证明空间转移仍有额外信息，再训练小型 ConvLSTM 或低分辨率局部注意力，并加入动作条件 flow critic。
+    \item \textbf{MVP-6：}最后加入连续超参数优化或分层 Bandit；不得用它替代第一版有限配置库的归因实验。
 \end{enumerate}
 
 \section{预期论文叙事与风险边界}
@@ -474,12 +631,36 @@ experiment/
 
 \section{结论}
 
-本方案建议将项目的核心从“多 agent 协同布局”收敛为“面向 2.5D 布局状态的算法组合学习”。第一版先把算法选择和连续参数优化拆开，用有限配置库验证 CNN 上下文是否有用；第二版再用 3D CNN/ConvLSTM 验证状态流是否能带来额外决策收益。这样既响应导师提出的“agent 自主选择算法和参数”，又保留你原方案中 wiremask 对布局区域和动作约束的作用，并且每一项创新都能被明确的消融实验检验。
+本方案建议将项目的核心从“多 agent 协同布局”收敛为“面向 2.5D 布局状态的状态化宏动作控制”。第一版先把算法选择和连续参数优化拆开，用有限配置库验证 CNN 上下文与 wiremask 是否有用；第二版先用 CNN+GRU 验证历史状态是否能带来额外决策收益，再按需使用 ConvLSTM 或低分辨率局部注意力建模空间状态流，最后以 flow critic 检验动作对整个优化流程的影响。这样既响应导师提出的“agent 自主选择算法和参数”，又保留 wiremask 对布局区域和动作约束的作用，并且每一项机制都能被明确的消融实验检验。
 
-\vfill
-\begin{center}
-\small\color{graytext}
-本文件是实验设计方案，不报告尚未执行的实验结果。开源地址以实验启动时固定的 commit/hash 为准。
-\end{center}
+\end{document}
+
+\section{三类 Agent 的最终定义与信息职责}
+
+本项目的三类 Agent 定义为三种算法 Agent，而不是将 HPWL、thermal、order 三个指标分别包装成 Agent。\textbf{SA-Agent} 在 wiremask 和预算约束下执行局部交换、移动、旋转或扰动，并选择温度、降温率、邻域半径与接受准则；\textbf{Analytical-Agent} 执行解析式连续优化、合法化和局部修复，并选择步长、惩罚权重、平滑强度与迭代预算；\textbf{RL-Agent} 使用统一布局接口生成候选动作序列，并选择 rollout 长度、探索率、候选动作数和局部更新预算。
+
+三张图是三个共享观察通道：order、thermal 和 HPWL；PhysicsEvaluator 是唯一的物理裁判；Contextual Bandit/Coordinator 选择 $(agent, config, mask, macro\_budget)$。因此 Agent 的身份来自算法和可执行动作，图来自状态，评估器负责裁决，三者不会被混为一谈。
+
+\section{HPWL 与 order 的形式化图表示}
+
+热图用温度场颜色表示。HPWL 不应将一个全局标量复制到每个像素，而应把每条网络的线长贡献投影回其引脚包围盒。对网格像素 $p$，网络 $n$ 的包围盒为 $B_n$，加权线长为 $L_n$，权重为 $w_n$，定义
+
+\begin{equation}
+M_{\mathrm{hpwl}}(p)=\sum_n \frac{w_nL_n}{|B_n|}\mathbf{1}[p\in B_n].
+\end{equation}
+
+在离散化误差可控时，$\sum_p M_{\mathrm{hpwl}}(p)$ 等于加权 HPWL。高值像素表示对当前线长贡献较大的空间区域；绘图应在 benchmark 内采用分位数或对数归一化，防止少数长网压扁颜色动态范围。
+
+order 至少保存两个互补通道：$M_{\mathrm{order\mbox{-}rank}}$ 在芯粒占据区域填充 $\operatorname{rank}(c_i)/(N-1)$，表示顺序位置；$M_{\mathrm{order\mbox{-}trans}}$ 对相邻顺序节点或 precedence edge 的中心连线绘制走廊，表示顺序关系经过的空间。若 order 来自 DAG，还要保存 precedence edge 或节点 token，不能仅依赖单一栅格图。当前 MVP 的 thermal 是功率密度代理，必须标注为 $thermal\_proxy$，最终验证应由 HotSpot 或等价热求解器完成。上述 map 是状态表示，不是物理梯度，也不替代 PhysicsEvaluator。
+
+\section{一步、预算与算法影响的公平比较}
+
+定义一个 step 为：一个 Agent 在固定宏动作预算 $macro\_budget$ 内产生一个候选布局，该候选布局经过一次统一 PhysicsEvaluator，并记录前后状态、动作、资源和 reward。因此 SA 的一次邻域交换、解析法的一次梯度迭代和 RL 的一次 rollout 不能直接被当作等价 step。正式比较锁定资源向量 $(N_{eval},T_{wall},M_{RAM},M_{VRAM})$，分别对应真实 evaluator 调用次数、墙钟时间上限和峰值存储上限，同时报告质量、时间、内存、evaluator 次数及失败率。当前不同 worker 的不等内部预算仅适合 smoke test，不能作为最终公平比较。
+
+\section{可审计图表与同步规范}
+
+仓库提供三个绘图程序：\code{scripts/plot\_snapshot\_maps.py} 输入 $[3,H,W]$ 输出 order/thermal/hpwl 三联图；\code{scripts/plot\_state\_flow.py} 输入 $[T,3,H,W]$，使用每个通道共享色标展示状态流；\code{scripts/plot\_algorithm\_effects.py} 输入 before $[3,H,W]$ 与 after $[K,3,H,W]$，绘制各 Agent 的 after-before。\code{map\_projector.py} 负责从 canonical layout 生成可测试的 map，图表必须附带 case、step、agent、config、seed、evaluator 版本和归一化方式。
+
+从本方案起，每次源码、配置、测试、文档或 PDF 修改，必须在本地仓库完成同步修改、测试和构建后提交并推送至 GitHub；部署完成后还要重新检查是否有相关文件、图表或 PDF 需要补充更新。该规定同时写入仓库根目录 \code{task-journal.md}、规划进度文件和 \code{CONTRIBUTING.md}。
 
 \end{document}
