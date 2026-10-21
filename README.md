@@ -2,8 +2,6 @@
 
 **Chiplet Layout for 2.5D System Integration**
 
-## 中文介绍
-
 目前，模拟退火（Simulated Annealing, SA）、解析式布局（Analytical Placement）和强化学习兼容布局（RL-compatible Placement）三类方法已经具备足够成熟的研究与工程基础。本项目将这三类方法放入统一的 2.5D 芯粒布局实验协议中，在相同输入、物理评估器、预算、随机种子和结果记录规范下进行公平比较，并为后续 CNN 状态编码与 Contextual Bandit 方法提供可复现的数据接口。
 
 当前版本聚焦第一阶段 CPU-only、离线、可审计的最小闭环：
