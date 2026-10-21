@@ -21,3 +21,10 @@
 - 固定第一版主实验为有限 arm 配置库 + 2D CNN + Contextual Bandit，GRU/ConvLSTM/局部注意力和连续超参数优化只能作为后续递进消融。
 - 新增 `docs/experimental_design_v1_freeze.md`，并同步修订状态设计、README、CONTRIBUTING、LaTeX/PDF。
 - 从本次起，除非出现实现 bug、协议不可运行、全臂采样证明定义不可识别，或消融结果提供明确反证，否则不得修改上述核心定义；任何修改仍须按“本地修改 → 测试/构建 → diff → commit → push → 远端核验”同步。
+- 从本次起，除非出现实现 bug、协议不可运行、全臂采样证明某个定义不可识别，或消融结果提供明确反证，否则不得修改上述核心定义；任何修改仍须按“本地修改 → 测试/构建 → diff → commit → push → 远端核验”同步。
+
+## 暂停检查点（2026-10-21）
+
+- 已建立三个隔离 worktree：`codex/stage0-core`、`codex/stage0-visualization`、`codex/stage0-baselines`，恢复信息详见 `docs/stage0_progress_checkpoint.md`。
+- 当前暂停时 core 支线保留未提交的 Stage 0 协议改动；可视化和对照支线保持干净，等待 core 协议稳定后同步。
+- 重启后必须先恢复 worktree 状态和 core 未提交 diff，再继续测试、提交、推送；禁止用 reset/clean 丢弃进度。
