@@ -52,7 +52,11 @@ scripts/                            reproducible helper-script boundary
 
 本次新增的状态化扩展设计见 [`docs/stateful_macro_action_attention_flow_design.md`](docs/stateful_macro_action_attention_flow_design.md)。该文档在现有有限 arm + Contextual Bandit MVP 基础上，补充宏动作定义、wiremask 约束、CNN/GRU/ConvLSTM/局部注意力的递进路线，以及面向整个优化流程的状态流建模；不改变当前 MVP-1 的代码边界。
 
+正式实验前的短期冻结基线见 [`docs/experimental_design_v1_freeze.md`](docs/experimental_design_v1_freeze.md)。v1.0 固定三类算法 Agent、共享 map 语义、macro-step 和公平预算；未经全臂采样、消融或实现错误证据，不改变这些核心定义。
+
 三类 Agent 的职责在设计中固定为 `SA-Agent`、`Analytical-Agent` 和 `RL-Agent`；`order`、`thermal`、`HPWL` 是共享状态 map，`PhysicsEvaluator` 是统一裁判。HPWL 贡献场、order rank/transition 场的定义和公平预算协议见实验设计 PDF/TeX。
+
+特别地，v1.0 中共享 `order` map 表示算法无关的 priority/precedence map；算法运行时的 placement sequence 只作为轨迹诊断，不作为三类 Agent 的共享输入。
 
 可视化脚本为 `scripts/plot_snapshot_maps.py`、`scripts/plot_state_flow.py` 和 `scripts/plot_algorithm_effects.py`；其输入分别为单快照 `[3,H,W]`、状态流 `[T,3,H,W]` 和算法前后状态。项目同步规则记录在 [`task-journal.md`](task-journal.md)。
 

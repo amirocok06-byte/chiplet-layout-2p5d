@@ -304,3 +304,15 @@ flow_critic.py   动作条件状态转移/长期价值预测
 ## 15. 项目同步规则
 
 从本次设计开始，项目采用以下强制同步规则：每次源码、实验配置、测试、文档或 PDF 修改，都必须在本地 `F:/GAME/Chiplet-Layout-2.5D` 完成对应更新、测试和构建后，提交到 Git，并同步推送到 GitHub 仓库 `amirocok06-byte/chiplet-layout-2p5d`。部署完成后必须再次检查是否产生了需要同步的相关源码、配置、测试、文档、图表或 PDF；若有，必须补充提交并再次推送。该规则同时记录在仓库根目录 `task-journal.md`、`.planning/.../progress.md` 和 `CONTRIBUTING.md` 中。
+
+## 16. v1.0 短期冻结与语义修正
+
+从 2026-10-21 起，本项目将 `docs/experimental_design_v1_freeze.md` 作为短期实验基线。以下定义覆盖本文件中较早的模糊表述：
+
+1. 三个 Agent 固定是 `SA-Agent`、`Analytical-Agent` 和 `RL-Agent` 三种算法 worker；`order`、`thermal`、`HPWL` 是共享 observation map，`PhysicsEvaluator` 是唯一裁判，Contextual Bandit 才是上层选择器。
+2. 共享的 `order` map 不表示左右方向，也不直接表示某个 worker 的运行时放置序列。若 benchmark 提供 precedence DAG，则使用算法无关的 priority/precedence rank 栅格，并额外保存 precedence edges 或 token；运行时序列另存为 `placement_sequence_map`，仅用于算法轨迹诊断。
+3. 一个 Bandit decision 对应一个固定预算的 `macro-step`：worker 产生候选布局，统一 evaluator 评价并记录前后状态。SA 邻域交换、解析更新和 RL environment action 都只是 worker 内部 `micro-step`。
+4. v1 主方法固定为有限 arm 配置库 + 2D CNN + Contextual Bandit；连续参数、GRU、ConvLSTM 和局部注意力必须以后续消融形式加入，不得在第一版主实验中同时改变多个因素。
+5. 文献只支持“算法偏好可能随状态和预算变化”的研究假设，不支持预先宣称固定的阶段顺序。阶段变量应作为上下文，让全臂采样学习 `Preference(agent | state_cluster, phase)`。
+
+短期冻结期间，除非出现实现 bug、协议不可运行、全臂采样证明定义不可识别，或消融结果提供明确反证，否则不修改 Agent 身份、map 语义、macro-step 定义和公平预算。详细的冻结方案、公式、实验矩阵和开源边界见 [`experimental_design_v1_freeze.md`](experimental_design_v1_freeze.md)。

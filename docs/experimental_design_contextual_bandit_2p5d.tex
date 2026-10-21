@@ -77,7 +77,7 @@
 在给定布局状态和统一物理评估预算下，能否从状态的空间分布与历史变化中预测各个算法配置的短期收益，并在线选择最合适的宏动作？
 \end{quote}
 
-这里的“agent”应被定义为\important{算法组合决策器}，而不是自然语言规划器。它不直接替代物理规律，也不直接生成可信的布局坐标；它学习的是“在什么状态下调用哪一种优化器、使用什么配置、运行多大预算”。物理评估器仍然是最终裁决者。
+这里的三类 agent 应被定义为\important{三种算法 worker}：SA-Agent、Analytical-Agent 和 RL-Agent。它们分别产生候选布局；上层 Contextual Bandit/Coordinator 学习在什么状态下调用哪一种 worker、使用什么配置、wiremask 和宏动作预算。它们不直接替代物理规律，也不直接生成未经评估的可信布局坐标；物理评估器仍然是最终裁决者。
 
 \subsection{贡献增量的准确表述}
 
@@ -633,8 +633,6 @@ experiment/
 
 本方案建议将项目的核心从“多 agent 协同布局”收敛为“面向 2.5D 布局状态的状态化宏动作控制”。第一版先把算法选择和连续参数优化拆开，用有限配置库验证 CNN 上下文与 wiremask 是否有用；第二版先用 CNN+GRU 验证历史状态是否能带来额外决策收益，再按需使用 ConvLSTM 或低分辨率局部注意力建模空间状态流，最后以 flow critic 检验动作对整个优化流程的影响。这样既响应导师提出的“agent 自主选择算法和参数”，又保留 wiremask 对布局区域和动作约束的作用，并且每一项机制都能被明确的消融实验检验。
 
-\end{document}
-
 \section{三类 Agent 的最终定义与信息职责}
 
 本项目的三类 Agent 定义为三种算法 Agent，而不是将 HPWL、thermal、order 三个指标分别包装成 Agent。\textbf{SA-Agent} 在 wiremask 和预算约束下执行局部交换、移动、旋转或扰动，并选择温度、降温率、邻域半径与接受准则；\textbf{Analytical-Agent} 执行解析式连续优化、合法化和局部修复，并选择步长、惩罚权重、平滑强度与迭代预算；\textbf{RL-Agent} 使用统一布局接口生成候选动作序列，并选择 rollout 长度、探索率、候选动作数和局部更新预算。
@@ -662,5 +660,101 @@ order 至少保存两个互补通道：$M_{\mathrm{order\mbox{-}rank}}$ 在芯�
 仓库提供三个绘图程序：\code{scripts/plot\_snapshot\_maps.py} 输入 $[3,H,W]$ 输出 order/thermal/hpwl 三联图；\code{scripts/plot\_state\_flow.py} 输入 $[T,3,H,W]$，使用每个通道共享色标展示状态流；\code{scripts/plot\_algorithm\_effects.py} 输入 before $[3,H,W]$ 与 after $[K,3,H,W]$，绘制各 Agent 的 after-before。\code{map\_projector.py} 负责从 canonical layout 生成可测试的 map，图表必须附带 case、step、agent、config、seed、evaluator 版本和归一化方式。
 
 从本方案起，每次源码、配置、测试、文档或 PDF 修改，必须在本地仓库完成同步修改、测试和构建后提交并推送至 GitHub；部署完成后还要重新检查是否有相关文件、图表或 PDF 需要补充更新。该规定同时写入仓库根目录 \code{task-journal.md}、规划进度文件和 \code{CONTRIBUTING.md}。
+
+\section{实验方案 v1.0：短期冻结版}
+
+\subsection{冻结目标与核心主线}
+
+本节是正式实验前的短期冻结基线。除非出现实现 bug、统一评估协议无法运行、全臂采样证明定义不可识别，或消融结果提供明确反证，否则不修改 Agent 身份、共享 map 语义、macro-step 定义和公平预算。
+
+本项目的核心不是把三个算法机械串成流水线，而是学习一个状态条件化的算法组合策略：
+\[
+\text{布局状态}\rightarrow\text{CNN 上下文}\rightarrow
+\text{选择算法/配置/掩码/预算}\rightarrow
+\text{统一 PhysicsEvaluator}\rightarrow\text{状态反馈}.
+\]
+CNN 或后续的 ConvLSTM/局部注意力负责状态表示、收益预测或状态转移预测；它们不替代物理评估器，也不直接近似物理梯度。
+
+\subsection{三类 Agent 的固定身份}
+
+三类 Agent 是三种算法 worker，而不是三个目标指标或三个 evaluator：
+
+\begin{itemize}
+    \item \textbf{SA-Agent：}在 wiremask 和预算约束下执行交换、移动、旋转和随机扰动，配置包括初温、降温率、邻域半径、接受准则和局部预算，重点处理局部残余冲突、非光滑约束和需要跳出局部结构的状态；
+    \item \textbf{Analytical-Agent：}执行解析式连续优化、合法化和局部修复，配置包括步长、平滑强度、密度/热惩罚、迭代数和合法化预算，重点处理目标函数仍有明显下降空间的全局结构；
+    \item \textbf{RL-Agent：}使用统一布局接口生成候选动作序列，配置包括 rollout 长度、候选动作数、探索率和局部更新预算，重点处理具有重复拓扑分布、需要长程动作序列或已有策略先验的状态。
+\end{itemize}
+
+上层 Contextual Bandit/Coordinator 选择 $(agent, config, mask, macro\_budget)$；PhysicsEvaluator 是唯一裁判；order、thermal、HPWL 是共享观察通道。第一版先使用有限配置库，再研究连续超参数优化。
+
+\subsection{阶段偏好只作为可检验假设}
+
+已有研究支持不同算法的优势随条件变化，但没有给出一个适用于所有本项目 2.5D case 的固定阶段顺序。TILOS 的宏布局比较显示 RL、SA 和解析法在 proxy cost、最终线长、时序与稳定性上并不由同一方法同时占优；TAP-2.5D、RLPlanner 和 ATPlace2.5D 分别代表热感知 SA、RL 与解析式路线，但它们的输入、热模型和预算并不完全统一。因此本文只提出待验证假设：粗粒度高重叠阶段可能更适合解析法或 RL 初始化，局部残余冲突可能更适合 SA，中间阶段由状态和预算决定。最终学习并报告
+\[
+\operatorname{Preference}(agent\mid state\_cluster, phase),
+\]
+不预先宣称“前期 analytical、中期 RL、后期 SA”为事实。
+
+\subsection{三张 map 的正式语义}
+
+推荐输入为
+\[
+X_t=[M_{\mathrm{order}},M_{\mathrm{thermal}},M_{\mathrm{hpwl}},
+M_{\mathrm{occ}},M_{\mathrm{legal}},M_{\mathrm{wiremask}},v_t],
+\]
+其中 $v_t$ 包含全局指标、利用率、剩余预算、最近动作和阶段编码。
+
+\begin{itemize}
+    \item \textbf{Thermal：}优先使用 $M_{\mathrm{thermal}}(g)=T(g)-T_{\mathrm{ambient}}$，同时保存原始温度、归一化方式和 fidelity。快速模型必须标注为 \code{thermal\_proxy}，HotSpot 或等价求解器用于校准和最终验证；
+    \item \textbf{HPWL：}对网络 $n$ 的引脚包围盒 $B_n$、加权 HPWL $L_n$ 和权重 $w_n$，定义
+    \[
+    M_{\mathrm{hpwl}}(g)=\sum_n\frac{w_nL_n}{|B_n|}
+    \mathbf{1}[g\in B_n].
+    \]
+    该定义避免把全局标量复制到每个像素，高值区域表示对当前线长贡献较大的空间区域；
+    \item \textbf{Order：}共享图不表示左右方向，也不直接表示某个 worker 的运行时序列。若 benchmark 提供 precedence DAG $D=(V,E)$，先计算芯粒优先级或拓扑层级 $r_i$，再定义
+    \[
+    M_{\mathrm{order}}(g)=r_i/R_{\max},\quad
+    g\in\operatorname{footprint}(c_i).
+    \]
+    同时保存 precedence edges 或节点 token。运行时序列另存为 \code{placement\_sequence\_map}，只作为轨迹诊断；若 benchmark 没有自然顺序，则改名为 priority/criticality map，不人为制造 order。
+\end{itemize}
+
+\subsection{一步、轨迹、状态流与物理评估器}
+
+一个 macro-step 是：某 Agent 在固定宏动作预算内执行若干内部微步，产生候选布局；候选布局经过一次统一 PhysicsEvaluator；系统记录前后 map、动作、指标与资源。SA 的一次邻域交换、解析法的一次更新和 RL 的一次 environment action 都是 micro-step，不能直接视为等价的一步。
+
+算法轨迹记录 worker 内部全部微步；Bandit 样本是 $(X_t,a_t,X_{t+1},\Delta metrics,cost)$；状态流是在固定 macro-step 时间尺度上串联的 $X_t\rightarrow X_{t+1}\rightarrow\cdots$。第一版保存宏观转移，后续才采集固定窗口状态流。
+
+PhysicsEvaluator 由 GeometryEvaluator、WirelengthEvaluator、ThermalEvaluator 和 CostTracker 组成。所有 worker 只产生候选布局，不得自带另一套最终 reward。快速热模型用于在线筛选，HotSpot/等价求解器用于校准和最终验证；CNN 的预测不是物理真值。
+
+\subsection{短期冻结的实验顺序}
+
+\begin{enumerate}
+    \item \textbf{E0：}建立 canonical layout IR，统一坐标、单位、pin offset、约束和 evaluator 输出；
+    \item \textbf{E1：}建立有限 arm 库
+    \[
+    A=\{(k,c)\mid k\in\{\mathrm{SA},\mathrm{Analytical},\mathrm{RL}\},c\in C_k\},
+    \]
+    在相同初始布局、seed、fidelity 和预算下进行全臂采样；
+    \item \textbf{E2：}训练轻量 2D CNN 预测各 arm 的短期收益，再接 LinUCB 或 Thompson Sampling；wiremask 同时作为输入通道和动作约束；
+    \item \textbf{E3：}仅当 E2 显示静态状态不足时加入 CNN+GRU，验证历史是否提升在线选择；
+    \item \textbf{E4：}仅当 E3 显示状态变化有额外信息时加入小型 ConvLSTM 或低分辨率局部注意力；
+    \item \textbf{E5：}最后才加入连续超参数和动作条件 flow critic，并将搜索成本计入 reward。
+\end{enumerate}
+
+\subsection{公平预算和关键消融}
+
+正式比较锁定 $(N_{eval},T_{wall},M_{RAM},M_{VRAM})$，并报告最终目标、HPWL、峰值温度、合法率、evaluator 次数、墙钟时间、峰值内存、失败率、regret 和 arm 命中率。若算法需要预训练，分别报告包含训练成本和已训练 worker 部署成本的结果。
+
+主对照包括固定 SA、固定 analytical、固定 RL、随机 arm、全局标量 Bandit、2D CNN、2D CNN+wiremask、phase-conditioned Bandit，以及后续的 CNN+GRU 和 ConvLSTM/局部注意力。必须验证空间 map 是否比标量更有预测力、wiremask 是否真正减少无效动作、状态流是否改善在线结果，以及连续调参收益是否抵消搜索成本。注意力权重只作可视化线索，不能直接作为物理因果解释。
+
+\subsection{开源实现边界}
+
+SA 参考 \urlbreak{https://github.com/bu-icsg/TAP-2.5D}，解析式布局参考 \urlbreak{https://github.com/PKU-IDEA/ATPlace_pub}，RL/快速热模型参考 \urlbreak{https://github.com/weiweihook/RLPlanner}，掩码/热模型参考 \urlbreak{https://github.com/xunk33333/MaskPlace2.5D}，综合 2.5D 参考 \urlbreak{https://github.com/MicroSystemsDesignLab/STAMP2.5D}，热评估器参考 \urlbreak{https://github.com/uvahotspot/HotSpot}。运行前固定 commit/hash、许可证、依赖和输入适配边界，第三方 worker 的结果必须回到本项目统一 evaluator。
+
+\subsection{冻结条件}
+
+v1.0 短期冻结以下内容：三类 Agent 的身份、order 的 priority/precedence 语义、macro-step 的决策粒度、有限 arm + 2D CNN + Contextual Bandit 的主路线，以及统一 evaluator 和资源预算。只有实现 bug、协议不可运行、定义不可识别或明确反证才能修改，并必须同步更新本 Markdown、LaTeX/PDF、状态设计、README、task-journal 和 GitHub。
 
 \end{document}

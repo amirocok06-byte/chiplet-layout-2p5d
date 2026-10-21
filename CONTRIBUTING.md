@@ -19,3 +19,5 @@
 ## Synchronization rule
 
 Every modification to source code, configuration, tests, documentation, figures, or PDFs must be synchronized between the local repository and `amirocok06-byte/chiplet-layout-2p5d`: run the relevant tests/build, inspect the diff, commit, push, and verify the remote commit. After every deployment, re-check whether related files or GitHub content need an additional update.
+
+The short-term experiment baseline is `docs/experimental_design_v1_freeze.md`. Do not change the Agent identities, shared map semantics, macro-step definition, or fairness budget without recording experimental or implementation evidence in `task-journal.md` and synchronizing the Markdown, LaTeX, PDF, and GitHub copies.
