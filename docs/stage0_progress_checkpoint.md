@@ -65,3 +65,15 @@ canonical Layout
 ## 设计边界
 
 本阶段不提前实现 CNN、Contextual Bandit、连续超参数优化或真实 HotSpot。先完成可审计的 Stage 0 数据协议、可视化快照和固定算法对照，之后再以实验数据决定是否进入 CNN + Bandit。
+
+## 2026-10-24 恢复后的状态
+
+三条支线已继续且分别推送到 GitHub：
+
+| 支线 | 远端分支 | 最新提交 | 已验证内容 |
+|---|---|---|---|
+| 核心协议 | `codex/stage0-core` | `c54047c` | 329 passed, 7 skipped；成对 transition 字段、同预算 catalog、显式 order、背景 sentinel |
+| 可视化 | `codex/stage0-visualization` | `764f209` | 331 passed, 7 skipped；三图、状态流、map 差分、manifest 和 PNG 已生成 |
+| 科学对照 | `codex/stage0-baselines` | `13d7b4e` | 332 passed, 7 skipped；有限 arm 统计工具与文献/对照边界文档 |
+
+恢复后的下一个有效实验门槛是：接入可锁定版本的真实 SA、解析式和 RL adapter，并将固定功耗密度热反馈替换为位置敏感 proxy、以 HotSpot 或同等高保真求解器完成校准。此前只能继续验证协议，不能报告算法偏好或热优化收益。
