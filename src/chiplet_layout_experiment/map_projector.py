@@ -67,7 +67,11 @@ def _resolve_order(
 ) -> tuple[str, ...]:
     if order is None:
         metadata_order = layout.metadata.get("chiplet_order")
-        order = metadata_order or tuple(chiplet.name for chiplet in layout.chiplets)
+        if not metadata_order:
+            raise ValueError(
+                "priority/precedence order must be provided explicitly or in layout metadata"
+            )
+        order = metadata_order
 
     resolved = tuple(order)
     names = {chiplet.name for chiplet in layout.chiplets}

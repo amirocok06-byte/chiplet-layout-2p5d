@@ -32,8 +32,8 @@ class Arm:
 
 def default_arm_catalog() -> tuple[Arm, ...]:
     return (
-        Arm("sa-balanced", "sa", {"temperature": "medium", "weight": "balanced"}, 4),
-        Arm("sa-wire", "sa", {"temperature": "medium", "weight": "wire"}, 4),
+        Arm("sa-balanced", "sa", {"temperature": "medium", "weight": "balanced"}, 1),
+        Arm("sa-wire", "sa", {"temperature": "medium", "weight": "wire"}, 1),
         Arm("analytical-wl", "analytical", {"objective": "wirelength"}, 1),
         Arm("analytical-thermal", "analytical", {"objective": "thermal"}, 1),
         Arm("rl-fixed-small", "rl-compatible", {"policy": "fixed", "radius": "small"}, 1),
