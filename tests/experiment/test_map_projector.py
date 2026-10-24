@@ -1,4 +1,7 @@
+from dataclasses import replace
+
 import numpy as np
+import pytest
 
 from chiplet_layout_experiment.canonical import (
     Board,
@@ -32,6 +35,7 @@ def _layout() -> Layout:
                 weight=2.0,
             ),
         ),
+        metadata={"chiplet_order": ("A", "B")},
     )
 
 
@@ -61,3 +65,10 @@ def test_order_map_encodes_explicit_chiplet_rank():
     # B is rank 0 and A is rank 1; use cell centers to avoid boundaries.
     assert order_map[41, 41] == 0.0
     assert order_map[9, 9] == 1.0
+
+
+def test_rasterize_layout_rejects_implicit_input_order():
+    layout = replace(_layout(), metadata={})
+
+    with pytest.raises(ValueError, match="priority/precedence order"):
+        rasterize_layout(layout, grid_size=32)

@@ -60,3 +60,23 @@ def test_sample_arms_records_common_budget_and_auditable_metrics(tmp_path):
     assert manifest["input_checksum"] == _layout().checksum()
     assert manifest["record_count"] == 6
     assert manifest["source_commit"] == "local-test"
+
+
+def test_sample_arms_records_paired_input_and_delta_metrics():
+    records = sample_arms(
+        _layout(),
+        default_arm_catalog(),
+        workers={
+            "sa": SAWorker(),
+            "analytical": AnalyticalWorker(),
+            "rl-compatible": RLCompatibleWorker(),
+        },
+        evaluator=PhysicsEvaluator(),
+        seeds=(3,),
+    )
+
+    record = records[0]
+    assert record.input_metrics["hpwl"] == 5.0
+    assert record.metrics["hpwl"] >= 0.0
+    assert record.delta_metrics["hpwl"] == record.metrics["hpwl"] - 5.0
+    assert record.metadata["total_evaluator_calls"] == 6
