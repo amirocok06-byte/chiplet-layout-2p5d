@@ -1,0 +1,152 @@
+{
+  "effect_trace": {
+    "analytical": {
+      "budget": 1,
+      "implementation": "transparent-sequential-baseline",
+      "input_checksum": "823204d855f35a3bb798b4985a75198d915c6f5a4e064a773968538c7a559975",
+      "metrics": {
+        "evaluator_calls": 3,
+        "hpwl": 45.5,
+        "mean_temperature": 26.34375,
+        "peak_temperature": 35.0,
+        "valid": true
+      },
+      "output_checksum": "cf77ec2c6460c4eef1f923a68cc362a0d71a7363f7a0dc0543c9595c62c5c2c2",
+      "runtime_seconds": 3.119999996670231e-05,
+      "seed": 101,
+      "status": "available",
+      "worker_id": "analytical"
+    },
+    "rl-compatible": {
+      "budget": 1,
+      "implementation": "local-rule-baseline",
+      "input_checksum": "823204d855f35a3bb798b4985a75198d915c6f5a4e064a773968538c7a559975",
+      "metrics": {
+        "evaluator_calls": 3,
+        "hpwl": 62.5,
+        "mean_temperature": 26.34375,
+        "peak_temperature": 35.0,
+        "valid": true
+      },
+      "output_checksum": "823204d855f35a3bb798b4985a75198d915c6f5a4e064a773968538c7a559975",
+      "runtime_seconds": 1.2599999990925426e-05,
+      "seed": 102,
+      "status": "available",
+      "worker_id": "rl-compatible"
+    },
+    "sa": {
+      "budget": 1,
+      "implementation": "bounded-deterministic-sa-smoke",
+      "input_checksum": "823204d855f35a3bb798b4985a75198d915c6f5a4e064a773968538c7a559975",
+      "metrics": {
+        "evaluator_calls": 3,
+        "hpwl": 45.5,
+        "mean_temperature": 26.34375,
+        "peak_temperature": 35.0,
+        "valid": true
+      },
+      "output_checksum": "cf77ec2c6460c4eef1f923a68cc362a0d71a7363f7a0dc0543c9595c62c5c2c2",
+      "runtime_seconds": 5.310000005920301e-05,
+      "seed": 100,
+      "status": "available",
+      "worker_id": "sa"
+    }
+  },
+  "evaluator_version": "physics-v1",
+  "format": "chiplet-layout-stage0-visual-smoke-v1",
+  "grid_size": 256,
+  "input_layout_checksum": "823204d855f35a3bb798b4985a75198d915c6f5a4e064a773968538c7a559975",
+  "labels": [
+    "sa",
+    "analytical",
+    "rl-compatible"
+  ],
+  "map_channels": [
+    "order",
+    "thermal",
+    "hpwl"
+  ],
+  "order_source": "explicit-priority-precedence-metadata",
+  "purpose": "protocol-smoke-only",
+  "source_revision": "80f215f",
+  "state_flow_labels": [
+    "initial",
+    "analytical",
+    "sa",
+    "rl-compatible"
+  ],
+  "state_flow_trace": [
+    {
+      "label": "initial",
+      "layout_checksum": "823204d855f35a3bb798b4985a75198d915c6f5a4e064a773968538c7a559975",
+      "metrics": {
+        "evaluator_calls": 3,
+        "hpwl": 62.5,
+        "mean_temperature": 26.34375,
+        "peak_temperature": 35.0,
+        "valid": true
+      }
+    },
+    {
+      "budget": 1,
+      "implementation": "transparent-sequential-baseline",
+      "input_checksum": "823204d855f35a3bb798b4985a75198d915c6f5a4e064a773968538c7a559975",
+      "label": "analytical",
+      "metrics": {
+        "evaluator_calls": 3,
+        "hpwl": 45.5,
+        "mean_temperature": 26.34375,
+        "peak_temperature": 35.0,
+        "valid": true
+      },
+      "output_checksum": "cf77ec2c6460c4eef1f923a68cc362a0d71a7363f7a0dc0543c9595c62c5c2c2",
+      "runtime_seconds": 2.300000005561742e-05,
+      "seed": 200,
+      "status": "available",
+      "worker_id": "analytical"
+    },
+    {
+      "budget": 1,
+      "implementation": "bounded-deterministic-sa-smoke",
+      "input_checksum": "cf77ec2c6460c4eef1f923a68cc362a0d71a7363f7a0dc0543c9595c62c5c2c2",
+      "label": "sa",
+      "metrics": {
+        "evaluator_calls": 3,
+        "hpwl": 45.5,
+        "mean_temperature": 26.34375,
+        "peak_temperature": 35.0,
+        "valid": true
+      },
+      "output_checksum": "cf77ec2c6460c4eef1f923a68cc362a0d71a7363f7a0dc0543c9595c62c5c2c2",
+      "runtime_seconds": 2.2699999817632488e-05,
+      "seed": 201,
+      "status": "available",
+      "worker_id": "sa"
+    },
+    {
+      "budget": 1,
+      "implementation": "local-rule-baseline",
+      "input_checksum": "cf77ec2c6460c4eef1f923a68cc362a0d71a7363f7a0dc0543c9595c62c5c2c2",
+      "label": "rl-compatible",
+      "metrics": {
+        "evaluator_calls": 3,
+        "hpwl": 45.5,
+        "mean_temperature": 26.34375,
+        "peak_temperature": 35.0,
+        "valid": true
+      },
+      "output_checksum": "cf77ec2c6460c4eef1f923a68cc362a0d71a7363f7a0dc0543c9595c62c5c2c2",
+      "runtime_seconds": 1.0999999858540832e-05,
+      "seed": 202,
+      "status": "available",
+      "worker_id": "rl-compatible"
+    }
+  ],
+  "synthetic": true,
+  "warning": "Not a benchmark, external-algorithm reproduction, or preference result.",
+  "worker_implementations": {
+    "analytical": "transparent-sequential-baseline",
+    "rl-compatible": "local-rule-baseline",
+    "sa": "bounded-deterministic-sa-smoke"
+  }
+}
