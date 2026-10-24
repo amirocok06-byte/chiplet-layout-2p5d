@@ -67,6 +67,12 @@ def test_order_map_encodes_explicit_chiplet_rank():
     assert order_map[9, 9] == 1.0
 
 
+def test_order_map_uses_a_distinct_background_sentinel():
+    order_map = rasterize_layout(_layout(), grid_size=64)[0]
+
+    assert order_map[0, 0] == -1.0
+
+
 def test_rasterize_layout_rejects_implicit_input_order():
     layout = replace(_layout(), metadata={})
 

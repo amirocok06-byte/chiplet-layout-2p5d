@@ -84,10 +84,10 @@ v1.0 的共享 `M_order` 定义为**算法无关的 priority/precedence map**：
 
 ```text
 M_order(g) = r_i / R_max,  if g belongs to footprint(c_i)
-             background,    otherwise
+             -1,            otherwise
 ```
 
-同时保存 `precedence_edges` 或节点 token，因为单一 rank 图不能完整表达 DAG 关系。若 benchmark 没有自然的先后约束，不应人为制造 order；应将该通道改名为 `priority/criticality map`，并从任务元数据或关键路径定义得到。
+其中 `-1` 是空白区域 sentinel；rank=0 是合法的最低优先级，不能再把二者都编码为 0。`M_occ` 仍应随输入保存，不能只靠这个 sentinel 推断可用区域。同步保存 `precedence_edges` 或节点 token，因为单一 rank 图不能完整表达 DAG 关系。若 benchmark 没有自然的先后约束，不应人为制造 order；应将该通道改名为 `priority/criticality map`，并从任务元数据或关键路径定义得到。
 
 算法实际运行时产生的序列另存为 `placement_sequence_map`，只作为算法特定的轨迹诊断，不作为三类 Agent 的共享输入。这个区分是 v1.0 中对 order 语义的硬约束。
 

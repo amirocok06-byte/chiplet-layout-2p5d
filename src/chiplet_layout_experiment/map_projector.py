@@ -100,6 +100,9 @@ def rasterize_layout(
         raise ValueError("grid_size must be a positive integer")
 
     maps = np.zeros((3, grid_size, grid_size), dtype=np.float32)
+    # Rank zero is a valid priority value.  Keep it distinct from whitespace so
+    # the lowest-priority chiplet is visible to both plots and learned models.
+    maps[0].fill(-1.0)
     resolved_order = _resolve_order(layout, order)
     rank_denominator = max(len(resolved_order) - 1, 1)
     rank_by_name = {
