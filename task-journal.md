@@ -21,3 +21,10 @@
 - 固定第一版主实验为有限 arm 配置库 + 2D CNN + Contextual Bandit，GRU/ConvLSTM/局部注意力和连续超参数优化只能作为后续递进消融。
 - 新增 `docs/experimental_design_v1_freeze.md`，并同步修订状态设计、README、CONTRIBUTING、LaTeX/PDF。
 - 从本次起，除非出现实现 bug、协议不可运行、全臂采样证明定义不可识别，或消融结果提供明确反证，否则不得修改上述核心定义；任何修改仍须按“本地修改 → 测试/构建 → diff → commit → push → 远端核验”同步。
+
+## 本次记录（2026-10-24）
+
+- 确认方案 A：保留 `256×256` 原始 map，使用 nearest 显示，叠加 `16×16` 宏网格（每格对应 `16×16` 原始像素），默认输出 300 DPI，并显示原始像素坐标。
+- 固定首轮共同输入为 `2-Benchmarks/external/ATPlace2.5D/Case1..Case10`；`2-Benchmarks/cases` 与其哈希不同，只作独立副本校验，不能混合统计；`5-额外Benchmark/ThermalBench` 和 `thermo-3dic-surrogates` 暂作热模型验证集。
+- 固定外部源码 commit 与运行边界，详见 `docs/stage0_data_source_freeze.md`。由于 ATPlace 核心加密、RLPlanner 本地归档缺少可直接运行的训练/布局源码、STAMP 依赖 ANSYS/SSH，当前三臂仍是本项目可审计的本地 worker，不宣称外部算法复现。
+- 每次源码、配置、测试、文档、图表或 PDF 修改，继续执行本日志开头的本地同步、测试、commit、push 和远端核验规定；本次部署后也要复查相关文件是否需要同步。

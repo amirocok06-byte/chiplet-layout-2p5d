@@ -41,7 +41,7 @@ CNN 或后续的 ConvLSTM/注意力只负责状态表征和收益/状态转移�
 - [TILOS: Assessment of Reinforcement Learning for Macro Placement](https://arxiv.org/abs/2302.11014) 统一比较了 RL、SA、RePlAce 等宏布局方法；其结果显示 proxy cost、最终线长、时序和稳定性之间并不由同一个算法同时占优，说明算法偏好应条件化而不是固定排序。
 - [TAP-2.5D](https://github.com/bu-icsg/TAP-2.5D) 代表热感知的 SA 路线，并将温度和线长/路由约束纳入 2.5D 布局处理。
 - [RLPlanner](https://arxiv.org/html/2312.16895v2) 代表 RL + 快速热模型路线，并使用动作约束处理不可行动作；其报告结果不能直接视为本项目统一预算下的结论。
-- [ATPlace2.5D](https://github.com/PKU-IDEA/ATPlace_pub) 代表解析式热感知布局路线；它的初始化、解析优化和合法化阶段说明解析法可以承担全局目标驱动，但代码边界和评估协议需要单独核对。
+- [ATPlace2.5D](https://github.com/Brilight/ATPlace_pub) 代表解析式热感知布局路线；它的初始化、解析优化和合法化阶段说明解析法可以承担全局目标驱动，但代码边界和评估协议需要单独核对。
 - [Cyclic RL and Simulated Annealing](https://arxiv.org/abs/2011.07577) 提供“RL 生成较好粗初始化、SA 做局部细化”的机制启发，但该工作不是 2.5D 芯粒布局，不能作为本项目固定阶段顺序的证明。
 
 因此本文只把下列内容作为待验证假设：粗粒度高重叠阶段可能更适合解析法或 RL 初始化；局部残余冲突和非光滑合法性修复可能更适合 SA；中间阶段由状态和预算决定。最终必须用全臂采样和消融实验学习 `Preference(agent | state_cluster, phase)`，不能预先写成“前期 analytical、中期 RL、后期 SA”的事实结论。
@@ -190,7 +190,7 @@ A = {(k, c) | k in {SA, Analytical, RL}, c in C_k}
 ## 10. 开源实现与复用边界
 
 - SA/2.5D： [TAP-2.5D](https://github.com/bu-icsg/TAP-2.5D)
-- 解析式布局： [ATPlace_pub](https://github.com/PKU-IDEA/ATPlace_pub)
+- 解析式布局： [ATPlace_pub](https://github.com/Brilight/ATPlace_pub)
 - RL/热模型参考： [RLPlanner](https://github.com/weiweihook/RLPlanner)
 - 掩码/热模型参考： [MaskPlace2.5D](https://github.com/xunk33333/MaskPlace2.5D)
 - 综合 2.5D 布局参考： [STAMP2.5D](https://github.com/MicroSystemsDesignLab/STAMP2.5D)

@@ -20,6 +20,10 @@
 
 `raw/manifest.json` 是图的追溯记录：包含 source revision、map 格式、seed、macro budget、worker implementation、输入 checksum 和 evaluator 版本。
 
+## 方案 A 的显示规范
+
+三张图都保留原始 `256×256` map，不做插值或重采样；默认以 300 DPI 输出，并叠加 `16×16` 显示宏网格。对于标准 `256×256` 输入，每个显示格对应原始的 `16×16` 像素。坐标轴标的是原始像素边界，因而右/上边界会显示为 `256`；这不表示原始数组变成了 `16×16`。
+
 ## 复现
 
 在仓库根目录的 PowerShell 中运行：
@@ -27,9 +31,9 @@
 ```powershell
 $env:PYTHONPATH = "src"
 python -m chiplet_layout_experiment.visual_demo docs/figures/stage0_synthetic_smoke/raw --source-revision "<source-commit>"
-python scripts/plot_snapshot_maps.py docs/figures/stage0_synthetic_smoke/raw/snapshot_maps.npz docs/figures/stage0_synthetic_smoke/snapshot_maps.png
-python scripts/plot_state_flow.py docs/figures/stage0_synthetic_smoke/raw/state_flow.npz docs/figures/stage0_synthetic_smoke/state_flow.png
-python scripts/plot_algorithm_effects.py docs/figures/stage0_synthetic_smoke/raw/algorithm_effects.npz docs/figures/stage0_synthetic_smoke/algorithm_effects.png --labels sa analytical rl-compatible
+python scripts/plot_snapshot_maps.py docs/figures/stage0_synthetic_smoke/raw/snapshot_maps.npz docs/figures/stage0_synthetic_smoke/snapshot_maps.png --dpi 300 --grid-divisions 16
+python scripts/plot_state_flow.py docs/figures/stage0_synthetic_smoke/raw/state_flow.npz docs/figures/stage0_synthetic_smoke/state_flow.png --dpi 300 --grid-divisions 16
+python scripts/plot_algorithm_effects.py docs/figures/stage0_synthetic_smoke/raw/algorithm_effects.npz docs/figures/stage0_synthetic_smoke/algorithm_effects.png --labels sa analytical rl-compatible --dpi 300 --grid-divisions 16
 ```
 
 原始 `.npz` 是可再生的中间结果，不提交到 Git；PNG、此说明和 manifest 保留在仓库中。更换为真实 benchmark 后，必须新建有 case ID、配置、seed、evaluator fidelity、预算和源提交的输出目录，不能覆盖本目录。

@@ -58,6 +58,8 @@ scripts/                            reproducible helper-script boundary
 
 可视化脚本为 `scripts/plot_snapshot_maps.py`、`scripts/plot_state_flow.py` 和 `scripts/plot_algorithm_effects.py`；其输入分别为单快照 `[3,H,W]`、状态流 `[T,3,H,W]` 和算法前后状态。项目同步规则记录在 [`task-journal.md`](task-journal.md)。
 
+Stage 0 的首轮数据与源码已经冻结：使用 `2-Benchmarks/external/ATPlace2.5D/Case1..Case10` 作为 ATPlace 对齐的共同输入，`2-Benchmarks/cases` 只作独立副本校验，`5-额外Benchmark` 只作后续热模型验证。具体路径、commit 和外部源码不可观测边界见 [`docs/stage0_data_source_freeze.md`](docs/stage0_data_source_freeze.md)。
+
 ## 快速开始 / Quick Start
 
 ```powershell

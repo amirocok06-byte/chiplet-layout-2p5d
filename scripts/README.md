@@ -4,4 +4,4 @@
 
 This directory is reserved for auditable, reproducible helper scripts. Phase 1 does not execute third-party scripts from an external drive, external solvers, HotSpot, or SSH jobs.
 
-Stage 0 synthetic-smoke visual artifacts are generated through `python -m chiplet_layout_experiment.visual_demo`; the three `plot_*.py` scripts only render its explicit NPZ inputs. See `docs/figures/stage0_synthetic_smoke/README.md` for the traceability boundary and commands.
+Stage 0 synthetic-smoke visual artifacts are generated through `python -m chiplet_layout_experiment.visual_demo`; the three `plot_*.py` scripts only render their explicit NPZ inputs. They preserve raw pixels, use nearest-neighbor display, and default to 300 DPI with a visible 16x16 macro-grid. See `docs/figures/stage0_synthetic_smoke/README.md` for the traceability boundary and commands.

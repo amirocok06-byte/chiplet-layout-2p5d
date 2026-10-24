@@ -12,4 +12,6 @@ This directory records external sources, intended use, and reproduction boundari
 | MaskPlace2.5D | https://github.com/xunk33333/MaskPlace2.5D | 热模型、数据处理和 mask 概念参考；公开内容不等于完整 placement worker。 |
 | STAMP2.5D | https://github.com/MicroSystemsDesignLab/STAMP2.5D | 2.5D 布局和热约束方向参考；采用前需单独核对许可证和 benchmark 兼容性。 |
 
+Stage 0 的实际输入、固定 commit 和“可运行三臂/外部源码边界”见 [`docs/stage0_data_source_freeze.md`](../docs/stage0_data_source_freeze.md)。
+
 The local design PDF is a project-authored experiment plan. The user-supplied external-drive PDF was treated as reference material and was not modified.

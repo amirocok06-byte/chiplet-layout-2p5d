@@ -11,6 +11,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import TwoSlopeNorm
 
+from plot_grid import DEFAULT_DPI, DEFAULT_GRID_DIVISIONS, add_raw_pixel_grid, map_title
+
 
 CHANNELS = ("order", "thermal", "hpwl")
 
@@ -19,6 +21,9 @@ def plot_algorithm_effects(
     input_path: Path,
     output_path: Path,
     labels: list[str],
+    *,
+    dpi: int = DEFAULT_DPI,
+    grid_divisions: int = DEFAULT_GRID_DIVISIONS,
 ) -> None:
     with np.load(input_path, allow_pickle=False) as data:
         before = np.asarray(data["before_maps"], dtype=np.float32)
@@ -35,7 +40,7 @@ def plot_algorithm_effects(
     fig, axes = plt.subplots(
         len(labels),
         3,
-        figsize=(4 * 3, 3.3 * len(labels)),
+        figsize=(4.8 * 3, 3.8 * len(labels)),
         squeeze=False,
         constrained_layout=True,
     )
@@ -52,13 +57,26 @@ def plot_algorithm_effects(
                 interpolation="nearest",
                 norm=TwoSlopeNorm(vmin=-limit, vcenter=0.0, vmax=limit),
             )
-            axis.set_title(f"{label}: delta {channel}")
-            axis.set_xticks([])
-            axis.set_yticks([])
+            height, width = image_delta.shape
+            axis.set_title(
+                map_title(
+                    f"{label}: Δ {channel}",
+                    height=height,
+                    width=width,
+                    divisions=grid_divisions,
+                ),
+                fontsize=9,
+            )
+            add_raw_pixel_grid(
+                axis,
+                height=height,
+                width=width,
+                divisions=grid_divisions,
+            )
 
     fig.suptitle("Algorithm-conditioned map changes")
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output_path, dpi=180, bbox_inches="tight")
+    fig.savefig(output_path, dpi=dpi, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -71,8 +89,16 @@ def main() -> None:
         nargs="+",
         default=["sa", "analytical", "rl"],
     )
+    parser.add_argument("--dpi", type=int, default=DEFAULT_DPI)
+    parser.add_argument("--grid-divisions", type=int, default=DEFAULT_GRID_DIVISIONS)
     args = parser.parse_args()
-    plot_algorithm_effects(args.input, args.output, args.labels)
+    plot_algorithm_effects(
+        args.input,
+        args.output,
+        args.labels,
+        dpi=args.dpi,
+        grid_divisions=args.grid_divisions,
+    )
 
 
 if __name__ == "__main__":
