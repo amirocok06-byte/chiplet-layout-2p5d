@@ -6,6 +6,7 @@ details{margin:16px 0}summary{cursor:pointer;font-size:19px}a{color:#166b9b}
 table{border-collapse:collapse}td,th{border:1px solid #ddd;padding:8px}
 .note{background:#fff0d8;padding:16px}</style>
 <h1>真实 Case1–10：三类本地算法的五检查点</h1>
+<p><a href='RESULTS_COMPARISON.md'>逐 Case 运行结果与原论文对照</a> · <a href='results_comparison.csv'>完整数值 CSV</a></p>
 <p>每个算法连续运行 800 次候选迭代，记录 0/200/400/600/800。每张快照包含 priority、空间热代理、HPWL 三张 256×256 map；同 Case 色阶固定。</p>
 <p>算法为本地 Metropolis SA、投影梯度和在线 REINFORCE。热代理未经 HotSpot 校准。单 seed 轨迹用于实现检查，不能据此判定算法总体优劣。</p>
 <p class='note'>Case4 的公开 wrapper 板为37×37 mm，芯粒总面积超过板面积（150.77%）。保留原配置的五检查点作为输入不可行性诊断，不纳入合法布局性能比较。其余运行也逐一报告实际重叠与合法性。</p>

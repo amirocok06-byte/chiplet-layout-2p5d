@@ -4,6 +4,8 @@
 RL，即可查看五张三联图、3×5 状态流、参数曲线和三算法指标曲线。
 每张快照同时显示 connectivity priority、空间热代理、HPWL 贡献场。
 
+逐 Case、逐指标的结果解读与原论文对照见 [RESULTS_COMPARISON.md](RESULTS_COMPARISON.md)，原始测量汇总为 [results_comparison.csv](results_comparison.csv)。论文数字与本地代表实现的结果分别标明条件与出处。
+
 ## 已固定的实验
 
 - 数据：2-Benchmarks/external/ATPlace2.5D/Case1..Case10；

@@ -1,0 +1,54 @@
+{
+  "source_run_commit": "54e72613b25471c39dc92c0db5e0d2a5fe95b36a",
+  "run_count": 30,
+  "eligible_case_count": 9,
+  "excluded": [
+    "Case4"
+  ],
+  "descriptive_minimum_counts": {
+    "objective": {
+      "sa": 1,
+      "analytical": 7,
+      "rl": 1
+    },
+    "hpwl_mm": {
+      "sa": 1,
+      "analytical": 8,
+      "rl": 0
+    },
+    "thermal_proxy_peak": {
+      "sa": 4,
+      "analytical": 5,
+      "rl": 0
+    }
+  },
+  "algorithms": {
+    "sa": {
+      "final_legal_count": 1,
+      "mean_optimizer_seconds": 0.18232159999918926,
+      "median_optimizer_seconds": 0.17402520000950972,
+      "rss_range_mb": [
+        49.22265625,
+        51.8515625
+      ]
+    },
+    "analytical": {
+      "final_legal_count": 2,
+      "mean_optimizer_seconds": 0.5367960777778333,
+      "median_optimizer_seconds": 0.5542330000048423,
+      "rss_range_mb": [
+        49.203125,
+        52.2109375
+      ]
+    },
+    "rl": {
+      "final_legal_count": 3,
+      "mean_optimizer_seconds": 0.3270786777752619,
+      "median_optimizer_seconds": 0.21666920000370737,
+      "rss_range_mb": [
+        49.8203125,
+        52.953125
+      ]
+    }
+  }
+}

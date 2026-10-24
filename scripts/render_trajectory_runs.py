@@ -163,6 +163,8 @@ def write_gallery(root, cases, results):
             "table{border-collapse:collapse}td,th{border:1px solid #ddd;padding:8px}",
             ".note{background:#fff0d8;padding:16px}</style>",
             "<h1>真实 Case1–10：三类本地算法的五检查点</h1>",
+            "<p><a href='RESULTS_COMPARISON.md'>逐 Case 运行结果与原论文对照</a> · "
+            "<a href='results_comparison.csv'>完整数值 CSV</a></p>",
             "<p>每个算法连续运行 800 次候选迭代，记录 0/200/400/600/800。"
             "每张快照包含 priority、空间热代理、HPWL 三张 256×256 map；同 Case 色阶固定。</p>",
             "<p>算法为本地 Metropolis SA、投影梯度和在线 REINFORCE。"

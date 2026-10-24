@@ -80,4 +80,6 @@ The external-project list and reproduction boundaries are documented in [`refere
 
 ## 状态 / Status
 
-This repository is a private research workspace for the first implementation stage. It records interfaces, deterministic evaluation contracts, worker boundaries, finite arm configurations, and audit-friendly result manifests. Scientific performance claims require later benchmark, fidelity, and ablation studies.
+This repository is a public research workspace for the first implementation stage. It records interfaces, deterministic evaluation contracts, worker boundaries, finite arm configurations, and audit-friendly result manifests. Scientific performance claims require later benchmark, fidelity, and ablation studies.
+
+运行结果与原论文的逐项比较见 [Stage 0 运行结果与论文对照](docs/figures/stage0_real_trajectories/RESULTS_COMPARISON.md)，包括 Case1–10 的线长、热代理、重叠、检查点排序、时间与内存，以及 TAP、ATPlace、RLPlanner 原文实验条件与结果。

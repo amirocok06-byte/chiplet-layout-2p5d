@@ -41,3 +41,11 @@
 - 部署后复查 README、数据冻结记录、五检查点设计、结果说明、绘图与轨迹代码、测试、生成图和 GitHub 可视化分支。主工作树原有 PDF 删除状态继续保留。
 - 代码审查修正了不等矩形包含时的几何重叠报告：优化惩罚单列 penetration_penalty，overlap_fraction 按精确交集报告；新增包含测试并重新采集记录、同步相关图表。
 - 最终验收：402 passed、7 skipped；30 条完整运行、24,030 条状态记录、150 张三联检查点、230 张 PNG/PDF/SVG；整包审核通过，230 份对齐/字体/碰撞校验无失败与警告。最终合法数 SA=1、Analytical=2、RL=3；其余保留为未达合法化的真实结果，不作偏好优劣结论。
+
+## 本次记录（2026-10-24，结果对照与公开访问）
+
+- 在 stage0_real_trajectories 新增 RESULTS_COMPARISON.md，逐 Case 比较 HPWL、热代理、精确重叠、综合目标、检查点排序、时间和峰值内存；同步导出 CSV/统计 JSON 与可复现生成器。
+- 新增 paper_results_sources.md，依据 TAP、ATPlace 和 RLPlanner 全文核对作者报告数字，保留页码、表号、指标、比较对象与预算。单独解释 20.28% 综合目标、1.42× 比值及热模型加速不能当成端到端加速。
+- 报告使用合法性标记，将 Case4 排除于 9-Case 汇总；区分独立轨迹的检查点排序与同状态反事实偏好，未把当前轨迹称作 CNN/Bandit 效果。
+- 按用户明确要求，将 amirocok06-byte/chiplet-layout-2p5d 改为 public；GitHub 返回 visibility=PUBLIC、isPrivate=false。同步更新结果目录入口、README、生成器、审核元数据和 GitHub 分支。
+- 验证采用生成器 --check、30 行 CSV 与 30 份 summary 对照、整包审核和文档链接检查；本轮不修改优化算法或重跑优化。部署后继续执行本日志的本地/远端同步复查规定。
