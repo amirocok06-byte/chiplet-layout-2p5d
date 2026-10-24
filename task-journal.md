@@ -9,6 +9,8 @@
 
 ## 本次记录（2026-10-20）
 
+本条之前的最新同步（2026-10-24）：可视化分支已提交并推送 1461f6a，新增 RESULTS_COMPARISON.md、论文出处核验、30 行 CSV/统计 JSON 和可复现汇总脚本；报告比较不同 Case/指标并区分合法性与论文实验条件。用户明确要求仓库公开，现已设置 PUBLIC、isPrivate=false；main README 增加公开报告入口。本次仅提交 README 与本日志，不暂存或覆盖主工作树原有 PDF 删除状态。
+
 - 将三类 Agent 明确为 `SA-Agent`、`Analytical-Agent`、`RL-Agent`；`order/thermal/HPWL` 作为共享 map 通道，`PhysicsEvaluator` 作为唯一裁判。
 - 增加 HPWL 贡献场、order rank 场和 order transition 场的形式化定义。
 - 增加 `map_projector.py` 与三个状态/状态流/算法效果绘图脚本，并为 map projector 增加测试。

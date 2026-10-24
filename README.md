@@ -76,4 +76,6 @@ The external-project list and reproduction boundaries are documented in [`refere
 
 ## 状态 / Status
 
-This repository is a private research workspace for the first implementation stage. It records interfaces, deterministic evaluation contracts, worker boundaries, finite arm configurations, and audit-friendly result manifests. Scientific performance claims require later benchmark, fidelity, and ablation studies.
+This repository is a public research workspace for the first implementation stage. It records interfaces, deterministic evaluation contracts, worker boundaries, finite arm configurations, and audit-friendly result manifests. Scientific performance claims require later benchmark, fidelity, and ablation studies.
+
+Stage 0 的 Case1–10 三算法结果与原论文对照已发布于可视化分支：[运行结果与论文实验对照](https://github.com/amirocok06-byte/chiplet-layout-2p5d/blob/codex/stage0-visualization/docs/figures/stage0_real_trajectories/RESULTS_COMPARISON.md)。报告包含各 Case 的 HPWL、热代理、精确重叠、检查点排序、时间/内存，以及 TAP、ATPlace、RLPlanner 的原文结果和适用条件。[数值 CSV](https://github.com/amirocok06-byte/chiplet-layout-2p5d/blob/codex/stage0-visualization/docs/figures/stage0_real_trajectories/results_comparison.csv) 与 [论文出处核验](https://github.com/amirocok06-byte/chiplet-layout-2p5d/blob/codex/stage0-visualization/docs/figures/stage0_real_trajectories/paper_results_sources.md) 同步提供。
