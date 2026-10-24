@@ -1,0 +1,28 @@
+{
+  "channel_labels": [
+    "Connectivity priority",
+    "Spatial thermal proxy (uncalibrated)",
+    "HPWL contribution (mm/pixel)"
+  ],
+  "limits": [
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0843561887741089
+    ],
+    [
+      0.0,
+      19.99227523803711
+    ]
+  ],
+  "normalization": [
+    "16-level sequential priority",
+    "PowerNorm gamma=0.6",
+    "SymLogNorm linear-region=1% fixed maximum"
+  ],
+  "hpwl_display_zero_tolerance": "64*float64_epsilon*shared_abs_max",
+  "shared_across": "all three algorithms and all five frames"
+}

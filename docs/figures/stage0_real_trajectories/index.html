@@ -1,0 +1,372 @@
+<!doctype html><html lang='zh-CN'><meta charset='utf-8'>
+<title>2.5D 五检查点轨迹</title><style>
+body{font-family:system-ui;max-width:1600px;margin:32px auto;background:#fafafa;color:#202830}
+img{width:100%;height:auto}section{padding:20px;background:white;margin:22px 0;border:1px solid #ddd}
+details{margin:16px 0}summary{cursor:pointer;font-size:19px}a{color:#166b9b}
+table{border-collapse:collapse}td,th{border:1px solid #ddd;padding:8px}
+.note{background:#fff0d8;padding:16px}</style>
+<h1>真实 Case1–10：三类本地算法的五检查点</h1>
+<p>每个算法连续运行 800 次候选迭代，记录 0/200/400/600/800。每张快照包含 priority、空间热代理、HPWL 三张 256×256 map；同 Case 色阶固定。</p>
+<p>算法为本地 Metropolis SA、投影梯度和在线 REINFORCE。热代理未经 HotSpot 校准。单 seed 轨迹用于实现检查，不能据此判定算法总体优劣。</p>
+<p class='note'>Case4 的公开 wrapper 板为37×37 mm，芯粒总面积超过板面积（150.77%）。保留原配置的五检查点作为输入不可行性诊断，不纳入合法布局性能比较。其余运行也逐一报告实际重叠与合法性。</p>
+<section id='Case1'><h2>Case1</h2>
+<p>6 chiplets | area utilization 61.22%</p>
+<img loading='lazy' src='Case1/metric_trends.png' alt='完整指标走势'>
+<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
+<tr><td>SA (Metropolis)</td><td>67034.053</td><td>0.000000</td><td>True</td></tr>
+<tr><td>Analytical (gradient)</td><td>67188.395</td><td>0.000566</td><td>False</td></tr>
+<tr><td>RL (online REINFORCE)</td><td>67980.937</td><td>0.000000</td><td>True</td></tr>
+</table>
+<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case1/sa/summary.json'>summary</a> · <a href='Case1/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case1/sa/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case1/sa/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case1/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case1/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case1/sa/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case1/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case1/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case1/sa/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case1/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case1/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case1/sa/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case1/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case1/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case1/sa/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case1/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case1/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case1/sa/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case1/analytical/summary.json'>summary</a> · <a href='Case1/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case1/analytical/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case1/analytical/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case1/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case1/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case1/analytical/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case1/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case1/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case1/analytical/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case1/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case1/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case1/analytical/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case1/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case1/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case1/analytical/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case1/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case1/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case1/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case1/rl/summary.json'>summary</a> · <a href='Case1/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case1/rl/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case1/rl/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case1/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case1/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case1/rl/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case1/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case1/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case1/rl/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case1/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case1/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case1/rl/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case1/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case1/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case1/rl/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case1/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case1/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case1/rl/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case1/algorithm_effects.png'></details></section>
+<section id='Case2'><h2>Case2</h2>
+<p>6 chiplets | area utilization 98.37%</p>
+<img loading='lazy' src='Case2/metric_trends.png' alt='完整指标走势'>
+<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
+<tr><td>SA (Metropolis)</td><td>81707.578</td><td>0.077108</td><td>False</td></tr>
+<tr><td>Analytical (gradient)</td><td>41960.563</td><td>0.157191</td><td>False</td></tr>
+<tr><td>RL (online REINFORCE)</td><td>58211.957</td><td>0.103475</td><td>False</td></tr>
+</table>
+<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case2/sa/summary.json'>summary</a> · <a href='Case2/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case2/sa/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case2/sa/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case2/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case2/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case2/sa/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case2/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case2/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case2/sa/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case2/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case2/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case2/sa/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case2/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case2/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case2/sa/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case2/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case2/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case2/sa/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case2/analytical/summary.json'>summary</a> · <a href='Case2/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case2/analytical/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case2/analytical/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case2/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case2/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case2/analytical/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case2/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case2/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case2/analytical/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case2/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case2/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case2/analytical/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case2/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case2/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case2/analytical/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case2/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case2/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case2/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case2/rl/summary.json'>summary</a> · <a href='Case2/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case2/rl/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case2/rl/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case2/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case2/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case2/rl/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case2/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case2/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case2/rl/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case2/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case2/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case2/rl/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case2/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case2/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case2/rl/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case2/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case2/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case2/rl/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case2/algorithm_effects.png'></details></section>
+<section id='Case3'><h2>Case3</h2>
+<p>8 chiplets | area utilization 40.24%</p>
+<img loading='lazy' src='Case3/metric_trends.png' alt='完整指标走势'>
+<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
+<tr><td>SA (Metropolis)</td><td>124811.840</td><td>0.000015</td><td>False</td></tr>
+<tr><td>Analytical (gradient)</td><td>87314.656</td><td>0.000045</td><td>False</td></tr>
+<tr><td>RL (online REINFORCE)</td><td>121245.577</td><td>0.000000</td><td>True</td></tr>
+</table>
+<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case3/sa/summary.json'>summary</a> · <a href='Case3/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case3/sa/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case3/sa/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case3/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case3/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case3/sa/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case3/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case3/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case3/sa/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case3/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case3/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case3/sa/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case3/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case3/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case3/sa/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case3/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case3/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case3/sa/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case3/analytical/summary.json'>summary</a> · <a href='Case3/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case3/analytical/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case3/analytical/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case3/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case3/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case3/analytical/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case3/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case3/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case3/analytical/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case3/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case3/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case3/analytical/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case3/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case3/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case3/analytical/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case3/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case3/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case3/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case3/rl/summary.json'>summary</a> · <a href='Case3/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case3/rl/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case3/rl/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case3/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case3/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case3/rl/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case3/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case3/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case3/rl/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case3/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case3/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case3/rl/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case3/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case3/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case3/rl/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case3/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case3/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case3/rl/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case3/algorithm_effects.png'></details></section>
+<section id='Case4'><h2>Case4</h2>
+<p>11 chiplets | area utilization 150.77%</p>
+<img loading='lazy' src='Case4/metric_trends.png' alt='完整指标走势'>
+<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
+<tr><td>SA (Metropolis)</td><td>152227.577</td><td>0.440225</td><td>False</td></tr>
+<tr><td>Analytical (gradient)</td><td>148851.856</td><td>0.381975</td><td>False</td></tr>
+<tr><td>RL (online REINFORCE)</td><td>144075.860</td><td>0.347018</td><td>False</td></tr>
+</table>
+<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case4/sa/summary.json'>summary</a> · <a href='Case4/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case4/sa/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case4/sa/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case4/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case4/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case4/sa/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case4/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case4/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case4/sa/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case4/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case4/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case4/sa/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case4/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case4/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case4/sa/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case4/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case4/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case4/sa/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case4/analytical/summary.json'>summary</a> · <a href='Case4/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case4/analytical/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case4/analytical/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case4/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case4/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case4/analytical/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case4/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case4/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case4/analytical/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case4/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case4/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case4/analytical/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case4/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case4/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case4/analytical/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case4/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case4/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case4/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case4/rl/summary.json'>summary</a> · <a href='Case4/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case4/rl/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case4/rl/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case4/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case4/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case4/rl/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case4/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case4/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case4/rl/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case4/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case4/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case4/rl/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case4/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case4/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case4/rl/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case4/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case4/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case4/rl/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case4/algorithm_effects.png'></details></section>
+<section id='Case5'><h2>Case5</h2>
+<p>12 chiplets | area utilization 27.30%</p>
+<img loading='lazy' src='Case5/metric_trends.png' alt='完整指标走势'>
+<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
+<tr><td>SA (Metropolis)</td><td>168996.673</td><td>0.000049</td><td>False</td></tr>
+<tr><td>Analytical (gradient)</td><td>130126.963</td><td>0.000000</td><td>True</td></tr>
+<tr><td>RL (online REINFORCE)</td><td>169107.472</td><td>0.000000</td><td>True</td></tr>
+</table>
+<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case5/sa/summary.json'>summary</a> · <a href='Case5/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case5/sa/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case5/sa/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case5/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case5/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case5/sa/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case5/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case5/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case5/sa/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case5/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case5/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case5/sa/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case5/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case5/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case5/sa/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case5/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case5/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case5/sa/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case5/analytical/summary.json'>summary</a> · <a href='Case5/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case5/analytical/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case5/analytical/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case5/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case5/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case5/analytical/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case5/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case5/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case5/analytical/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case5/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case5/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case5/analytical/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case5/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case5/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case5/analytical/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case5/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case5/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case5/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case5/rl/summary.json'>summary</a> · <a href='Case5/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case5/rl/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case5/rl/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case5/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case5/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case5/rl/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case5/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case5/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case5/rl/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case5/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case5/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case5/rl/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case5/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case5/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case5/rl/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case5/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case5/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case5/rl/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case5/algorithm_effects.png'></details></section>
+<section id='Case6'><h2>Case6</h2>
+<p>20 chiplets | area utilization 47.44%</p>
+<img loading='lazy' src='Case6/metric_trends.png' alt='完整指标走势'>
+<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
+<tr><td>SA (Metropolis)</td><td>178386.715</td><td>0.000096</td><td>False</td></tr>
+<tr><td>Analytical (gradient)</td><td>134575.850</td><td>0.000124</td><td>False</td></tr>
+<tr><td>RL (online REINFORCE)</td><td>153514.360</td><td>0.000959</td><td>False</td></tr>
+</table>
+<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case6/sa/summary.json'>summary</a> · <a href='Case6/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case6/sa/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case6/sa/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case6/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case6/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case6/sa/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case6/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case6/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case6/sa/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case6/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case6/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case6/sa/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case6/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case6/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case6/sa/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case6/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case6/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case6/sa/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case6/analytical/summary.json'>summary</a> · <a href='Case6/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case6/analytical/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case6/analytical/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case6/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case6/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case6/analytical/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case6/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case6/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case6/analytical/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case6/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case6/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case6/analytical/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case6/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case6/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case6/analytical/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case6/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case6/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case6/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case6/rl/summary.json'>summary</a> · <a href='Case6/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case6/rl/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case6/rl/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case6/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case6/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case6/rl/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case6/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case6/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case6/rl/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case6/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case6/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case6/rl/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case6/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case6/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case6/rl/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case6/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case6/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case6/rl/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case6/algorithm_effects.png'></details></section>
+<section id='Case7'><h2>Case7</h2>
+<p>28 chiplets | area utilization 46.56%</p>
+<img loading='lazy' src='Case7/metric_trends.png' alt='完整指标走势'>
+<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
+<tr><td>SA (Metropolis)</td><td>47619.646</td><td>0.051616</td><td>False</td></tr>
+<tr><td>Analytical (gradient)</td><td>35843.854</td><td>0.000000</td><td>True</td></tr>
+<tr><td>RL (online REINFORCE)</td><td>37129.222</td><td>0.003958</td><td>False</td></tr>
+</table>
+<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case7/sa/summary.json'>summary</a> · <a href='Case7/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case7/sa/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case7/sa/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case7/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case7/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case7/sa/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case7/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case7/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case7/sa/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case7/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case7/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case7/sa/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case7/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case7/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case7/sa/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case7/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case7/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case7/sa/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case7/analytical/summary.json'>summary</a> · <a href='Case7/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case7/analytical/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case7/analytical/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case7/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case7/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case7/analytical/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case7/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case7/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case7/analytical/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case7/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case7/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case7/analytical/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case7/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case7/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case7/analytical/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case7/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case7/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case7/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case7/rl/summary.json'>summary</a> · <a href='Case7/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case7/rl/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case7/rl/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case7/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case7/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case7/rl/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case7/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case7/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case7/rl/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case7/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case7/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case7/rl/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case7/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case7/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case7/rl/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case7/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case7/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case7/rl/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case7/algorithm_effects.png'></details></section>
+<section id='Case8'><h2>Case8</h2>
+<p>36 chiplets | area utilization 41.64%</p>
+<img loading='lazy' src='Case8/metric_trends.png' alt='完整指标走势'>
+<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
+<tr><td>SA (Metropolis)</td><td>38830.415</td><td>0.003793</td><td>False</td></tr>
+<tr><td>Analytical (gradient)</td><td>24248.717</td><td>0.000039</td><td>False</td></tr>
+<tr><td>RL (online REINFORCE)</td><td>30971.336</td><td>0.002025</td><td>False</td></tr>
+</table>
+<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case8/sa/summary.json'>summary</a> · <a href='Case8/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case8/sa/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case8/sa/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case8/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case8/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case8/sa/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case8/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case8/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case8/sa/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case8/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case8/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case8/sa/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case8/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case8/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case8/sa/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case8/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case8/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case8/sa/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case8/analytical/summary.json'>summary</a> · <a href='Case8/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case8/analytical/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case8/analytical/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case8/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case8/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case8/analytical/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case8/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case8/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case8/analytical/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case8/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case8/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case8/analytical/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case8/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case8/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case8/analytical/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case8/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case8/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case8/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case8/rl/summary.json'>summary</a> · <a href='Case8/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case8/rl/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case8/rl/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case8/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case8/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case8/rl/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case8/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case8/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case8/rl/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case8/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case8/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case8/rl/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case8/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case8/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case8/rl/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case8/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case8/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case8/rl/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case8/algorithm_effects.png'></details></section>
+<section id='Case9'><h2>Case9</h2>
+<p>44 chiplets | area utilization 55.88%</p>
+<img loading='lazy' src='Case9/metric_trends.png' alt='完整指标走势'>
+<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
+<tr><td>SA (Metropolis)</td><td>252410.423</td><td>0.032554</td><td>False</td></tr>
+<tr><td>Analytical (gradient)</td><td>223679.600</td><td>0.000416</td><td>False</td></tr>
+<tr><td>RL (online REINFORCE)</td><td>248132.775</td><td>0.019507</td><td>False</td></tr>
+</table>
+<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case9/sa/summary.json'>summary</a> · <a href='Case9/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case9/sa/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case9/sa/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case9/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case9/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case9/sa/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case9/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case9/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case9/sa/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case9/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case9/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case9/sa/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case9/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case9/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case9/sa/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case9/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case9/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case9/sa/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case9/analytical/summary.json'>summary</a> · <a href='Case9/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case9/analytical/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case9/analytical/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case9/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case9/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case9/analytical/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case9/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case9/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case9/analytical/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case9/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case9/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case9/analytical/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case9/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case9/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case9/analytical/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case9/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case9/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case9/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case9/rl/summary.json'>summary</a> · <a href='Case9/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case9/rl/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case9/rl/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case9/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case9/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case9/rl/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case9/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case9/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case9/rl/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case9/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case9/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case9/rl/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case9/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case9/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case9/rl/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case9/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case9/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case9/rl/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case9/algorithm_effects.png'></details></section>
+<section id='Case10'><h2>Case10</h2>
+<p>61 chiplets | area utilization 50.79%</p>
+<img loading='lazy' src='Case10/metric_trends.png' alt='完整指标走势'>
+<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
+<tr><td>SA (Metropolis)</td><td>149631.356</td><td>0.046305</td><td>False</td></tr>
+<tr><td>Analytical (gradient)</td><td>127016.511</td><td>0.000795</td><td>False</td></tr>
+<tr><td>RL (online REINFORCE)</td><td>148325.865</td><td>0.029426</td><td>False</td></tr>
+</table>
+<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case10/sa/summary.json'>summary</a> · <a href='Case10/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case10/sa/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case10/sa/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case10/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case10/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case10/sa/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case10/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case10/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case10/sa/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case10/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case10/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case10/sa/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case10/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case10/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case10/sa/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case10/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case10/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case10/sa/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case10/analytical/summary.json'>summary</a> · <a href='Case10/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case10/analytical/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case10/analytical/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case10/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case10/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case10/analytical/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case10/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case10/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case10/analytical/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case10/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case10/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case10/analytical/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case10/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case10/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case10/analytical/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case10/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case10/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case10/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case10/rl/summary.json'>summary</a> · <a href='Case10/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
+<img loading='lazy' src='Case10/rl/state_flow.png' alt='五检查点总览'>
+<img loading='lazy' src='Case10/rl/parameter_trends.png' alt='完整参数走势'>
+<details><summary>iteration 0</summary><p><a href='Case10/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case10/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case10/rl/checkpoint_0000.png' alt='iteration 0'></details>
+<details><summary>iteration 200</summary><p><a href='Case10/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case10/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case10/rl/checkpoint_0200.png' alt='iteration 200'></details>
+<details><summary>iteration 400</summary><p><a href='Case10/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case10/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case10/rl/checkpoint_0400.png' alt='iteration 400'></details>
+<details><summary>iteration 600</summary><p><a href='Case10/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case10/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case10/rl/checkpoint_0600.png' alt='iteration 600'></details>
+<details><summary>iteration 800</summary><p><a href='Case10/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case10/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case10/rl/checkpoint_0800.png' alt='iteration 800'></details>
+</details>
+<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case10/algorithm_effects.png'></details></section>
+</html>

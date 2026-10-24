@@ -58,9 +58,11 @@ scripts/                            reproducible helper-script boundary
 
 可视化脚本为 `scripts/plot_snapshot_maps.py`、`scripts/plot_state_flow.py` 和 `scripts/plot_algorithm_effects.py`；其输入分别为单快照 `[3,H,W]`、状态流 `[T,3,H,W]` 和算法前后状态。项目同步规则记录在 [`task-journal.md`](task-journal.md)。
 
-Stage 0 的首轮数据与源码已经冻结：使用 `2-Benchmarks/external/ATPlace2.5D/Case1..Case10` 作为 ATPlace 对齐的共同输入，`2-Benchmarks/cases` 只作独立副本校验，`5-额外Benchmark` 只作后续热模型验证。具体路径、commit 和外部源码不可观测边界见 [`docs/stage0_data_source_freeze.md`](docs/stage0_data_source_freeze.md)。
+Stage 0 使用 `2-Benchmarks/external/ATPlace2.5D/Case1..Case10` 作为共同输入。`2-Benchmarks/cases` 是相同设计的另一份副本，共有文件仅换行不同；额外热学仓库尚未下载实际数据。输入审计与外部源码边界见 [`docs/stage0_data_source_freeze.md`](docs/stage0_data_source_freeze.md)。新增连续 SA、投影梯度与在线 REINFORCE 的五检查点方案见 [`docs/five_checkpoint_trajectory_design.md`](docs/five_checkpoint_trajectory_design.md)。
 
 ## 快速开始 / Quick Start
+
+真实 Case1–10 的三类算法连续轨迹见 [五检查点结果总览](docs/figures/stage0_real_trajectories/index.html) 和 [结果说明](docs/figures/stage0_real_trajectories/README.md)：每个算法有五张三联图、状态流和全量参数走势。图中的热场为未校准空间代理；合法性按实际结果报告。
 
 ```powershell
 python -m venv .venv

@@ -1,0 +1,78 @@
+{
+  "step": 200,
+  "metrics": {
+    "objective": 2.089129690874743,
+    "hpwl_mm": 72640.89239659384,
+    "thermal_proxy_peak": 0.9315868428332924,
+    "overlap_fraction": 0.00038838857778184037,
+    "penetration_penalty": 0.00038838857778185365,
+    "valid": false
+  },
+  "parameters": {
+    "entropy": 3.8597823789401215,
+    "reward": -0.034249648618585926,
+    "baseline_before": -0.07944736951486711,
+    "advantage": 0.3328125309443596,
+    "update_norm": 0.02495679144021536,
+    "accepted": false,
+    "action_index": 9,
+    "chiplet_index": 1,
+    "direction_index": 1,
+    "displacement": 0.03146362310525422,
+    "proposal_objective": 2.123379339493329,
+    "action_probability": 0.0189480233671979,
+    "action_probability_after_update": 0.019396663938551963,
+    "learning_rate": 0.08,
+    "entropy_coefficient": 0.01,
+    "epsilon": 0.05,
+    "baseline": -0.074927597425239,
+    "policy_weight_norm": 1.1304686738986756,
+    "actions": 48,
+    "training_steps": 200,
+    "evaluator_calls": 201,
+    "gradient_calls": 0,
+    "best_metrics": {
+      "objective": 2.089129690874743,
+      "hpwl_mm": 72640.89239659384,
+      "thermal_proxy_peak": 0.9315868428332924,
+      "overlap_fraction": 0.00038838857778184037,
+      "penetration_penalty": 0.00038838857778185365,
+      "valid": false
+    },
+    "best_objective": 2.089129690874743
+  },
+  "position_sha256": "fcb8a102755c5264caee8afbb4c4b3df685b8f1617ae559e529733f99b96fb5e",
+  "positions": [
+    [
+      0.47692230778576994,
+      0.5189394931624718
+    ],
+    [
+      0.01740943571015452,
+      0.44146212078282276
+    ],
+    [
+      0.32385108623742753,
+      0.0
+    ],
+    [
+      0.7541747765460743,
+      0.23580502970325656
+    ],
+    [
+      0.1311543852725351,
+      0.15507567435057742
+    ],
+    [
+      0.8095238095238095,
+      0.5199211249022211
+    ]
+  ],
+  "map_shape": [
+    3,
+    256,
+    256
+  ],
+  "hpwl_map_sum_mm": 72640.89180818573,
+  "thermal_field_max": 0.9317102432250977
+}

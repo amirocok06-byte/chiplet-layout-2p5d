@@ -1,0 +1,781 @@
+{
+  "format": "real-case-local-algorithm-trajectory-v1",
+  "algorithm": "rl",
+  "implementation": {
+    "method": "rl",
+    "steps": 800,
+    "seed": 20261024,
+    "positions": [
+      [
+        0.5564360579222531,
+        0.5007716759389831
+      ],
+      [
+        0.32633767995108887,
+        0.6152329331509815
+      ],
+      [
+        0.5274434231733857,
+        0.1032101191694223
+      ],
+      [
+        0.6370409023384535,
+        0.3223540304948096
+      ],
+      [
+        0.4089715836732221,
+        0.4094640347094805
+      ],
+      [
+        0.779129965229688,
+        0.417332373974546
+      ],
+      [
+        0.16669538968723183,
+        0.49392409730803544
+      ],
+      [
+        0.47125338613500434,
+        0.6544319934334485
+      ],
+      [
+        0.7055362933098156,
+        0.5710292231106778
+      ],
+      [
+        0.4698131818936155,
+        0.2566644547280506
+      ],
+      [
+        0.6713173837589651,
+        0.1672546138301766
+      ],
+      [
+        0.7645089103179113,
+        0.7238584227857072
+      ]
+    ],
+    "metrics": {
+      "objective": 1.0956965574436865,
+      "hpwl_mm": 169107.47200426372,
+      "thermal_proxy_peak": 2.842835900954092,
+      "overlap_fraction": 0.0,
+      "penetration_penalty": 0.0,
+      "valid": true
+    },
+    "final_positions": [
+      [
+        0.5564360579222531,
+        0.5007716759389831
+      ],
+      [
+        0.32633767995108887,
+        0.6152329331509815
+      ],
+      [
+        0.5274434231733857,
+        0.1032101191694223
+      ],
+      [
+        0.6370409023384535,
+        0.3223540304948096
+      ],
+      [
+        0.4089715836732221,
+        0.4094640347094805
+      ],
+      [
+        0.779129965229688,
+        0.417332373974546
+      ],
+      [
+        0.16669538968723183,
+        0.49392409730803544
+      ],
+      [
+        0.47125338613500434,
+        0.6544319934334485
+      ],
+      [
+        0.7055362933098156,
+        0.5710292231106778
+      ],
+      [
+        0.4698131818936155,
+        0.2566644547280506
+      ],
+      [
+        0.6713173837589651,
+        0.1672546138301766
+      ],
+      [
+        0.7645089103179113,
+        0.7238584227857072
+      ]
+    ],
+    "final_metrics": {
+      "objective": 1.0956965574436865,
+      "hpwl_mm": 169107.47200426372,
+      "thermal_proxy_peak": 2.842835900954092,
+      "overlap_fraction": 0.0,
+      "penetration_penalty": 0.0,
+      "valid": true
+    },
+    "initial_metrics": {
+      "objective": 3.0577831988138353,
+      "hpwl_mm": 190618.87433941453,
+      "thermal_proxy_peak": 4.089491779466933,
+      "overlap_fraction": 0.08788915994069173,
+      "penetration_penalty": 0.08788915994069176,
+      "valid": false
+    },
+    "best_positions": [
+      [
+        0.5564360579222531,
+        0.5007716759389831
+      ],
+      [
+        0.32633767995108887,
+        0.6152329331509815
+      ],
+      [
+        0.5274434231733857,
+        0.1032101191694223
+      ],
+      [
+        0.6370409023384535,
+        0.3223540304948096
+      ],
+      [
+        0.4089715836732221,
+        0.4094640347094805
+      ],
+      [
+        0.779129965229688,
+        0.417332373974546
+      ],
+      [
+        0.16669538968723183,
+        0.49392409730803544
+      ],
+      [
+        0.47125338613500434,
+        0.6544319934334485
+      ],
+      [
+        0.7055362933098156,
+        0.5710292231106778
+      ],
+      [
+        0.4698131818936155,
+        0.2566644547280506
+      ],
+      [
+        0.6713173837589651,
+        0.1672546138301766
+      ],
+      [
+        0.7645089103179113,
+        0.7238584227857072
+      ]
+    ],
+    "best_metrics": {
+      "objective": 1.0956965574436865,
+      "hpwl_mm": 169107.47200426372,
+      "thermal_proxy_peak": 2.842835900954092,
+      "overlap_fraction": 0.0,
+      "penetration_penalty": 0.0,
+      "valid": true
+    },
+    "best_step": 784,
+    "initial_weight_hash": "2cdfa0536431bb9ead3c1793f3f495cd247638762f1acc3f53423e58c7637a42",
+    "final_weight_hash": "17350e0ad2bdaf22945a0815be8b3c2182838d917426fc90d49383e54b54904a",
+    "training_steps": 800,
+    "evaluator_calls": 801,
+    "gradient_calls": 0,
+    "accepted_moves": 64,
+    "policy_weight_norm": 3.0334384173045055,
+    "state_transition": "accept_strict_objective_improvement",
+    "implementation": "numpy-online-reinforce"
+  },
+  "source": {
+    "case": "Case5",
+    "source_directory": "F:\\GAME\\2027-SRTP-面向2.5D系统集成的芯粒布局方法研究\\2-Benchmarks\\external\\ATPlace2.5D\\Case5",
+    "files_sha256": {
+      "Case5.blocks": "7d4f6bef0bb49d2c02fbc5a7e6cedeae009f8d4587f89f0d8f7ba63da17dc23f",
+      "Case5.nets": "e61ee8ab945bef2fa2af6c2692b4bd1e8a45403b6f40efd67932d0f219836f4f",
+      "Case5.pl": "106e22f6b1a73315c4db8dd243d725ba7efe58b8a1f2861dfa4d47cf62caf0e4",
+      "Case5.power": "a59568092e5b42a5836e81af3370f44fd9be3592d3e076e3b004739f698863b6",
+      "Thermal-aware.json": "4228c10668887e389a8267d8b176c607858c82bc00e8c43af49c61334f784e3c",
+      "WL-driven.json": "a905e3094c783f92ac29c4ba21a8ebc53f18b39042cee5a9fd338db754060878"
+    },
+    "coordinate_unit": "um->normalized-axis",
+    "wirelength_unit": "mm",
+    "pin_offset_rule": "centre + percentage*dimension",
+    "board_um": [
+      57000.0,
+      59000.0
+    ],
+    "num_chiplets": 12,
+    "area_utilization": 0.27297056199821584,
+    "proven_infeasible_by_area": false,
+    "board_source": "ATPlace_pub/reproduce.py CASE_INTERPOSER_SIZE; retained verbatim",
+    "num_nets": 7392,
+    "seed": 20261024,
+    "initialization": "seeded-bounded-scatter; public .pl zero placeholders",
+    "priority_source": "normalized incident pin count; ties preserved; no precedence",
+    "thermal_model": "uncalibrated Gaussian power-density spreading proxy"
+  },
+  "source_revision": "95738af+five-checkpoints",
+  "algorithm_source_files": {
+    "trajectory_run.py": "e0ed3dfb43d1a5fee8b9f9c049aa1a3607bd707de9b07eb57babada4f07bced7",
+    "trajectory_problem.py": "df90b997f2437439b96d112b49dce5615caba88175e2fee1169bf0bee3afcfdb",
+    "trajectory_data.py": "d109d59dae73dd18333d8efb09c369885f8ee27f4ed3b4d8ed939e78cb46218d",
+    "trajectory_rl.py": "da8c24b7237f43306476665e47a068f8eb9f9cf3d17d5cc28c31a171f097d4e8"
+  },
+  "status": "completed-configured-budget",
+  "termination": "proposal-budget-exhausted",
+  "steps": 800,
+  "seed": 20261024,
+  "checkpoint_steps": [
+    0,
+    200,
+    400,
+    600,
+    800
+  ],
+  "checkpoints": [
+    {
+      "step": 0,
+      "metrics": {
+        "objective": 3.0577831988138353,
+        "hpwl_mm": 190618.87433941453,
+        "thermal_proxy_peak": 4.089491779466933,
+        "overlap_fraction": 0.08788915994069173,
+        "penetration_penalty": 0.08788915994069176,
+        "valid": false
+      },
+      "parameters": {
+        "entropy": 4.564348191467836,
+        "reward": 0.0,
+        "baseline_before": 0.0,
+        "advantage": 0.0,
+        "update_norm": 0.0,
+        "accepted": false,
+        "action_index": null,
+        "chiplet_index": null,
+        "direction_index": null,
+        "displacement": 0.05,
+        "proposal_objective": null,
+        "action_probability": null,
+        "action_probability_after_update": null,
+        "learning_rate": 0.08,
+        "entropy_coefficient": 0.01,
+        "epsilon": 0.05,
+        "baseline": 0.0,
+        "policy_weight_norm": 0.0,
+        "actions": 96,
+        "training_steps": 0,
+        "evaluator_calls": 1,
+        "gradient_calls": 0,
+        "best_metrics": {
+          "objective": 3.0577831988138353,
+          "hpwl_mm": 190618.87433941453,
+          "thermal_proxy_peak": 4.089491779466933,
+          "overlap_fraction": 0.08788915994069173,
+          "penetration_penalty": 0.08788915994069176,
+          "valid": false
+        },
+        "best_objective": 3.0577831988138353
+      },
+      "position_sha256": "e46ef697788ed0db4a1a0a15c1cfaf7a8447692f153ec79a452f8396f4133e83",
+      "positions": [
+        [
+          0.6297345599083878,
+          0.4169599868796557
+        ],
+        [
+          0.3037505020651116,
+          0.5626561295621457
+        ],
+        [
+          0.5428218346284818,
+          0.0724260347448206
+        ],
+        [
+          0.6370409023384535,
+          0.3443228555035015
+        ],
+        [
+          0.28520697352926455,
+          0.4165787203630546
+        ],
+        [
+          0.806239897697834,
+          0.4173632391855448
+        ],
+        [
+          0.10389473501438344,
+          0.34523017745344275
+        ],
+        [
+          0.457595852433729,
+          0.5885384853749572
+        ],
+        [
+          0.6415990934527194,
+          0.5144644205731677
+        ],
+        [
+          0.5630666031468042,
+          0.25733178575991605
+        ],
+        [
+          0.6950696728201692,
+          0.10064411988033937
+        ],
+        [
+          0.5389591613115889,
+          0.7664234157851151
+        ]
+      ],
+      "map_shape": [
+        3,
+        256,
+        256
+      ],
+      "hpwl_map_sum_mm": 190618.8755683005,
+      "thermal_field_max": 4.368928909301758
+    },
+    {
+      "step": 200,
+      "metrics": {
+        "objective": 1.2164495450211703,
+        "hpwl_mm": 191293.98338023666,
+        "thermal_proxy_peak": 2.8785495629081543,
+        "overlap_fraction": 8.705407063226623e-05,
+        "penetration_penalty": 8.705407063226792e-05,
+        "valid": false
+      },
+      "parameters": {
+        "entropy": 4.560312924616926,
+        "reward": -0.06945620379827355,
+        "baseline_before": -0.07526379345255142,
+        "advantage": 0.057682572027188475,
+        "update_norm": 0.004360720066882619,
+        "accepted": false,
+        "action_index": 17,
+        "chiplet_index": 2,
+        "direction_index": 1,
+        "displacement": 0.03163406315332829,
+        "proposal_objective": 1.2859057488194439,
+        "action_probability": 0.010382645490050973,
+        "action_probability_after_update": 0.010425520953266043,
+        "learning_rate": 0.08,
+        "entropy_coefficient": 0.01,
+        "epsilon": 0.05,
+        "baseline": -0.07468303448712363,
+        "policy_weight_norm": 0.9595307463682277,
+        "actions": 96,
+        "training_steps": 200,
+        "evaluator_calls": 201,
+        "gradient_calls": 0,
+        "best_metrics": {
+          "objective": 1.2164495450211703,
+          "hpwl_mm": 191293.98338023666,
+          "thermal_proxy_peak": 2.8785495629081543,
+          "overlap_fraction": 8.705407063226623e-05,
+          "penetration_penalty": 8.705407063226792e-05,
+          "valid": false
+        },
+        "best_objective": 1.2164495450211703
+      },
+      "position_sha256": "d1793322ce38bbc71c27637be7504e4940be38502f800909d88af677c48d750f",
+      "positions": [
+        [
+          0.5943792208490604,
+          0.5007716759389831
+        ],
+        [
+          0.3037505020651116,
+          0.5973482476119176
+        ],
+        [
+          0.5197405866886329,
+          0.09550728268466949
+        ],
+        [
+          0.6370409023384535,
+          0.3443228555035015
+        ],
+        [
+          0.33003448742591646,
+          0.3904554582057096
+        ],
+        [
+          0.8062707629088328,
+          0.417332373974546
+        ],
+        [
+          0.14849527977915516,
+          0.44974389975723017
+        ],
+        [
+          0.457595852433729,
+          0.6680895271347238
+        ],
+        [
+          0.7637316017662208,
+          0.5851432788866691
+        ],
+        [
+          0.4698131818936155,
+          0.2566644547280506
+        ],
+        [
+          0.6950696728201692,
+          0.19100690289138073
+        ],
+        [
+          0.6712484618260447,
+          0.7654034392735318
+        ]
+      ],
+      "map_shape": [
+        3,
+        256,
+        256
+      ],
+      "hpwl_map_sum_mm": 191293.98377214605,
+      "thermal_field_max": 3.1454885005950928
+    },
+    {
+      "step": 400,
+      "metrics": {
+        "objective": 1.1598731109252305,
+        "hpwl_mm": 179052.59986121536,
+        "thermal_proxy_peak": 2.9670242044674073,
+        "overlap_fraction": 0.0001446707921551579,
+        "penetration_penalty": 0.00014467079215515775,
+        "valid": false
+      },
+      "parameters": {
+        "entropy": 4.5534768004481645,
+        "reward": -0.027457579130201637,
+        "baseline_before": -0.038209257802737956,
+        "advantage": 0.13701376989908443,
+        "update_norm": 0.010387317510367474,
+        "accepted": false,
+        "action_index": 16,
+        "chiplet_index": 2,
+        "direction_index": 0,
+        "displacement": 0.01668635184897035,
+        "proposal_objective": 1.1873306900554321,
+        "action_probability": 0.011147378833845794,
+        "action_probability_after_update": 0.011257673966232298,
+        "learning_rate": 0.08,
+        "entropy_coefficient": 0.01,
+        "epsilon": 0.05,
+        "baseline": -0.037134089935484324,
+        "policy_weight_norm": 1.5803046297461931,
+        "actions": 96,
+        "training_steps": 400,
+        "evaluator_calls": 401,
+        "gradient_calls": 0,
+        "best_metrics": {
+          "objective": 1.1598731109252305,
+          "hpwl_mm": 179052.59986121536,
+          "thermal_proxy_peak": 2.9670242044674073,
+          "overlap_fraction": 0.0001446707921551579,
+          "penetration_penalty": 0.00014467079215515775,
+          "valid": false
+        },
+        "best_objective": 1.1598731109252305
+      },
+      "position_sha256": "c4c93a5550e6405f4902af852ace170e9891d5b6c9465442017dffefdb85b762",
+      "positions": [
+        [
+          0.5564360579222531,
+          0.5007716759389831
+        ],
+        [
+          0.3037505020651116,
+          0.6206759690128998
+        ],
+        [
+          0.5197405866886329,
+          0.09550728268466949
+        ],
+        [
+          0.6370409023384535,
+          0.3443228555035015
+        ],
+        [
+          0.3919388751952442,
+          0.41565426167074104
+        ],
+        [
+          0.779129965229688,
+          0.417332373974546
+        ],
+        [
+          0.14759015378004398,
+          0.49090292730539115
+        ],
+        [
+          0.47174808485765707,
+          0.6539372947107958
+        ],
+        [
+          0.7311778414948358,
+          0.5851432788866691
+        ],
+        [
+          0.4698131818936155,
+          0.2566644547280506
+        ],
+        [
+          0.6713173837589651,
+          0.1672546138301766
+        ],
+        [
+          0.7212755542506272,
+          0.7402499732437066
+        ]
+      ],
+      "map_shape": [
+        3,
+        256,
+        256
+      ],
+      "hpwl_map_sum_mm": 179052.5996031626,
+      "thermal_field_max": 3.1852638721466064
+    },
+    {
+      "step": 600,
+      "metrics": {
+        "objective": 1.107921372196345,
+        "hpwl_mm": 171364.227387594,
+        "thermal_proxy_peak": 2.848093863356243,
+        "overlap_fraction": 0.0,
+        "penetration_penalty": 0.0,
+        "valid": true
+      },
+      "parameters": {
+        "entropy": 4.542868107988076,
+        "reward": -0.10401294524714522,
+        "baseline_before": -0.041107941949410524,
+        "advantage": -1.021418773218982,
+        "update_norm": 0.07419473393555268,
+        "accepted": false,
+        "action_index": 67,
+        "chiplet_index": 8,
+        "direction_index": 3,
+        "displacement": 0.014705951482144649,
+        "proposal_objective": 1.2119343174434902,
+        "action_probability": 0.005659709615862368,
+        "action_probability_after_update": 0.00529214478243819,
+        "learning_rate": 0.08,
+        "entropy_coefficient": 0.01,
+        "epsilon": 0.05,
+        "baseline": -0.047398442279183994,
+        "policy_weight_norm": 2.174378691457274,
+        "actions": 96,
+        "training_steps": 600,
+        "evaluator_calls": 601,
+        "gradient_calls": 0,
+        "best_metrics": {
+          "objective": 1.107921372196345,
+          "hpwl_mm": 171364.227387594,
+          "thermal_proxy_peak": 2.848093863356243,
+          "overlap_fraction": 0.0,
+          "penetration_penalty": 0.0,
+          "valid": true
+        },
+        "best_objective": 1.107921372196345
+      },
+      "position_sha256": "4a33b2a1615a194767c4275a67269d00a8094d4b523a3842deed6cde1c36dc6d",
+      "positions": [
+        [
+          0.5564360579222531,
+          0.5007716759389831
+        ],
+        [
+          0.32633767995108887,
+          0.6426052679313243
+        ],
+        [
+          0.5274434231733857,
+          0.1032101191694223
+        ],
+        [
+          0.6370409023384535,
+          0.3223540304948096
+        ],
+        [
+          0.41516181063448265,
+          0.41565426167074104
+        ],
+        [
+          0.779129965229688,
+          0.417332373974546
+        ],
+        [
+          0.16669538968723183,
+          0.510008163212579
+        ],
+        [
+          0.47174808485765707,
+          0.6539372947107958
+        ],
+        [
+          0.719801066247496,
+          0.5710292231106778
+        ],
+        [
+          0.4698131818936155,
+          0.2566644547280506
+        ],
+        [
+          0.6713173837589651,
+          0.1672546138301766
+        ],
+        [
+          0.7273494850231333,
+          0.7238584227857072
+        ]
+      ],
+      "map_shape": [
+        3,
+        256,
+        256
+      ],
+      "hpwl_map_sum_mm": 171364.22722351938,
+      "thermal_field_max": 3.0668039321899414
+    },
+    {
+      "step": 800,
+      "metrics": {
+        "objective": 1.0956965574436865,
+        "hpwl_mm": 169107.47200426372,
+        "thermal_proxy_peak": 2.842835900954092,
+        "overlap_fraction": 0.0,
+        "penetration_penalty": 0.0,
+        "valid": true
+      },
+      "parameters": {
+        "entropy": 4.518173192042165,
+        "reward": -0.03919192749021505,
+        "baseline_before": -0.018916017638824757,
+        "advantage": -0.6899209165462781,
+        "update_norm": 0.05065210008630208,
+        "accepted": false,
+        "action_index": 43,
+        "chiplet_index": 5,
+        "direction_index": 3,
+        "displacement": 0.007318399951081536,
+        "proposal_objective": 1.1348884849339016,
+        "action_probability": 0.006360040416227206,
+        "action_probability_after_update": 0.006071695818492364,
+        "learning_rate": 0.08,
+        "entropy_coefficient": 0.01,
+        "epsilon": 0.05,
+        "baseline": -0.02094360862396379,
+        "policy_weight_norm": 3.0334384173045055,
+        "actions": 96,
+        "training_steps": 800,
+        "evaluator_calls": 801,
+        "gradient_calls": 0,
+        "best_metrics": {
+          "objective": 1.0956965574436865,
+          "hpwl_mm": 169107.47200426372,
+          "thermal_proxy_peak": 2.842835900954092,
+          "overlap_fraction": 0.0,
+          "penetration_penalty": 0.0,
+          "valid": true
+        },
+        "best_objective": 1.0956965574436865
+      },
+      "position_sha256": "fddc66f13c210d1170cfa63c1bc6286e189a6c7d97804afafc9895affeb5941e",
+      "positions": [
+        [
+          0.5564360579222531,
+          0.5007716759389831
+        ],
+        [
+          0.32633767995108887,
+          0.6152329331509815
+        ],
+        [
+          0.5274434231733857,
+          0.1032101191694223
+        ],
+        [
+          0.6370409023384535,
+          0.3223540304948096
+        ],
+        [
+          0.4089715836732221,
+          0.4094640347094805
+        ],
+        [
+          0.779129965229688,
+          0.417332373974546
+        ],
+        [
+          0.16669538968723183,
+          0.49392409730803544
+        ],
+        [
+          0.47125338613500434,
+          0.6544319934334485
+        ],
+        [
+          0.7055362933098156,
+          0.5710292231106778
+        ],
+        [
+          0.4698131818936155,
+          0.2566644547280506
+        ],
+        [
+          0.6713173837589651,
+          0.1672546138301766
+        ],
+        [
+          0.7645089103179113,
+          0.7238584227857072
+        ]
+      ],
+      "map_shape": [
+        3,
+        256,
+        256
+      ],
+      "hpwl_map_sum_mm": 169107.4720475655,
+      "thermal_field_max": 3.000730514526367
+    }
+  ],
+  "evaluator_version": "trajectory-spatial-proxy-v1",
+  "evaluator_calls_total": 801,
+  "diagnostic_evaluator_calls": 0,
+  "gradient_calls": 0,
+  "wall_seconds_including_capture": 0.331047000000126,
+  "capture_seconds": 0.11437779999641862,
+  "optimizer_wall_seconds": 0.21666920000370737,
+  "peak_process_rss_mb": 51.09375,
+  "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:09:58) [MSC v.1929 64 bit (AMD64)]",
+  "numpy": "2.4.6",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "objective": "HPWL/initial_HPWL + 0.3*thermal_proxy/initial_proxy + 20*penetration_penalty",
+  "overlap_reporting": "exact pair intersection area / total chiplet area; distinct from penalty",
+  "priority": "weighted incident-pin count / maximum; ties preserved",
+  "thermal": "uncalibrated Gaussian spreading proxy; no Celsius/K claims",
+  "checkpoint_display": "current iterate, not substituted best-so-far",
+  "external_reproduction": false,
+  "thread_limits": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  }
+}

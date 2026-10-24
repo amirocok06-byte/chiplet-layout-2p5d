@@ -1,0 +1,322 @@
+[
+  {
+    "case": "Case1",
+    "chiplets": 6,
+    "area_utilization": 0.6122448979591835,
+    "proven_infeasible_by_area": false,
+    "final_metrics": {
+      "sa": {
+        "objective": 1.9375886308234405,
+        "hpwl_mm": 67034.0525636214,
+        "thermal_proxy_peak": 0.9376199294987364,
+        "overlap_fraction": 0.0,
+        "penetration_penalty": 0.0,
+        "valid": true
+      },
+      "analytical": {
+        "objective": 1.9519055160801841,
+        "hpwl_mm": 67188.39504323323,
+        "thermal_proxy_peak": 0.9329798105557353,
+        "overlap_fraction": 0.0005664024738218957,
+        "penetration_penalty": 0.0005664024738218957,
+        "valid": false
+      },
+      "rl": {
+        "objective": 1.9612187068866216,
+        "hpwl_mm": 67980.93732825006,
+        "thermal_proxy_peak": 0.9335977066553094,
+        "overlap_fraction": 0.0,
+        "penetration_penalty": 0.0,
+        "valid": true
+      }
+    }
+  },
+  {
+    "case": "Case2",
+    "chiplets": 6,
+    "area_utilization": 0.98369140625,
+    "proven_infeasible_by_area": false,
+    "final_metrics": {
+      "sa": {
+        "objective": 4.259505976577824,
+        "hpwl_mm": 81707.57788483653,
+        "thermal_proxy_peak": 0.5638622421780318,
+        "overlap_fraction": 0.0771080471220573,
+        "penetration_penalty": 0.07710804712205728,
+        "valid": false
+      },
+      "analytical": {
+        "objective": 4.617395731081621,
+        "hpwl_mm": 41960.56300977202,
+        "thermal_proxy_peak": 0.5659037214586207,
+        "overlap_fraction": 0.1571912522721254,
+        "penetration_penalty": 0.1571912522721254,
+        "valid": false
+      },
+      "rl": {
+        "objective": 4.052670189980919,
+        "hpwl_mm": 58211.957060142944,
+        "thermal_proxy_peak": 0.5641270082923949,
+        "overlap_fraction": 0.10347488664831554,
+        "penetration_penalty": 0.10354113442513256,
+        "valid": false
+      }
+    }
+  },
+  {
+    "case": "Case3",
+    "chiplets": 8,
+    "area_utilization": 0.4023668639053255,
+    "proven_infeasible_by_area": false,
+    "final_metrics": {
+      "sa": {
+        "objective": 1.0264436876780745,
+        "hpwl_mm": 124811.84037158496,
+        "thermal_proxy_peak": 2.189485708445508,
+        "overlap_fraction": 1.4998109997780181e-05,
+        "penetration_penalty": 1.4998109997780176e-05,
+        "valid": false
+      },
+      "analytical": {
+        "objective": 0.779859586098205,
+        "hpwl_mm": 87314.65610523513,
+        "thermal_proxy_peak": 2.3374311452852288,
+        "overlap_fraction": 4.4809321659755144e-05,
+        "penetration_penalty": 4.6823416817290944e-05,
+        "valid": false
+      },
+      "rl": {
+        "objective": 1.016773391551959,
+        "hpwl_mm": 121245.57722899437,
+        "thermal_proxy_peak": 2.390162679967212,
+        "overlap_fraction": 0.0,
+        "penetration_penalty": 0.0,
+        "valid": true
+      }
+    }
+  },
+  {
+    "case": "Case4",
+    "chiplets": 11,
+    "area_utilization": 1.5076698319941564,
+    "proven_infeasible_by_area": true,
+    "final_metrics": {
+      "sa": {
+        "objective": 10.696896375977087,
+        "hpwl_mm": 152227.57659307812,
+        "thermal_proxy_peak": 1.705390550040869,
+        "overlap_fraction": 0.440224601067872,
+        "penetration_penalty": 0.44337461946721446,
+        "valid": false
+      },
+      "analytical": {
+        "objective": 9.413787899837311,
+        "hpwl_mm": 148851.85623322835,
+        "thermal_proxy_peak": 1.4883302811082961,
+        "overlap_fraction": 0.38197545341858175,
+        "penetration_penalty": 0.3819754534185818,
+        "valid": false
+      },
+      "rl": {
+        "objective": 8.656920353934352,
+        "hpwl_mm": 144075.85971633674,
+        "thermal_proxy_peak": 1.4308975849593373,
+        "overlap_fraction": 0.3470178166666301,
+        "penetration_penalty": 0.34701781666663006,
+        "valid": false
+      }
+    }
+  },
+  {
+    "case": "Case5",
+    "chiplets": 12,
+    "area_utilization": 0.27297056199821584,
+    "proven_infeasible_by_area": false,
+    "final_metrics": {
+      "sa": {
+        "objective": 1.0907981246351646,
+        "hpwl_mm": 168996.67292606673,
+        "thermal_proxy_peak": 2.770696071092516,
+        "overlap_fraction": 4.8745729514237716e-05,
+        "penetration_penalty": 4.874572951424827e-05,
+        "valid": false
+      },
+      "analytical": {
+        "objective": 0.8997532793103546,
+        "hpwl_mm": 130126.96330969894,
+        "thermal_proxy_peak": 2.9594028793420297,
+        "overlap_fraction": 0.0,
+        "penetration_penalty": 0.0,
+        "valid": true
+      },
+      "rl": {
+        "objective": 1.0956965574436865,
+        "hpwl_mm": 169107.47200426372,
+        "thermal_proxy_peak": 2.842835900954092,
+        "overlap_fraction": 0.0,
+        "penetration_penalty": 0.0,
+        "valid": true
+      }
+    }
+  },
+  {
+    "case": "Case6",
+    "chiplets": 20,
+    "area_utilization": 0.4743935309973045,
+    "proven_infeasible_by_area": false,
+    "final_metrics": {
+      "sa": {
+        "objective": 1.4121086111610721,
+        "hpwl_mm": 178386.7145390395,
+        "thermal_proxy_peak": 2.4118242057077697,
+        "overlap_fraction": 9.618227073711528e-05,
+        "penetration_penalty": 9.618227073711266e-05,
+        "valid": false
+      },
+      "analytical": {
+        "objective": 1.098477476947399,
+        "hpwl_mm": 134575.85031433965,
+        "thermal_proxy_peak": 2.234150335518419,
+        "overlap_fraction": 0.00012374990088896736,
+        "penetration_penalty": 0.0001238344117049118,
+        "valid": false
+      },
+      "rl": {
+        "objective": 1.25422170054361,
+        "hpwl_mm": 153514.35984822977,
+        "thermal_proxy_peak": 2.352525549677663,
+        "overlap_fraction": 0.0009591306583606315,
+        "penetration_penalty": 0.0009591306583606349,
+        "valid": false
+      }
+    }
+  },
+  {
+    "case": "Case7",
+    "chiplets": 28,
+    "area_utilization": 0.4655999999999999,
+    "proven_infeasible_by_area": false,
+    "final_metrics": {
+      "sa": {
+        "objective": 2.551723189678777,
+        "hpwl_mm": 47619.64615891773,
+        "thermal_proxy_peak": 3.8501625606237053,
+        "overlap_fraction": 0.051616266576297094,
+        "penetration_penalty": 0.05358812855723838,
+        "valid": false
+      },
+      "analytical": {
+        "objective": 1.1193672738128473,
+        "hpwl_mm": 35843.85394671266,
+        "thermal_proxy_peak": 2.987091218156322,
+        "overlap_fraction": 0.0,
+        "penetration_penalty": 0.0,
+        "valid": true
+      },
+      "rl": {
+        "objective": 1.2467349087061959,
+        "hpwl_mm": 37129.22187255095,
+        "thermal_proxy_peak": 3.185629450109347,
+        "overlap_fraction": 0.00395754731044187,
+        "penetration_penalty": 0.004084918740667782,
+        "valid": false
+      }
+    }
+  },
+  {
+    "case": "Case8",
+    "chiplets": 36,
+    "area_utilization": 0.41638795986622074,
+    "proven_infeasible_by_area": false,
+    "final_metrics": {
+      "sa": {
+        "objective": 1.4891010188889904,
+        "hpwl_mm": 38830.41492845446,
+        "thermal_proxy_peak": 2.9514662843824566,
+        "overlap_fraction": 0.0037925834855321544,
+        "penetration_penalty": 0.003889651606588389,
+        "valid": false
+      },
+      "analytical": {
+        "objective": 0.9530208767084375,
+        "hpwl_mm": 24248.717324623143,
+        "thermal_proxy_peak": 3.13747034824034,
+        "overlap_fraction": 3.916811042431783e-05,
+        "penetration_penalty": 3.9168110424317864e-05,
+        "valid": false
+      },
+      "rl": {
+        "objective": 1.21011868239285,
+        "hpwl_mm": 30971.335918033146,
+        "thermal_proxy_peak": 3.069637312593728,
+        "overlap_fraction": 0.002024607145341115,
+        "penetration_penalty": 0.0022626792823709396,
+        "valid": false
+      }
+    }
+  },
+  {
+    "case": "Case9",
+    "chiplets": 44,
+    "area_utilization": 0.5587663239788832,
+    "proven_infeasible_by_area": false,
+    "final_metrics": {
+      "sa": {
+        "objective": 1.9987034582649592,
+        "hpwl_mm": 252410.42316008246,
+        "thermal_proxy_peak": 4.366604096542396,
+        "overlap_fraction": 0.03255416630424398,
+        "penetration_penalty": 0.035245696158139043,
+        "valid": false
+      },
+      "analytical": {
+        "objective": 1.1347563323894496,
+        "hpwl_mm": 223679.59986771614,
+        "thermal_proxy_peak": 3.490519041486352,
+        "overlap_fraction": 0.00041624482104551794,
+        "penetration_penalty": 0.0004162448210455254,
+        "valid": false
+      },
+      "rl": {
+        "objective": 1.6875143989896066,
+        "hpwl_mm": 248132.77456469426,
+        "thermal_proxy_peak": 4.486263329013769,
+        "overlap_fraction": 0.01950702291226122,
+        "penetration_penalty": 0.020269304801816348,
+        "valid": false
+      }
+    }
+  },
+  {
+    "case": "Case10",
+    "chiplets": 61,
+    "area_utilization": 0.507876867360797,
+    "proven_infeasible_by_area": false,
+    "final_metrics": {
+      "sa": {
+        "objective": 2.3507430842180765,
+        "hpwl_mm": 149631.35625489784,
+        "thermal_proxy_peak": 5.197846624259324,
+        "overlap_fraction": 0.04630498932298991,
+        "penetration_penalty": 0.05026351783269728,
+        "valid": false
+      },
+      "analytical": {
+        "objective": 1.1690720187866017,
+        "hpwl_mm": 127016.51093765459,
+        "thermal_proxy_peak": 4.61557116924485,
+        "overlap_fraction": 0.0007948951445195915,
+        "penetration_penalty": 0.0008831128288198809,
+        "valid": false
+      },
+      "rl": {
+        "objective": 2.067360212483816,
+        "hpwl_mm": 148325.8648053268,
+        "thermal_proxy_peak": 6.6716315800183565,
+        "overlap_fraction": 0.029426405192978736,
+        "penetration_penalty": 0.03321140525563351,
+        "valid": false
+      }
+    }
+  }
+]

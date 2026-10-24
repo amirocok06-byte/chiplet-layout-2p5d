@@ -1,0 +1,430 @@
+{
+  "format": "real-case-local-algorithm-trajectory-v1",
+  "algorithm": "sa",
+  "implementation": {
+    "method": "sa",
+    "implementation": "local_metropolis_sa",
+    "steps": 800,
+    "seed": 20261024,
+    "evaluator_calls": 801,
+    "gradient_calls": 0,
+    "accepted_moves": 418,
+    "initial_metrics": {
+      "objective": 22.285506757801347,
+      "hpwl_mm": 31941.957453086645,
+      "thermal_proxy_peak": 1.061597929643028,
+      "overlap_fraction": 0.7366953151590381,
+      "penetration_penalty": 1.0492753378900672,
+      "valid": false
+    },
+    "final_metrics": {
+      "objective": 4.259505976577824,
+      "hpwl_mm": 81707.57788483653,
+      "thermal_proxy_peak": 0.5638622421780318,
+      "overlap_fraction": 0.0771080471220573,
+      "penetration_penalty": 0.07710804712205728,
+      "valid": false
+    },
+    "best_metrics": {
+      "objective": 4.259505976577824,
+      "hpwl_mm": 81707.57788483653,
+      "thermal_proxy_peak": 0.5638622421780318,
+      "overlap_fraction": 0.0771080471220573,
+      "penetration_penalty": 0.07710804712205728,
+      "valid": false
+    },
+    "best_step": 797,
+    "final_positions": [
+      [
+        0.75,
+        0.28760085166520305
+      ],
+      [
+        0.0,
+        0.16607887093133147
+      ],
+      [
+        0.2358947346106626,
+        0.17035773844175367
+      ],
+      [
+        0.75,
+        0.0
+      ],
+      [
+        0.0020201315327588766,
+        0.546875
+      ],
+      [
+        0.42194130858342954,
+        0.010250115894914195
+      ]
+    ],
+    "best_positions": [
+      [
+        0.75,
+        0.28760085166520305
+      ],
+      [
+        0.0,
+        0.16607887093133147
+      ],
+      [
+        0.2358947346106626,
+        0.17035773844175367
+      ],
+      [
+        0.75,
+        0.0
+      ],
+      [
+        0.0020201315327588766,
+        0.546875
+      ],
+      [
+        0.42194130858342954,
+        0.010250115894914195
+      ]
+    ]
+  },
+  "source": {
+    "case": "Case2",
+    "source_directory": "F:\\GAME\\2027-SRTP-面向2.5D系统集成的芯粒布局方法研究\\2-Benchmarks\\external\\ATPlace2.5D\\Case2",
+    "files_sha256": {
+      "Case2.blocks": "9b88c7e2569528911bf69069455d5fc2d6639cd5ceeb2871716d850498ff18d4",
+      "Case2.nets": "01a54f7154325949365cd2af3c068414ab76c5178261d1719579204902fee49e",
+      "Case2.pl": "6c55aa4efb920397f48c1d08b40203901cfec308f9a9df7bc4359356ad9bc1bb",
+      "Case2.power": "cd74d10a9a117ac716211dea2298c30869ef59fc6884b3a43a82f45bf9ba3507",
+      "Thermal-aware.json": "f2e87fd37c0360bd660f73d4188a8021168b0e211dcf9a7ca7a26f24a3aaacc7",
+      "WL-driven.json": "8b87a9804394ee6b7213c417f7425a59d81e0b9ab56fec12c948d9da11d8acff"
+    },
+    "coordinate_unit": "um->normalized-axis",
+    "wirelength_unit": "mm",
+    "pin_offset_rule": "centre + percentage*dimension",
+    "board_um": [
+      32000.0,
+      32000.0
+    ],
+    "num_chiplets": 6,
+    "area_utilization": 0.98369140625,
+    "proven_infeasible_by_area": false,
+    "board_source": "ATPlace_pub/reproduce.py CASE_INTERPOSER_SIZE; retained verbatim",
+    "num_nets": 3520,
+    "seed": 20261024,
+    "initialization": "seeded-bounded-scatter; public .pl zero placeholders",
+    "priority_source": "normalized incident pin count; ties preserved; no precedence",
+    "thermal_model": "uncalibrated Gaussian power-density spreading proxy"
+  },
+  "source_revision": "95738af+five-checkpoints",
+  "algorithm_source_files": {
+    "trajectory_run.py": "e0ed3dfb43d1a5fee8b9f9c049aa1a3607bd707de9b07eb57babada4f07bced7",
+    "trajectory_problem.py": "df90b997f2437439b96d112b49dce5615caba88175e2fee1169bf0bee3afcfdb",
+    "trajectory_data.py": "d109d59dae73dd18333d8efb09c369885f8ee27f4ed3b4d8ed939e78cb46218d",
+    "trajectory_optimizers.py": "060a211a9cb36808cb65a7bdac290aba7b54e25958ccba5d8ed1d1c29b3756b0"
+  },
+  "status": "completed-configured-budget",
+  "termination": "proposal-budget-exhausted",
+  "steps": 800,
+  "seed": 20261024,
+  "checkpoint_steps": [
+    0,
+    200,
+    400,
+    600,
+    800
+  ],
+  "checkpoints": [
+    {
+      "step": 0,
+      "metrics": {
+        "objective": 22.285506757801347,
+        "hpwl_mm": 31941.957453086645,
+        "thermal_proxy_peak": 1.061597929643028,
+        "overlap_fraction": 0.7366953151590381,
+        "penetration_penalty": 1.0492753378900672,
+        "valid": false
+      },
+      "parameters": {
+        "temperature": 1.1142753378900674,
+        "proposal_radius": 0.12,
+        "accepted": false,
+        "move": "initial",
+        "best_objective": 22.285506757801347,
+        "evaluator_calls": 1,
+        "gradient_calls": 0
+      },
+      "position_sha256": "920b1c0a02dfd8cb0142e52da97163f25a0087a6a94a00cb950dcd43803987a8",
+      "positions": [
+        [
+          0.5494112742057873,
+          0.3075079903237461
+        ],
+        [
+          0.2650068155772147,
+          0.4149588955520825
+        ],
+        [
+          0.4735843557217877,
+          0.053414200624305186
+        ],
+        [
+          0.5557856852034466,
+          0.25393810593383237
+        ],
+        [
+          0.006220713325702085,
+          0.2688234554842837
+        ],
+        [
+          0.6301320118805456,
+          0.24624431111947143
+        ]
+      ],
+      "map_shape": [
+        3,
+        256,
+        256
+      ],
+      "hpwl_map_sum_mm": 31941.957422479056,
+      "thermal_field_max": 1.0843561887741089
+    },
+    {
+      "step": 200,
+      "metrics": {
+        "objective": 6.786017969214984,
+        "hpwl_mm": 77712.72300600182,
+        "thermal_proxy_peak": 0.5656128025776824,
+        "overlap_fraction": 0.19696545475134544,
+        "penetration_penalty": 0.2096622151345339,
+        "valid": false
+      },
+      "parameters": {
+        "temperature": 0.19943828845304143,
+        "proposal_radius": 0.05690428742205149,
+        "accepted": true,
+        "move": "translate",
+        "best_objective": 5.710730250550854,
+        "evaluator_calls": 201,
+        "gradient_calls": 0
+      },
+      "position_sha256": "dad4b063450fa285c18c2f794f1f3a14cec9e29a2c87f2c436f09fd21f7af582",
+      "positions": [
+        [
+          0.7220574039469924,
+          0.09807156560511329
+        ],
+        [
+          0.15288056686114188,
+          0.17207806271341836
+        ],
+        [
+          0.31114667940061574,
+          0.13783996081200864
+        ],
+        [
+          0.75,
+          0.0
+        ],
+        [
+          0.018750000000000044,
+          0.5075615630539119
+        ],
+        [
+          0.49013993535509204,
+          0.015306360405966009
+        ]
+      ],
+      "map_shape": [
+        3,
+        256,
+        256
+      ],
+      "hpwl_map_sum_mm": 77712.72275996953,
+      "thermal_field_max": 0.5657209157943726
+    },
+    {
+      "step": 400,
+      "metrics": {
+        "objective": 4.696555239594545,
+        "hpwl_mm": 82399.67179935337,
+        "thermal_proxy_peak": 0.5634907279347192,
+        "overlap_fraction": 0.09788239786152841,
+        "penetration_penalty": 0.09788239786152841,
+        "valid": false
+      },
+      "parameters": {
+        "temperature": 0.03538912828666626,
+        "proposal_radius": 0.02688316574632614,
+        "accepted": true,
+        "move": "translate",
+        "best_objective": 4.617040495346005,
+        "evaluator_calls": 401,
+        "gradient_calls": 0
+      },
+      "position_sha256": "d64d536a588da63e88a70cb19ebe4cf0ae35fd0fbcacd11a9373814564e7541e",
+      "positions": [
+        [
+          0.75,
+          0.21076310551717714
+        ],
+        [
+          0.0,
+          0.23133364778383914
+        ],
+        [
+          0.23920176160600057,
+          0.15930561226353662
+        ],
+        [
+          0.7298828265852316,
+          0.0
+        ],
+        [
+          0.018750000000000044,
+          0.546875
+        ],
+        [
+          0.39589987278132055,
+          0.0
+        ]
+      ],
+      "map_shape": [
+        3,
+        256,
+        256
+      ],
+      "hpwl_map_sum_mm": 82399.67116526887,
+      "thermal_field_max": 0.5634946823120117
+    },
+    {
+      "step": 600,
+      "metrics": {
+        "objective": 4.311395922555004,
+        "hpwl_mm": 83301.3070096933,
+        "thermal_proxy_peak": 0.5638949138373324,
+        "overlap_fraction": 0.0772073560152067,
+        "penetration_penalty": 0.0772073560152067,
+        "valid": false
+      },
+      "parameters": {
+        "temperature": 0.0062795885915607535,
+        "proposal_radius": 0.012700354108368664,
+        "accepted": true,
+        "move": "translate",
+        "best_objective": 4.303795624497447,
+        "evaluator_calls": 601,
+        "gradient_calls": 0
+      },
+      "position_sha256": "79639ce8c12a744d860b6c11779da0bcbf501ffa0bf546166e0927e52fa5106f",
+      "positions": [
+        [
+          0.75,
+          0.2458161674890695
+        ],
+        [
+          0.0,
+          0.15808119303637425
+        ],
+        [
+          0.24542442609660534,
+          0.17075756987727653
+        ],
+        [
+          0.75,
+          0.0
+        ],
+        [
+          0.0008596451810081902,
+          0.546875
+        ],
+        [
+          0.4200540473113297,
+          0.00022331250790850674
+        ]
+      ],
+      "map_shape": [
+        3,
+        256,
+        256
+      ],
+      "hpwl_map_sum_mm": 83301.3067732118,
+      "thermal_field_max": 0.5639277696609497
+    },
+    {
+      "step": 800,
+      "metrics": {
+        "objective": 4.259505976577824,
+        "hpwl_mm": 81707.57788483653,
+        "thermal_proxy_peak": 0.5638622421780318,
+        "overlap_fraction": 0.0771080471220573,
+        "penetration_penalty": 0.07710804712205728,
+        "valid": false
+      },
+      "parameters": {
+        "temperature": 0.0011142753378900673,
+        "proposal_radius": 0.006,
+        "accepted": false,
+        "move": "translate",
+        "best_objective": 4.259505976577824,
+        "evaluator_calls": 801,
+        "gradient_calls": 0
+      },
+      "position_sha256": "5a7e259ea8cb7133994e5e82ec80f744364b430a6f2e0885278adb980fc2516e",
+      "positions": [
+        [
+          0.75,
+          0.28760085166520305
+        ],
+        [
+          0.0,
+          0.16607887093133147
+        ],
+        [
+          0.2358947346106626,
+          0.17035773844175367
+        ],
+        [
+          0.75,
+          0.0
+        ],
+        [
+          0.0020201315327588766,
+          0.546875
+        ],
+        [
+          0.42194130858342954,
+          0.010250115894914195
+        ]
+      ],
+      "map_shape": [
+        3,
+        256,
+        256
+      ],
+      "hpwl_map_sum_mm": 81707.5787058454,
+      "thermal_field_max": 0.5638858079910278
+    }
+  ],
+  "evaluator_version": "trajectory-spatial-proxy-v1",
+  "evaluator_calls_total": 801,
+  "diagnostic_evaluator_calls": 0,
+  "gradient_calls": 0,
+  "wall_seconds_including_capture": 0.19707770000013625,
+  "capture_seconds": 0.09154400000034002,
+  "optimizer_wall_seconds": 0.10553369999979623,
+  "peak_process_rss_mb": 49.31640625,
+  "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:09:58) [MSC v.1929 64 bit (AMD64)]",
+  "numpy": "2.4.6",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "objective": "HPWL/initial_HPWL + 0.3*thermal_proxy/initial_proxy + 20*penetration_penalty",
+  "overlap_reporting": "exact pair intersection area / total chiplet area; distinct from penalty",
+  "priority": "weighted incident-pin count / maximum; ties preserved",
+  "thermal": "uncalibrated Gaussian spreading proxy; no Celsius/K claims",
+  "checkpoint_display": "current iterate, not substituted best-so-far",
+  "external_reproduction": false,
+  "thread_limits": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "step": 0,
+  "metrics": {
+    "objective": 22.285506757801347,
+    "hpwl_mm": 31941.957453086645,
+    "thermal_proxy_peak": 1.061597929643028,
+    "overlap_fraction": 0.7366953151590381,
+    "penetration_penalty": 1.0492753378900672,
+    "valid": false
+  },
+  "parameters": {
+    "entropy": 3.871201010907891,
+    "reward": 0.0,
+    "baseline_before": 0.0,
+    "advantage": 0.0,
+    "update_norm": 0.0,
+    "accepted": false,
+    "action_index": null,
+    "chiplet_index": null,
+    "direction_index": null,
+    "displacement": 0.05,
+    "proposal_objective": null,
+    "action_probability": null,
+    "action_probability_after_update": null,
+    "learning_rate": 0.08,
+    "entropy_coefficient": 0.01,
+    "epsilon": 0.05,
+    "baseline": 0.0,
+    "policy_weight_norm": 0.0,
+    "actions": 48,
+    "training_steps": 0,
+    "evaluator_calls": 1,
+    "gradient_calls": 0,
+    "best_metrics": {
+      "objective": 22.285506757801347,
+      "hpwl_mm": 31941.957453086645,
+      "thermal_proxy_peak": 1.061597929643028,
+      "overlap_fraction": 0.7366953151590381,
+      "penetration_penalty": 1.0492753378900672,
+      "valid": false
+    },
+    "best_objective": 22.285506757801347
+  },
+  "position_sha256": "920b1c0a02dfd8cb0142e52da97163f25a0087a6a94a00cb950dcd43803987a8",
+  "positions": [
+    [
+      0.5494112742057873,
+      0.3075079903237461
+    ],
+    [
+      0.2650068155772147,
+      0.4149588955520825
+    ],
+    [
+      0.4735843557217877,
+      0.053414200624305186
+    ],
+    [
+      0.5557856852034466,
+      0.25393810593383237
+    ],
+    [
+      0.006220713325702085,
+      0.2688234554842837
+    ],
+    [
+      0.6301320118805456,
+      0.24624431111947143
+    ]
+  ],
+  "map_shape": [
+    3,
+    256,
+    256
+  ],
+  "hpwl_map_sum_mm": 31941.957422479056,
+  "thermal_field_max": 1.0843561887741089
+}

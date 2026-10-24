@@ -1,0 +1,54 @@
+{
+  "step": 800,
+  "metrics": {
+    "objective": 1.9375886308234405,
+    "hpwl_mm": 67034.0525636214,
+    "thermal_proxy_peak": 0.9376199294987364,
+    "overlap_fraction": 0.0,
+    "penetration_penalty": 0.0,
+    "valid": true
+  },
+  "parameters": {
+    "temperature": 0.0005216535246483266,
+    "proposal_radius": 0.006,
+    "accepted": false,
+    "move": "translate",
+    "best_objective": 1.9375886308234405,
+    "evaluator_calls": 801,
+    "gradient_calls": 0
+  },
+  "position_sha256": "c6cf3b93758cdaca5e395a6b58ca055782b2d0801c8b45aa72c6579d5c6deb24",
+  "positions": [
+    [
+      0.7102439613887235,
+      0.13047928847934548
+    ],
+    [
+      0.0653385080574538,
+      0.45887355837309035
+    ],
+    [
+      0.2797367246330533,
+      0.028414291143527247
+    ],
+    [
+      0.8089510987298412,
+      0.4183977401174701
+    ],
+    [
+      0.08622501640221789,
+      0.17295527835691557
+    ],
+    [
+      0.5210036269934046,
+      0.46921706890019915
+    ]
+  ],
+  "map_shape": [
+    3,
+    256,
+    256
+  ],
+  "hpwl_map_sum_mm": 67034.05161891693,
+  "thermal_field_max": 0.9377682209014893
+}

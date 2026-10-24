@@ -1,0 +1,78 @@
+{
+  "step": 400,
+  "metrics": {
+    "objective": 1.9822731816187915,
+    "hpwl_mm": 68600.54183279435,
+    "thermal_proxy_peak": 0.9336142579388195,
+    "overlap_fraction": 0.00024501738305831027,
+    "penetration_penalty": 0.0002509156162203744,
+    "valid": false
+  },
+  "parameters": {
+    "entropy": 3.8386348424289363,
+    "reward": -0.08680868953148457,
+    "baseline_before": -0.03204307418798626,
+    "advantage": -1.0750089555621685,
+    "update_norm": 0.07973427488878383,
+    "accepted": false,
+    "action_index": 7,
+    "chiplet_index": 0,
+    "direction_index": 7,
+    "displacement": 0.013749892733872645,
+    "proposal_objective": 2.069081871150276,
+    "action_probability": 0.014978993420029587,
+    "action_probability_after_update": 0.01391386853985696,
+    "learning_rate": 0.08,
+    "entropy_coefficient": 0.01,
+    "epsilon": 0.05,
+    "baseline": -0.037519635722336096,
+    "policy_weight_norm": 1.9325863640151577,
+    "actions": 48,
+    "training_steps": 400,
+    "evaluator_calls": 401,
+    "gradient_calls": 0,
+    "best_metrics": {
+      "objective": 1.9822731816187915,
+      "hpwl_mm": 68600.54183279435,
+      "thermal_proxy_peak": 0.9336142579388195,
+      "overlap_fraction": 0.00024501738305831027,
+      "penetration_penalty": 0.0002509156162203744,
+      "valid": false
+    },
+    "best_objective": 1.9822731816187915
+  },
+  "position_sha256": "43d6c4c71e39e7c04d95d2097e7d24c1e1aabd24b12d44722e338962922b90b8",
+  "positions": [
+    [
+      0.4872649591337314,
+      0.43873643436580007
+    ],
+    [
+      0.0,
+      0.44105252111517207
+    ],
+    [
+      0.3512857342995805,
+      0.010690043043782156
+    ],
+    [
+      0.7806973816492215,
+      0.20928242460010937
+    ],
+    [
+      0.1535390998873549,
+      0.15507567435057742
+    ],
+    [
+      0.7889832149403518,
+      0.5029921608525892
+    ]
+  ],
+  "map_shape": [
+    3,
+    256,
+    256
+  ],
+  "hpwl_map_sum_mm": 68600.54269022075,
+  "thermal_field_max": 0.9339204430580139
+}

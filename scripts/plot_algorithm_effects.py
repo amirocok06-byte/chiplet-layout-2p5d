@@ -11,10 +11,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import TwoSlopeNorm
 
-from plot_grid import DEFAULT_DPI, DEFAULT_GRID_DIVISIONS, add_raw_pixel_grid, map_title
-
-
-CHANNELS = ("order", "thermal", "hpwl")
+from figure_export import export_figure
+from plot_grid import (
+    CHANNEL_LABELS,
+    CHANNELS,
+    DEFAULT_DPI,
+    DEFAULT_GRID_DIVISIONS,
+    add_raw_pixel_grid,
+    configure_colorbar,
+    map_title,
+)
 
 
 def plot_algorithm_effects(
@@ -26,8 +32,8 @@ def plot_algorithm_effects(
     grid_divisions: int = DEFAULT_GRID_DIVISIONS,
 ) -> None:
     with np.load(input_path, allow_pickle=False) as data:
-        before = np.asarray(data["before_maps"], dtype=np.float32)
-        after = np.asarray(data["after_maps"], dtype=np.float32)
+        before = np.asarray(data["before_maps"])
+        after = np.asarray(data["after_maps"])
 
     if before.ndim != 3 or before.shape[0] != 3:
         raise ValueError("before_maps must have shape [3, height, width]")
@@ -35,8 +41,17 @@ def plot_algorithm_effects(
         raise ValueError("after_maps must have shape [algorithm, 3, height, width]")
     if len(labels) != after.shape[0]:
         raise ValueError("one label is required for each algorithm")
+    if not labels:
+        raise ValueError("at least one algorithm is required")
+    if not np.isfinite(before).all() or not np.isfinite(after).all():
+        raise ValueError("maps contain NaN or Inf")
 
-    delta = after - before[None, ...]
+    delta = after.astype(np.float64) - before[None, ...]
+    # One symmetric range per channel across every algorithm, including zeros.
+    norms = [
+        TwoSlopeNorm(vmin=-limit, vcenter=0.0, vmax=limit)
+        for limit in np.maximum(np.max(np.abs(delta), axis=(0, 2, 3)), 1e-8)
+    ]
     fig, axes = plt.subplots(
         len(labels),
         3,
@@ -49,18 +64,17 @@ def plot_algorithm_effects(
         for col, channel in enumerate(CHANNELS):
             axis = axes[row, col]
             image_delta = delta[row, col]
-            limit = max(float(np.max(np.abs(image_delta))), 1e-8)
             axis.imshow(
                 image_delta,
                 cmap="coolwarm",
                 origin="lower",
                 interpolation="nearest",
-                norm=TwoSlopeNorm(vmin=-limit, vcenter=0.0, vmax=limit),
+                norm=norms[col],
             )
             height, width = image_delta.shape
             axis.set_title(
                 map_title(
-                    f"{label}: Δ {channel}",
+                    f"{label}: Δ {CHANNEL_LABELS[col]}",
                     height=height,
                     width=width,
                     divisions=grid_divisions,
@@ -73,11 +87,18 @@ def plot_algorithm_effects(
                 width=width,
                 divisions=grid_divisions,
             )
+    for col, name in enumerate(CHANNEL_LABELS):
+        colorbar = fig.colorbar(axes[0, col].images[0], ax=axes[:, col].tolist(), shrink=0.8)
+        configure_colorbar(colorbar, axes[0, col].images[0], f"Δ {name}")
 
-    fig.suptitle("Algorithm-conditioned map changes")
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output_path, dpi=dpi, bbox_inches="tight")
-    plt.close(fig)
+    fig.suptitle("Algorithm-conditioned map changes", fontsize=11)
+    try:
+        with matplotlib.rc_context({
+            "font.family": "sans-serif", "pdf.fonttype": 42, "svg.fonttype": "none",
+        }):
+            export_figure(fig, output_path, dpi=dpi, axes=axes.ravel())
+    finally:
+        plt.close(fig)
 
 
 def main() -> None:

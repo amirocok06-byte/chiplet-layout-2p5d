@@ -1,0 +1,102 @@
+{
+  "step": 800,
+  "metrics": {
+    "objective": 1.0956965574436865,
+    "hpwl_mm": 169107.47200426372,
+    "thermal_proxy_peak": 2.842835900954092,
+    "overlap_fraction": 0.0,
+    "penetration_penalty": 0.0,
+    "valid": true
+  },
+  "parameters": {
+    "entropy": 4.518173192042165,
+    "reward": -0.03919192749021505,
+    "baseline_before": -0.018916017638824757,
+    "advantage": -0.6899209165462781,
+    "update_norm": 0.05065210008630208,
+    "accepted": false,
+    "action_index": 43,
+    "chiplet_index": 5,
+    "direction_index": 3,
+    "displacement": 0.007318399951081536,
+    "proposal_objective": 1.1348884849339016,
+    "action_probability": 0.006360040416227206,
+    "action_probability_after_update": 0.006071695818492364,
+    "learning_rate": 0.08,
+    "entropy_coefficient": 0.01,
+    "epsilon": 0.05,
+    "baseline": -0.02094360862396379,
+    "policy_weight_norm": 3.0334384173045055,
+    "actions": 96,
+    "training_steps": 800,
+    "evaluator_calls": 801,
+    "gradient_calls": 0,
+    "best_metrics": {
+      "objective": 1.0956965574436865,
+      "hpwl_mm": 169107.47200426372,
+      "thermal_proxy_peak": 2.842835900954092,
+      "overlap_fraction": 0.0,
+      "penetration_penalty": 0.0,
+      "valid": true
+    },
+    "best_objective": 1.0956965574436865
+  },
+  "position_sha256": "fddc66f13c210d1170cfa63c1bc6286e189a6c7d97804afafc9895affeb5941e",
+  "positions": [
+    [
+      0.5564360579222531,
+      0.5007716759389831
+    ],
+    [
+      0.32633767995108887,
+      0.6152329331509815
+    ],
+    [
+      0.5274434231733857,
+      0.1032101191694223
+    ],
+    [
+      0.6370409023384535,
+      0.3223540304948096
+    ],
+    [
+      0.4089715836732221,
+      0.4094640347094805
+    ],
+    [
+      0.779129965229688,
+      0.417332373974546
+    ],
+    [
+      0.16669538968723183,
+      0.49392409730803544
+    ],
+    [
+      0.47125338613500434,
+      0.6544319934334485
+    ],
+    [
+      0.7055362933098156,
+      0.5710292231106778
+    ],
+    [
+      0.4698131818936155,
+      0.2566644547280506
+    ],
+    [
+      0.6713173837589651,
+      0.1672546138301766
+    ],
+    [
+      0.7645089103179113,
+      0.7238584227857072
+    ]
+  ],
+  "map_shape": [
+    3,
+    256,
+    256
+  ],
+  "hpwl_map_sum_mm": 169107.4720475655,
+  "thermal_field_max": 3.000730514526367
+}

@@ -1,0 +1,3 @@
+# Matplotlib-generated SVG path data are reviewed through their source and
+# rendered artifacts, rather than thousands of generated coordinate lines.
+docs/figures/**/*.svg -diff

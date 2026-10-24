@@ -1,0 +1,32 @@
+{
+  "case": "Case9",
+  "chiplets": 44,
+  "area_utilization": 0.5587663239788832,
+  "proven_infeasible_by_area": false,
+  "final_metrics": {
+    "sa": {
+      "objective": 1.9987034582649592,
+      "hpwl_mm": 252410.42316008246,
+      "thermal_proxy_peak": 4.366604096542396,
+      "overlap_fraction": 0.03255416630424398,
+      "penetration_penalty": 0.035245696158139043,
+      "valid": false
+    },
+    "analytical": {
+      "objective": 1.1347563323894496,
+      "hpwl_mm": 223679.59986771614,
+      "thermal_proxy_peak": 3.490519041486352,
+      "overlap_fraction": 0.00041624482104551794,
+      "penetration_penalty": 0.0004162448210455254,
+      "valid": false
+    },
+    "rl": {
+      "objective": 1.6875143989896066,
+      "hpwl_mm": 248132.77456469426,
+      "thermal_proxy_peak": 4.486263329013769,
+      "overlap_fraction": 0.01950702291226122,
+      "penetration_penalty": 0.020269304801816348,
+      "valid": false
+    }
+  }
+}

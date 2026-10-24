@@ -1,0 +1,34 @@
+{
+  "status": "pass",
+  "completed_runs": 30,
+  "full_trace_records": 24030,
+  "triptych_checkpoints": 150,
+  "raw_maps_in_checkpoints": 450,
+  "png_count": 230,
+  "pdf_count": 230,
+  "svg_count": 230,
+  "all_alignment_reports_pass": true,
+  "all_glyph_reports_pass": true,
+  "all_algorithm_source_hashes_match": true,
+  "collision_failures": 0,
+  "collision_warnings": [],
+  "final_legal_counts": {
+    "sa": 1,
+    "analytical": 2,
+    "rl": 3
+  },
+  "max_hpwl_map_sum_relative_error": 2.016356567631283e-08,
+  "rendering_source_sha256": {
+    "render_trajectory_runs.py": "794834aba86924bb0fed6cbf76e7fd855878850505395d0f96541f035fb050b6",
+    "figure_export.py": "8ef0c8c6c7fec7188d97d6a40858ca2626ee7585303a589f306610148ecec9b8",
+    "plot_grid.py": "c89f297d260ff23b6737c7fe14bd3ce81d1886ae3446131a5f04e3306f4ce50a",
+    "plot_snapshot_maps.py": "5b135d84a87a694d2b48cd90e47dbe156f6c3cb35457d53df3b85de905a309bb",
+    "plot_state_flow.py": "a49262d2c0d264652f1195924053786a6d059bac502f28ecd830d8f9e71b003f",
+    "plot_algorithm_effects.py": "14c953fe71b383653cc96621cd96483c356bf03da46cd79876ae50d03d266c3f"
+  },
+  "static_preflight_notes": [
+    "Large research-inspection figures, not resized journal-submission panels.",
+    "PNG300dpi plus vectorPDF/SVG; TIFF not requested.",
+    "Single-seed individual trajectories, no uncertainty or population superiority claims."
+  ]
+}

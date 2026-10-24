@@ -27,7 +27,7 @@ Thermal-aware.json   # 仅在热感知配置实验中使用
 
 选择这份归档的理由是：它与本地 `4-开源源码/ATPlace_pub/cases` 逐文件一致，并且包含 ATPlace 官方公开 wrapper 所需的两类配置。Case 的 interposer 尺寸使用 ATPlace 公共 wrapper 中的 case-specific 定义；不能从 `.pl` 中的全零初始坐标推断板尺寸。
 
-`2-Benchmarks/cases/Case1...Case10` 保留为项目工作副本和交叉校验集，不与上述目录合并统计。抽查 Case1、Case2、Case10 的 `.blocks/.nets/.pl/.power` 后，工作副本与 ATPlace 归档的 SHA-256 不同；因此不能在同一实验中混用而仍称为“同一输入”。
+`2-Benchmarks/cases/Case1...Case10` 是同一批设计的工作副本，不作为额外独立样本。2026-10-24 完整复核了 50 个共有文件：原始 SHA-256 差异仅来自 LF/CRLF 换行，规范化后 50/50 字节内容一致，结构化解析也一致。external 额外包含 10 份 Thermal-aware.json；与源码 cases 的 60/60 文件完全一致。上轮仅据哈希不同推断数据不同的结论已在此修正。
 
 ## 2. `5-额外Benchmark` 的边界
 
@@ -38,7 +38,7 @@ Thermal-aware.json   # 仅在热感知配置实验中使用
 | `ThermalBench` | `75566fa8a213a5fd61bb89d33a25af258d2a4ae8` | 后续热场/热代理模型验证 | 其 S2–S5 是 64×64 热场学习任务，不是 Case1–10 的布局迭代输入 |
 | `thermo-3dic-surrogates` | `0c6d2fb391893b8826fdbde186cbbc95b119f827` | 后续 3D-ICE/热代理模型对照 | 面向 3D 几何与温度代理模型，输入 schema、网格和物理边界不同 |
 
-这两个仓库可以为 `PhysicsEvaluator` 的热模型校准提供数据，但不能作为 SA、解析法和 RL 三个布局 Agent 的同一批输入。
+这两个仓库可供后续热模型校准参考。目前本地仅有源码与说明，ThermalBench 的实际 .mat 数据、thermo-3dic-surrogates 的生成 .npz 数据均未下载，不能称为已经加载的实验数据集。
 
 ## 3. 算法源码版本与角色
 
@@ -52,7 +52,7 @@ Thermal-aware.json   # 仅在热感知配置实验中使用
 | Mask 热模型参考 | [MaskPlace2.5D](https://github.com/xunk33333/MaskPlace2.5D) | `897593e62da057affeffa611384068697e9cbed4` | 只用于 mask/紧凑热模型参考；README 明确说明核心 placement 代码未公开 |
 | 综合布局参考 | [STAMP2.5D](https://github.com/MicroSystemsDesignLab/STAMP2.5D) | `f0057520c10292cdf8973fc282c0fbc4bd55a6e5` | 暂不纳入首轮比较；其流程依赖 ANSYS、SSH/Flask 服务和许可证，不能与 CPU-only Stage 0 同预算运行 |
 
-因此，Stage 0 的“可运行三臂”仍指本项目中可审计的 `SAWorker`、`AnalyticalWorker`、`RLCompatibleWorker`。它们是统一协议下的本地方法基线，不冒充上述三个外部仓库的完整复现。只有当外部源码、依赖、checkpoint 和逐步日志都可获得时，才把外部实现升级为正式三 Agent 运行臂。
+原 SAWorker/AnalyticalWorker/RLCompatibleWorker 保留为协议 smoke 接口。2026-10-24 新增独立的连续轨迹模块：Metropolis SA、投影梯度解析法、NumPy 在线 REINFORCE；三者具备实际迭代和参数更新，使用真实 Case1–10，仍明确标为本地算法族实现。具体运行和五检查点定义见 five_checkpoint_trajectory_design.md；不把它们标成 TAP、ATPlace 或 RLPlanner 官方复现。
 
 ## 4. 迭代轨迹的可观测性冻结
 
@@ -74,4 +74,4 @@ Thermal-aware.json   # 仅在热感知配置实验中使用
 - 覆盖可见的 `16×16` 显示宏网格，每个显示格对应 `16×16` 原始像素；
 - 坐标轴显示原始像素边界，不把显示网格误称为原始 map 分辨率。
 
-真正使用 Case1–10 生成布局轨迹时，必须新建带 Case ID、配置、seed、evaluator fidelity、预算和源码 commit 的输出目录，不能覆盖 smoke 目录。
+真实 Case1–10 的连续轨迹单独保存在 docs/figures/stage0_real_trajectories，以 Case/algorithm 组织五份快照、全量参数轨迹和追溯记录。thermal 使用明确标注的空间代理，未完成 HotSpot 校准。
