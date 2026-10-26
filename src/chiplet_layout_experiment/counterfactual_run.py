@@ -19,6 +19,7 @@ from .counterfactual import (ALGORITHMS, array_hash, clone_at, finite_catalog,
 from .geometry_versions import apply_geometry_version
 from .legalization import legalize
 from .trajectory_data import load_case
+from .state_projection import STATE_VERSION
 
 
 def write_json(path, value):
@@ -87,11 +88,13 @@ def collect_case(problem, metadata, output, *, budget, seeds, warmup_steps=64,
                 "origins": origins[checksum], "state_file": f"states/{checksum}.json",
                 "case_split_group": metadata["case"],
                 "source_problem": "problem.json",
+                "state_version": STATE_VERSION,
             }
             write_json(output / state_metadata["state_file"], {
                 "positions": x.tolist(), "checksum": checksum, "metadata": state_metadata,
-                "map_shape": [3, 256, 256],
-                "map_reconstruction": "TracedProblem.maps(positions, grid_size=256)",
+                "map_shape": [4, 256, 256],
+                "state_version": STATE_VERSION,
+                "map_reconstruction": "state_projection.project_state(problem, positions, grid_size=256)",
             })
             labels = sample_state(problem, x, finite_catalog(budget), seeds=seeds,
                                   state_metadata=state_metadata)
@@ -109,6 +112,7 @@ def collect_case(problem, metadata, output, *, budget, seeds, warmup_steps=64,
         **provenance, "states": state_index, "preparation_costs": preparation,
         "records": len(rows), "seeds": seeds, "evaluation_budget_per_action": budget,
         "source_algorithms": list(source_algorithms), "warmup_steps": warmup_steps,
+        "state_version": STATE_VERSION, "map_shape": [4, 256, 256],
         "algorithm_budget_includes_initial_call": True,
         "postprocess_evaluations_per_action": 1,
         "thermal_label": "uncalibrated spatial proxy; HotSpot calibration separate",

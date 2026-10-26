@@ -1,373 +1,615 @@
-<!doctype html><html lang='zh-CN'><meta charset='utf-8'>
-<title>2.5D 五检查点轨迹</title><style>
-body{font-family:system-ui;max-width:1600px;margin:32px auto;background:#fafafa;color:#202830}
-img{width:100%;height:auto}section{padding:20px;background:white;margin:22px 0;border:1px solid #ddd}
-details{margin:16px 0}summary{cursor:pointer;font-size:19px}a{color:#166b9b}
-table{border-collapse:collapse}td,th{border:1px solid #ddd;padding:8px}
-.note{background:#fff0d8;padding:16px}</style>
-<h1>真实 Case1–10：三类本地算法的五检查点</h1>
-<p><a href='RESULTS_COMPARISON.md'>逐 Case 运行结果与原论文对照</a> · <a href='results_comparison.csv'>完整数值 CSV</a></p>
-<p>每个算法连续运行 800 次候选迭代，记录 0/200/400/600/800。每张快照包含 priority、空间热代理、HPWL 三张 256×256 map；同 Case 色阶固定。</p>
-<p>算法为本地 Metropolis SA、投影梯度和在线 REINFORCE。热代理未经 HotSpot 校准。单 seed 轨迹用于实现检查，不能据此判定算法总体优劣。</p>
-<p class='note'>Case4 的公开 wrapper 板为37×37 mm，芯粒总面积超过板面积（150.77%）。保留原配置的五检查点作为输入不可行性诊断，不纳入合法布局性能比较。其余运行也逐一报告实际重叠与合法性。</p>
-<section id='Case1'><h2>Case1</h2>
-<p>6 chiplets | area utilization 61.22%</p>
-<img loading='lazy' src='Case1/metric_trends.png' alt='完整指标走势'>
-<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
-<tr><td>SA (Metropolis)</td><td>67034.053</td><td>0.000000</td><td>True</td></tr>
-<tr><td>Analytical (gradient)</td><td>67188.395</td><td>0.000566</td><td>False</td></tr>
-<tr><td>RL (online REINFORCE)</td><td>67980.937</td><td>0.000000</td><td>True</td></tr>
-</table>
-<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case1/sa/summary.json'>summary</a> · <a href='Case1/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case1/sa/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case1/sa/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case1/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case1/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case1/sa/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case1/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case1/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case1/sa/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case1/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case1/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case1/sa/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case1/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case1/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case1/sa/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case1/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case1/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case1/sa/checkpoint_0800.png' alt='iteration 800'></details>
+<!doctype html><html lang="zh-CN"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.5D 布局状态：四通道五检查点</title>
+<style>body{font-family:system-ui;max-width:1640px;margin:28px auto;padding:0 18px;color:#263746;background:#f5f7fa}section,header{background:white;padding:24px;margin:24px 0;border:1px solid #dae2eb;border-radius:12px}img{width:100%;height:auto}summary{cursor:pointer;padding:12px;font-weight:600}table{border-collapse:collapse}td,th{padding:8px 14px;border:1px solid #ccd6e0}a{color:#145c90}.note{padding:14px;background:#fff4db}code{background:#eef3f7;padding:2px 5px}</style>
+<header><h1>四通道布局状态 · 真实五检查点</h1>
+<p>从已有800次候选轨迹的0/200/400/600/800检查点重新投影，未重跑优化器。每帧四张256×256 map；同Case、跨算法和时间使用固定色阶。</p>
+<table><tr><th>通道</th><th>数值含义</th><th>可以判断什么</th></tr>
+<tr><td>M_priority</td><td>q_i=d_i/max(d)，d_i为incident pin数；空白−1，断连芯粒0，并列保留；覆盖冲突取最大q</td><td>连接度较高的芯粒在哪里；它不编码实际执行顺序，也不等于时序关键性</td></tr>
+<tr><td>M_thermal proxy</td><td>高斯功率密度扩散，无温度单位</td><td>代理场集中位置；HotSpot留出MAE58.91°C，当前未获可信温度校准</td></tr>
+<tr><td>M_HPWL</td><td>真实引脚包围盒上的线长贡献，mm/pixel</td><td>当前线长贡献集中位置；像素总和约等于HPWL</td></tr>
+<tr><td>M_overlap/legality</td><td>精确矩形交集按像素面积分配并归一化，加越界量的边界带投影；0表示未显示违反</td><td>空间约束异常位置；细微重叠与全局合法性以精确evaluator为准</td></tr></table>
+<p class="note">第四通道由精确几何交集生成，避免相邻芯粒落在同一像素内导致假重叠。它是观察通道，不等于候选动作合法掩码。三类Agent仍为SA、解析法、RL。</p>
+<p><a href="../../four_channel_state_design.md">四通道定义与消融方案</a> · <a href="../../experimental_design_contextual_bandit_2p5d.pdf">更新的实验方案PDF</a> · <a href="RESULTS_COMPARISON.md">原轨迹指标和论文对照</a> · <a href="../stage0_same_state/EXPERIMENT_FINDINGS.md">同状态动作收益与合法化控制</a></p>
+<details open><summary>四通道计算公式与图例：怎样读颜色和数值</summary>
+<p><b>1. Connectivity priority：</b>d_i为芯粒关联pin的出现次数，q_i=d_i/max(max(d),1)。像素覆盖多个芯粒时取最大q；无人覆盖为−1，断连芯粒为0。16级viridis：深紫低、蓝绿中、黄高，浅灰为空白，黑线为芯粒边界。连接数相同就应同色；颜色块随布局移动，但q值在netlist不变时固定。</p>
+<p><b>2. Spatial thermal proxy：</b>像素中心处计算Σ_i(P_i/A_i) exp[−½Σ_a(u_ga−c_ia)²/σ_ia²]，σ_ia²=s_ia²/12+0.08²；P以W、面积A以mm²给出幅值。inferno由黑紫到橙黄，PowerNorm γ=0.6；色条是原代理值，不是°C/K。标量峰值在芯粒中心采样，图在网格中心采样。</p>
+<p><b>3. HPWL contribution：</b>真实pin offset得到每网的mm制HPWL=L_n；将w_n L_n均匀分到其引脚包围盒的K_n个像素，M(g)=Σ_n w_n L_n/K_n。色条mm/pixel；magma亮处贡献较高，浅灰处无可显示贡献；SymLogNorm压缩动态范围。当前适配器为two-pin、w_n=1；此图不画实际走线。</p>
+<p><b>4. Overlap / boundary violation：</b>Σ_(i&lt;j) area(g∩R_i∩R_j)/area(g)/max(N−1,1)，加上沿板边一像素带投影的归一化越界量。线性Reds：0白，正值浅红至深红；板内红块提示重叠，板边红带提示越界。它不等于合法概率或精确重叠率，必须同时读标题中的overlap、boundary和valid。</p>
+<p><b>差分图：</b>四列均为ΔM=M_after−M_before；coolwarm中蓝色减少、红色增加、白色接近不变。priority的变化主要是位置变化。快照第四通道的“红=绝对违反”与差分图的“红=增加”需区分。所有色标按同Case全部算法与五帧固定；300 DPI/16×16宏网格不改变256×256数据。</p>
+<p><a href="../../channel_reference.md">完整含义、公式、单位、颜色及读图边界</a></p></details>
+<p>下面是单seed独立轨迹观察，不是每个检查点同状态分叉的算法胜出证据。历史三通道图与原始JSON继续保存，四通道产物在state_v2目录。</p></header>
+<section id="Case1"><h2>Case1</h2>
+<p>6芯粒 · 面积利用率61.22%</p>
+<details><summary>priority 数值如何得到：逐芯粒连接度与颜色值</summary><table><tr><th>芯粒</th><th>incident pin 数</th><th>q_i / 色图值</th></tr>
+<tr><td>CPU1_0</td><td>1408</td><td>1.000000</td></tr>
+<tr><td>GPU_0</td><td>1408</td><td>1.000000</td></tr>
+<tr><td>GPU_1</td><td>1408</td><td>1.000000</td></tr>
+<tr><td>HBM_0</td><td>704</td><td>0.500000</td></tr>
+<tr><td>HBM_1</td><td>704</td><td>0.500000</td></tr>
+<tr><td>HBM_2</td><td>704</td><td>0.500000</td></tr>
+</table><p>每个芯粒内部颜色由q_i决定；布局移动只改变其空间位置。重叠像素取最大q_i；低连接度不等于可忽略。</p></details>
+<img loading="lazy" src="Case1/metric_trends.png" alt="完整指标走势">
+<details><summary>sa · HPWL 67034.05 mm · overlap 0.000000 · valid True</summary>
+<img loading="lazy" src="Case1/sa/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case1/sa/summary.json">原始运行记录</a> · <a href="Case1/sa/state_v2/manifest.json">四通道投影版本</a> · <a href="Case1/sa/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case1/sa/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case1/sa/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case1/sa/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case1/sa/state_v2/checkpoint_0000.png" alt="Case1 sa iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case1/sa/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case1/sa/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case1/sa/state_v2/checkpoint_0200.png" alt="Case1 sa iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case1/sa/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case1/sa/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case1/sa/state_v2/checkpoint_0400.png" alt="Case1 sa iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case1/sa/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case1/sa/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case1/sa/state_v2/checkpoint_0600.png" alt="Case1 sa iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case1/sa/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case1/sa/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case1/sa/state_v2/checkpoint_0800.png" alt="Case1 sa iteration800 四通道"></details>
 </details>
-<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case1/analytical/summary.json'>summary</a> · <a href='Case1/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case1/analytical/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case1/analytical/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case1/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case1/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case1/analytical/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case1/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case1/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case1/analytical/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case1/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case1/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case1/analytical/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case1/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case1/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case1/analytical/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case1/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case1/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case1/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>analytical · HPWL 67188.40 mm · overlap 0.000566 · valid False</summary>
+<img loading="lazy" src="Case1/analytical/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case1/analytical/summary.json">原始运行记录</a> · <a href="Case1/analytical/state_v2/manifest.json">四通道投影版本</a> · <a href="Case1/analytical/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case1/analytical/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case1/analytical/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case1/analytical/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case1/analytical/state_v2/checkpoint_0000.png" alt="Case1 analytical iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case1/analytical/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case1/analytical/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case1/analytical/state_v2/checkpoint_0200.png" alt="Case1 analytical iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case1/analytical/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case1/analytical/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case1/analytical/state_v2/checkpoint_0400.png" alt="Case1 analytical iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case1/analytical/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case1/analytical/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case1/analytical/state_v2/checkpoint_0600.png" alt="Case1 analytical iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case1/analytical/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case1/analytical/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case1/analytical/state_v2/checkpoint_0800.png" alt="Case1 analytical iteration800 四通道"></details>
 </details>
-<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case1/rl/summary.json'>summary</a> · <a href='Case1/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case1/rl/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case1/rl/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case1/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case1/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case1/rl/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case1/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case1/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case1/rl/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case1/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case1/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case1/rl/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case1/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case1/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case1/rl/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case1/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case1/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case1/rl/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>rl · HPWL 67980.94 mm · overlap 0.000000 · valid True</summary>
+<img loading="lazy" src="Case1/rl/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case1/rl/summary.json">原始运行记录</a> · <a href="Case1/rl/state_v2/manifest.json">四通道投影版本</a> · <a href="Case1/rl/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case1/rl/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case1/rl/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case1/rl/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case1/rl/state_v2/checkpoint_0000.png" alt="Case1 rl iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case1/rl/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case1/rl/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case1/rl/state_v2/checkpoint_0200.png" alt="Case1 rl iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case1/rl/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case1/rl/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case1/rl/state_v2/checkpoint_0400.png" alt="Case1 rl iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case1/rl/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case1/rl/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case1/rl/state_v2/checkpoint_0600.png" alt="Case1 rl iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case1/rl/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case1/rl/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case1/rl/state_v2/checkpoint_0800.png" alt="Case1 rl iteration800 四通道"></details>
 </details>
-<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case1/algorithm_effects.png'></details></section>
-<section id='Case2'><h2>Case2</h2>
-<p>6 chiplets | area utilization 98.37%</p>
-<img loading='lazy' src='Case2/metric_trends.png' alt='完整指标走势'>
-<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
-<tr><td>SA (Metropolis)</td><td>81707.578</td><td>0.077108</td><td>False</td></tr>
-<tr><td>Analytical (gradient)</td><td>41960.563</td><td>0.157191</td><td>False</td></tr>
-<tr><td>RL (online REINFORCE)</td><td>58211.957</td><td>0.103475</td><td>False</td></tr>
-</table>
-<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case2/sa/summary.json'>summary</a> · <a href='Case2/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case2/sa/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case2/sa/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case2/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case2/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case2/sa/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case2/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case2/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case2/sa/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case2/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case2/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case2/sa/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case2/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case2/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case2/sa/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case2/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case2/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case2/sa/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>最终−初始：四通道变化</summary><img loading="lazy" src="Case1/state_v2/algorithm_effects.png" alt="独立轨迹变化"></details></section>
+<section id="Case2"><h2>Case2</h2>
+<p>6芯粒 · 面积利用率98.37%</p>
+<details><summary>priority 数值如何得到：逐芯粒连接度与颜色值</summary><table><tr><th>芯粒</th><th>incident pin 数</th><th>q_i / 色图值</th></tr>
+<tr><td>Virtuvian_0</td><td>3520</td><td>1.000000</td></tr>
+<tr><td>HBM_0</td><td>704</td><td>0.200000</td></tr>
+<tr><td>HBM_1</td><td>704</td><td>0.200000</td></tr>
+<tr><td>HBM_2</td><td>704</td><td>0.200000</td></tr>
+<tr><td>HBM_3</td><td>704</td><td>0.200000</td></tr>
+<tr><td>Nimbus_0</td><td>704</td><td>0.200000</td></tr>
+</table><p>每个芯粒内部颜色由q_i决定；布局移动只改变其空间位置。重叠像素取最大q_i；低连接度不等于可忽略。</p></details>
+<img loading="lazy" src="Case2/metric_trends.png" alt="完整指标走势">
+<details><summary>sa · HPWL 81707.58 mm · overlap 0.077108 · valid False</summary>
+<img loading="lazy" src="Case2/sa/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case2/sa/summary.json">原始运行记录</a> · <a href="Case2/sa/state_v2/manifest.json">四通道投影版本</a> · <a href="Case2/sa/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case2/sa/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case2/sa/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case2/sa/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case2/sa/state_v2/checkpoint_0000.png" alt="Case2 sa iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case2/sa/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case2/sa/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case2/sa/state_v2/checkpoint_0200.png" alt="Case2 sa iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case2/sa/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case2/sa/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case2/sa/state_v2/checkpoint_0400.png" alt="Case2 sa iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case2/sa/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case2/sa/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case2/sa/state_v2/checkpoint_0600.png" alt="Case2 sa iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case2/sa/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case2/sa/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case2/sa/state_v2/checkpoint_0800.png" alt="Case2 sa iteration800 四通道"></details>
 </details>
-<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case2/analytical/summary.json'>summary</a> · <a href='Case2/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case2/analytical/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case2/analytical/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case2/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case2/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case2/analytical/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case2/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case2/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case2/analytical/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case2/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case2/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case2/analytical/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case2/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case2/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case2/analytical/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case2/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case2/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case2/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>analytical · HPWL 41960.56 mm · overlap 0.157191 · valid False</summary>
+<img loading="lazy" src="Case2/analytical/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case2/analytical/summary.json">原始运行记录</a> · <a href="Case2/analytical/state_v2/manifest.json">四通道投影版本</a> · <a href="Case2/analytical/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case2/analytical/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case2/analytical/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case2/analytical/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case2/analytical/state_v2/checkpoint_0000.png" alt="Case2 analytical iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case2/analytical/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case2/analytical/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case2/analytical/state_v2/checkpoint_0200.png" alt="Case2 analytical iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case2/analytical/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case2/analytical/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case2/analytical/state_v2/checkpoint_0400.png" alt="Case2 analytical iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case2/analytical/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case2/analytical/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case2/analytical/state_v2/checkpoint_0600.png" alt="Case2 analytical iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case2/analytical/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case2/analytical/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case2/analytical/state_v2/checkpoint_0800.png" alt="Case2 analytical iteration800 四通道"></details>
 </details>
-<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case2/rl/summary.json'>summary</a> · <a href='Case2/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case2/rl/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case2/rl/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case2/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case2/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case2/rl/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case2/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case2/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case2/rl/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case2/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case2/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case2/rl/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case2/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case2/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case2/rl/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case2/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case2/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case2/rl/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>rl · HPWL 58211.96 mm · overlap 0.103475 · valid False</summary>
+<img loading="lazy" src="Case2/rl/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case2/rl/summary.json">原始运行记录</a> · <a href="Case2/rl/state_v2/manifest.json">四通道投影版本</a> · <a href="Case2/rl/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case2/rl/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case2/rl/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case2/rl/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case2/rl/state_v2/checkpoint_0000.png" alt="Case2 rl iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case2/rl/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case2/rl/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case2/rl/state_v2/checkpoint_0200.png" alt="Case2 rl iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case2/rl/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case2/rl/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case2/rl/state_v2/checkpoint_0400.png" alt="Case2 rl iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case2/rl/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case2/rl/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case2/rl/state_v2/checkpoint_0600.png" alt="Case2 rl iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case2/rl/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case2/rl/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case2/rl/state_v2/checkpoint_0800.png" alt="Case2 rl iteration800 四通道"></details>
 </details>
-<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case2/algorithm_effects.png'></details></section>
-<section id='Case3'><h2>Case3</h2>
-<p>8 chiplets | area utilization 40.24%</p>
-<img loading='lazy' src='Case3/metric_trends.png' alt='完整指标走势'>
-<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
-<tr><td>SA (Metropolis)</td><td>124811.840</td><td>0.000015</td><td>False</td></tr>
-<tr><td>Analytical (gradient)</td><td>87314.656</td><td>0.000045</td><td>False</td></tr>
-<tr><td>RL (online REINFORCE)</td><td>121245.577</td><td>0.000000</td><td>True</td></tr>
-</table>
-<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case3/sa/summary.json'>summary</a> · <a href='Case3/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case3/sa/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case3/sa/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case3/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case3/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case3/sa/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case3/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case3/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case3/sa/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case3/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case3/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case3/sa/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case3/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case3/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case3/sa/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case3/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case3/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case3/sa/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>最终−初始：四通道变化</summary><img loading="lazy" src="Case2/state_v2/algorithm_effects.png" alt="独立轨迹变化"></details></section>
+<section id="Case3"><h2>Case3</h2>
+<p>8芯粒 · 面积利用率40.24%</p>
+<details><summary>priority 数值如何得到：逐芯粒连接度与颜色值</summary><table><tr><th>芯粒</th><th>incident pin 数</th><th>q_i / 色图值</th></tr>
+<tr><td>CPU2_0</td><td>2816</td><td>1.000000</td></tr>
+<tr><td>CPU2_1</td><td>2816</td><td>1.000000</td></tr>
+<tr><td>CPU2_2</td><td>2816</td><td>1.000000</td></tr>
+<tr><td>CPU2_3</td><td>2816</td><td>1.000000</td></tr>
+<tr><td>DRAM_0</td><td>1408</td><td>0.500000</td></tr>
+<tr><td>DRAM_1</td><td>1408</td><td>0.500000</td></tr>
+<tr><td>DRAM_2</td><td>1408</td><td>0.500000</td></tr>
+<tr><td>DRAM_3</td><td>1408</td><td>0.500000</td></tr>
+</table><p>每个芯粒内部颜色由q_i决定；布局移动只改变其空间位置。重叠像素取最大q_i；低连接度不等于可忽略。</p></details>
+<img loading="lazy" src="Case3/metric_trends.png" alt="完整指标走势">
+<details><summary>sa · HPWL 124811.84 mm · overlap 0.000015 · valid False</summary>
+<img loading="lazy" src="Case3/sa/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case3/sa/summary.json">原始运行记录</a> · <a href="Case3/sa/state_v2/manifest.json">四通道投影版本</a> · <a href="Case3/sa/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case3/sa/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case3/sa/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case3/sa/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case3/sa/state_v2/checkpoint_0000.png" alt="Case3 sa iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case3/sa/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case3/sa/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case3/sa/state_v2/checkpoint_0200.png" alt="Case3 sa iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case3/sa/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case3/sa/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case3/sa/state_v2/checkpoint_0400.png" alt="Case3 sa iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case3/sa/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case3/sa/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case3/sa/state_v2/checkpoint_0600.png" alt="Case3 sa iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case3/sa/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case3/sa/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case3/sa/state_v2/checkpoint_0800.png" alt="Case3 sa iteration800 四通道"></details>
 </details>
-<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case3/analytical/summary.json'>summary</a> · <a href='Case3/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case3/analytical/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case3/analytical/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case3/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case3/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case3/analytical/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case3/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case3/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case3/analytical/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case3/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case3/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case3/analytical/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case3/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case3/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case3/analytical/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case3/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case3/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case3/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>analytical · HPWL 87314.66 mm · overlap 0.000045 · valid False</summary>
+<img loading="lazy" src="Case3/analytical/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case3/analytical/summary.json">原始运行记录</a> · <a href="Case3/analytical/state_v2/manifest.json">四通道投影版本</a> · <a href="Case3/analytical/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case3/analytical/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case3/analytical/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case3/analytical/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case3/analytical/state_v2/checkpoint_0000.png" alt="Case3 analytical iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case3/analytical/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case3/analytical/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case3/analytical/state_v2/checkpoint_0200.png" alt="Case3 analytical iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case3/analytical/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case3/analytical/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case3/analytical/state_v2/checkpoint_0400.png" alt="Case3 analytical iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case3/analytical/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case3/analytical/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case3/analytical/state_v2/checkpoint_0600.png" alt="Case3 analytical iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case3/analytical/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case3/analytical/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case3/analytical/state_v2/checkpoint_0800.png" alt="Case3 analytical iteration800 四通道"></details>
 </details>
-<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case3/rl/summary.json'>summary</a> · <a href='Case3/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case3/rl/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case3/rl/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case3/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case3/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case3/rl/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case3/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case3/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case3/rl/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case3/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case3/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case3/rl/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case3/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case3/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case3/rl/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case3/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case3/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case3/rl/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>rl · HPWL 121245.58 mm · overlap 0.000000 · valid True</summary>
+<img loading="lazy" src="Case3/rl/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case3/rl/summary.json">原始运行记录</a> · <a href="Case3/rl/state_v2/manifest.json">四通道投影版本</a> · <a href="Case3/rl/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case3/rl/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case3/rl/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case3/rl/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case3/rl/state_v2/checkpoint_0000.png" alt="Case3 rl iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case3/rl/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case3/rl/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case3/rl/state_v2/checkpoint_0200.png" alt="Case3 rl iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case3/rl/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case3/rl/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case3/rl/state_v2/checkpoint_0400.png" alt="Case3 rl iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case3/rl/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case3/rl/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case3/rl/state_v2/checkpoint_0600.png" alt="Case3 rl iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case3/rl/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case3/rl/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case3/rl/state_v2/checkpoint_0800.png" alt="Case3 rl iteration800 四通道"></details>
 </details>
-<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case3/algorithm_effects.png'></details></section>
-<section id='Case4'><h2>Case4</h2>
-<p>11 chiplets | area utilization 150.77%</p>
-<img loading='lazy' src='Case4/metric_trends.png' alt='完整指标走势'>
-<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
-<tr><td>SA (Metropolis)</td><td>152227.577</td><td>0.440225</td><td>False</td></tr>
-<tr><td>Analytical (gradient)</td><td>148851.856</td><td>0.381975</td><td>False</td></tr>
-<tr><td>RL (online REINFORCE)</td><td>144075.860</td><td>0.347018</td><td>False</td></tr>
-</table>
-<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case4/sa/summary.json'>summary</a> · <a href='Case4/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case4/sa/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case4/sa/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case4/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case4/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case4/sa/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case4/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case4/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case4/sa/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case4/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case4/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case4/sa/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case4/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case4/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case4/sa/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case4/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case4/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case4/sa/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>最终−初始：四通道变化</summary><img loading="lazy" src="Case3/state_v2/algorithm_effects.png" alt="独立轨迹变化"></details></section>
+<section id="Case4"><h2>Case4</h2>
+<p>11芯粒 · 面积利用率150.77%</p>
+<details><summary>priority 数值如何得到：逐芯粒连接度与颜色值</summary><table><tr><th>芯粒</th><th>incident pin 数</th><th>q_i / 色图值</th></tr>
+<tr><td>CPU1_0</td><td>2816</td><td>1.000000</td></tr>
+<tr><td>CPU1_1</td><td>2112</td><td>0.750000</td></tr>
+<tr><td>GPU_0</td><td>1408</td><td>0.500000</td></tr>
+<tr><td>GPU_1</td><td>1408</td><td>0.500000</td></tr>
+<tr><td>GPU_2</td><td>1408</td><td>0.500000</td></tr>
+<tr><td>GPU_3</td><td>1408</td><td>0.500000</td></tr>
+<tr><td>HBM_0</td><td>704</td><td>0.250000</td></tr>
+<tr><td>HBM_1</td><td>704</td><td>0.250000</td></tr>
+<tr><td>HBM_2</td><td>704</td><td>0.250000</td></tr>
+<tr><td>HBM_3</td><td>704</td><td>0.250000</td></tr>
+<tr><td>HBM_4</td><td>704</td><td>0.250000</td></tr>
+</table><p>每个芯粒内部颜色由q_i决定；布局移动只改变其空间位置。重叠像素取最大q_i；低连接度不等于可忽略。</p></details>
+<p class="note">此处Case4保留原37×37 mm不可行诊断。59×59 mm替代几何是另一个版本，见同状态实验，不能混合比较。</p>
+<img loading="lazy" src="Case4/metric_trends.png" alt="完整指标走势">
+<details><summary>sa · HPWL 152227.58 mm · overlap 0.440225 · valid False</summary>
+<img loading="lazy" src="Case4/sa/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case4/sa/summary.json">原始运行记录</a> · <a href="Case4/sa/state_v2/manifest.json">四通道投影版本</a> · <a href="Case4/sa/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case4/sa/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case4/sa/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case4/sa/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case4/sa/state_v2/checkpoint_0000.png" alt="Case4 sa iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case4/sa/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case4/sa/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case4/sa/state_v2/checkpoint_0200.png" alt="Case4 sa iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case4/sa/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case4/sa/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case4/sa/state_v2/checkpoint_0400.png" alt="Case4 sa iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case4/sa/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case4/sa/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case4/sa/state_v2/checkpoint_0600.png" alt="Case4 sa iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case4/sa/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case4/sa/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case4/sa/state_v2/checkpoint_0800.png" alt="Case4 sa iteration800 四通道"></details>
 </details>
-<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case4/analytical/summary.json'>summary</a> · <a href='Case4/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case4/analytical/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case4/analytical/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case4/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case4/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case4/analytical/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case4/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case4/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case4/analytical/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case4/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case4/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case4/analytical/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case4/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case4/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case4/analytical/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case4/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case4/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case4/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>analytical · HPWL 148851.86 mm · overlap 0.381975 · valid False</summary>
+<img loading="lazy" src="Case4/analytical/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case4/analytical/summary.json">原始运行记录</a> · <a href="Case4/analytical/state_v2/manifest.json">四通道投影版本</a> · <a href="Case4/analytical/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case4/analytical/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case4/analytical/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case4/analytical/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case4/analytical/state_v2/checkpoint_0000.png" alt="Case4 analytical iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case4/analytical/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case4/analytical/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case4/analytical/state_v2/checkpoint_0200.png" alt="Case4 analytical iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case4/analytical/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case4/analytical/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case4/analytical/state_v2/checkpoint_0400.png" alt="Case4 analytical iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case4/analytical/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case4/analytical/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case4/analytical/state_v2/checkpoint_0600.png" alt="Case4 analytical iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case4/analytical/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case4/analytical/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case4/analytical/state_v2/checkpoint_0800.png" alt="Case4 analytical iteration800 四通道"></details>
 </details>
-<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case4/rl/summary.json'>summary</a> · <a href='Case4/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case4/rl/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case4/rl/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case4/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case4/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case4/rl/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case4/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case4/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case4/rl/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case4/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case4/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case4/rl/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case4/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case4/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case4/rl/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case4/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case4/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case4/rl/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>rl · HPWL 144075.86 mm · overlap 0.347018 · valid False</summary>
+<img loading="lazy" src="Case4/rl/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case4/rl/summary.json">原始运行记录</a> · <a href="Case4/rl/state_v2/manifest.json">四通道投影版本</a> · <a href="Case4/rl/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case4/rl/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case4/rl/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case4/rl/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case4/rl/state_v2/checkpoint_0000.png" alt="Case4 rl iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case4/rl/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case4/rl/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case4/rl/state_v2/checkpoint_0200.png" alt="Case4 rl iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case4/rl/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case4/rl/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case4/rl/state_v2/checkpoint_0400.png" alt="Case4 rl iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case4/rl/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case4/rl/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case4/rl/state_v2/checkpoint_0600.png" alt="Case4 rl iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case4/rl/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case4/rl/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case4/rl/state_v2/checkpoint_0800.png" alt="Case4 rl iteration800 四通道"></details>
 </details>
-<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case4/algorithm_effects.png'></details></section>
-<section id='Case5'><h2>Case5</h2>
-<p>12 chiplets | area utilization 27.30%</p>
-<img loading='lazy' src='Case5/metric_trends.png' alt='完整指标走势'>
-<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
-<tr><td>SA (Metropolis)</td><td>168996.673</td><td>0.000049</td><td>False</td></tr>
-<tr><td>Analytical (gradient)</td><td>130126.963</td><td>0.000000</td><td>True</td></tr>
-<tr><td>RL (online REINFORCE)</td><td>169107.472</td><td>0.000000</td><td>True</td></tr>
-</table>
-<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case5/sa/summary.json'>summary</a> · <a href='Case5/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case5/sa/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case5/sa/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case5/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case5/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case5/sa/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case5/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case5/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case5/sa/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case5/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case5/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case5/sa/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case5/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case5/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case5/sa/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case5/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case5/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case5/sa/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>最终−初始：四通道变化</summary><img loading="lazy" src="Case4/state_v2/algorithm_effects.png" alt="独立轨迹变化"></details></section>
+<section id="Case5"><h2>Case5</h2>
+<p>12芯粒 · 面积利用率27.30%</p>
+<details><summary>priority 数值如何得到：逐芯粒连接度与颜色值</summary><table><tr><th>芯粒</th><th>incident pin 数</th><th>q_i / 色图值</th></tr>
+<tr><td>CPU2_0</td><td>1760</td><td>1.000000</td></tr>
+<tr><td>CPU2_1</td><td>1760</td><td>1.000000</td></tr>
+<tr><td>CPU2_2</td><td>1760</td><td>1.000000</td></tr>
+<tr><td>CPU2_3</td><td>1760</td><td>1.000000</td></tr>
+<tr><td>CPU2_4</td><td>1760</td><td>1.000000</td></tr>
+<tr><td>CPU2_5</td><td>1760</td><td>1.000000</td></tr>
+<tr><td>DRAM_0</td><td>704</td><td>0.400000</td></tr>
+<tr><td>DRAM_1</td><td>704</td><td>0.400000</td></tr>
+<tr><td>DRAM_2</td><td>704</td><td>0.400000</td></tr>
+<tr><td>DRAM_3</td><td>704</td><td>0.400000</td></tr>
+<tr><td>DRAM_4</td><td>704</td><td>0.400000</td></tr>
+<tr><td>DRAM_5</td><td>704</td><td>0.400000</td></tr>
+</table><p>每个芯粒内部颜色由q_i决定；布局移动只改变其空间位置。重叠像素取最大q_i；低连接度不等于可忽略。</p></details>
+<img loading="lazy" src="Case5/metric_trends.png" alt="完整指标走势">
+<details><summary>sa · HPWL 168996.67 mm · overlap 0.000049 · valid False</summary>
+<img loading="lazy" src="Case5/sa/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case5/sa/summary.json">原始运行记录</a> · <a href="Case5/sa/state_v2/manifest.json">四通道投影版本</a> · <a href="Case5/sa/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case5/sa/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case5/sa/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case5/sa/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case5/sa/state_v2/checkpoint_0000.png" alt="Case5 sa iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case5/sa/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case5/sa/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case5/sa/state_v2/checkpoint_0200.png" alt="Case5 sa iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case5/sa/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case5/sa/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case5/sa/state_v2/checkpoint_0400.png" alt="Case5 sa iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case5/sa/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case5/sa/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case5/sa/state_v2/checkpoint_0600.png" alt="Case5 sa iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case5/sa/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case5/sa/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case5/sa/state_v2/checkpoint_0800.png" alt="Case5 sa iteration800 四通道"></details>
 </details>
-<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case5/analytical/summary.json'>summary</a> · <a href='Case5/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case5/analytical/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case5/analytical/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case5/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case5/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case5/analytical/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case5/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case5/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case5/analytical/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case5/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case5/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case5/analytical/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case5/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case5/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case5/analytical/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case5/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case5/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case5/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>analytical · HPWL 130126.96 mm · overlap 0.000000 · valid True</summary>
+<img loading="lazy" src="Case5/analytical/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case5/analytical/summary.json">原始运行记录</a> · <a href="Case5/analytical/state_v2/manifest.json">四通道投影版本</a> · <a href="Case5/analytical/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case5/analytical/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case5/analytical/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case5/analytical/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case5/analytical/state_v2/checkpoint_0000.png" alt="Case5 analytical iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case5/analytical/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case5/analytical/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case5/analytical/state_v2/checkpoint_0200.png" alt="Case5 analytical iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case5/analytical/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case5/analytical/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case5/analytical/state_v2/checkpoint_0400.png" alt="Case5 analytical iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case5/analytical/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case5/analytical/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case5/analytical/state_v2/checkpoint_0600.png" alt="Case5 analytical iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case5/analytical/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case5/analytical/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case5/analytical/state_v2/checkpoint_0800.png" alt="Case5 analytical iteration800 四通道"></details>
 </details>
-<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case5/rl/summary.json'>summary</a> · <a href='Case5/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case5/rl/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case5/rl/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case5/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case5/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case5/rl/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case5/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case5/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case5/rl/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case5/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case5/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case5/rl/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case5/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case5/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case5/rl/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case5/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case5/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case5/rl/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>rl · HPWL 169107.47 mm · overlap 0.000000 · valid True</summary>
+<img loading="lazy" src="Case5/rl/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case5/rl/summary.json">原始运行记录</a> · <a href="Case5/rl/state_v2/manifest.json">四通道投影版本</a> · <a href="Case5/rl/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case5/rl/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case5/rl/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case5/rl/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case5/rl/state_v2/checkpoint_0000.png" alt="Case5 rl iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case5/rl/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case5/rl/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case5/rl/state_v2/checkpoint_0200.png" alt="Case5 rl iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case5/rl/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case5/rl/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case5/rl/state_v2/checkpoint_0400.png" alt="Case5 rl iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case5/rl/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case5/rl/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case5/rl/state_v2/checkpoint_0600.png" alt="Case5 rl iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case5/rl/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case5/rl/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case5/rl/state_v2/checkpoint_0800.png" alt="Case5 rl iteration800 四通道"></details>
 </details>
-<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case5/algorithm_effects.png'></details></section>
-<section id='Case6'><h2>Case6</h2>
-<p>20 chiplets | area utilization 47.44%</p>
-<img loading='lazy' src='Case6/metric_trends.png' alt='完整指标走势'>
-<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
-<tr><td>SA (Metropolis)</td><td>178386.715</td><td>0.000096</td><td>False</td></tr>
-<tr><td>Analytical (gradient)</td><td>134575.850</td><td>0.000124</td><td>False</td></tr>
-<tr><td>RL (online REINFORCE)</td><td>153514.360</td><td>0.000959</td><td>False</td></tr>
-</table>
-<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case6/sa/summary.json'>summary</a> · <a href='Case6/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case6/sa/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case6/sa/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case6/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case6/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case6/sa/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case6/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case6/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case6/sa/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case6/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case6/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case6/sa/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case6/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case6/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case6/sa/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case6/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case6/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case6/sa/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>最终−初始：四通道变化</summary><img loading="lazy" src="Case5/state_v2/algorithm_effects.png" alt="独立轨迹变化"></details></section>
+<section id="Case6"><h2>Case6</h2>
+<p>20芯粒 · 面积利用率47.44%</p>
+<details><summary>priority 数值如何得到：逐芯粒连接度与颜色值</summary><table><tr><th>芯粒</th><th>incident pin 数</th><th>q_i / 色图值</th></tr>
+<tr><td>CPU2_0</td><td>704</td><td>1.000000</td></tr>
+<tr><td>CPU2_1</td><td>704</td><td>1.000000</td></tr>
+<tr><td>CPU2_2</td><td>704</td><td>1.000000</td></tr>
+<tr><td>CPU2_3</td><td>704</td><td>1.000000</td></tr>
+<tr><td>CPU2_4</td><td>704</td><td>1.000000</td></tr>
+<tr><td>CPU2_5</td><td>704</td><td>1.000000</td></tr>
+<tr><td>CPU2_6</td><td>704</td><td>1.000000</td></tr>
+<tr><td>CPU2_7</td><td>704</td><td>1.000000</td></tr>
+<tr><td>GPU_0</td><td>704</td><td>1.000000</td></tr>
+<tr><td>GPU_1</td><td>704</td><td>1.000000</td></tr>
+<tr><td>GPU_2</td><td>704</td><td>1.000000</td></tr>
+<tr><td>GPU_3</td><td>704</td><td>1.000000</td></tr>
+<tr><td>DRAM_0</td><td>352</td><td>0.500000</td></tr>
+<tr><td>DRAM_1</td><td>352</td><td>0.500000</td></tr>
+<tr><td>DRAM_2</td><td>352</td><td>0.500000</td></tr>
+<tr><td>DRAM_3</td><td>352</td><td>0.500000</td></tr>
+<tr><td>HBM_0</td><td>352</td><td>0.500000</td></tr>
+<tr><td>HBM_1</td><td>352</td><td>0.500000</td></tr>
+<tr><td>HBM_2</td><td>352</td><td>0.500000</td></tr>
+<tr><td>HBM_3</td><td>352</td><td>0.500000</td></tr>
+</table><p>每个芯粒内部颜色由q_i决定；布局移动只改变其空间位置。重叠像素取最大q_i；低连接度不等于可忽略。</p></details>
+<img loading="lazy" src="Case6/metric_trends.png" alt="完整指标走势">
+<details><summary>sa · HPWL 178386.71 mm · overlap 0.000096 · valid False</summary>
+<img loading="lazy" src="Case6/sa/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case6/sa/summary.json">原始运行记录</a> · <a href="Case6/sa/state_v2/manifest.json">四通道投影版本</a> · <a href="Case6/sa/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case6/sa/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case6/sa/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case6/sa/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case6/sa/state_v2/checkpoint_0000.png" alt="Case6 sa iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case6/sa/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case6/sa/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case6/sa/state_v2/checkpoint_0200.png" alt="Case6 sa iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case6/sa/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case6/sa/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case6/sa/state_v2/checkpoint_0400.png" alt="Case6 sa iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case6/sa/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case6/sa/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case6/sa/state_v2/checkpoint_0600.png" alt="Case6 sa iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case6/sa/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case6/sa/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case6/sa/state_v2/checkpoint_0800.png" alt="Case6 sa iteration800 四通道"></details>
 </details>
-<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case6/analytical/summary.json'>summary</a> · <a href='Case6/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case6/analytical/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case6/analytical/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case6/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case6/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case6/analytical/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case6/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case6/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case6/analytical/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case6/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case6/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case6/analytical/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case6/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case6/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case6/analytical/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case6/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case6/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case6/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>analytical · HPWL 134575.85 mm · overlap 0.000124 · valid False</summary>
+<img loading="lazy" src="Case6/analytical/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case6/analytical/summary.json">原始运行记录</a> · <a href="Case6/analytical/state_v2/manifest.json">四通道投影版本</a> · <a href="Case6/analytical/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case6/analytical/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case6/analytical/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case6/analytical/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case6/analytical/state_v2/checkpoint_0000.png" alt="Case6 analytical iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case6/analytical/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case6/analytical/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case6/analytical/state_v2/checkpoint_0200.png" alt="Case6 analytical iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case6/analytical/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case6/analytical/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case6/analytical/state_v2/checkpoint_0400.png" alt="Case6 analytical iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case6/analytical/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case6/analytical/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case6/analytical/state_v2/checkpoint_0600.png" alt="Case6 analytical iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case6/analytical/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case6/analytical/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case6/analytical/state_v2/checkpoint_0800.png" alt="Case6 analytical iteration800 四通道"></details>
 </details>
-<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case6/rl/summary.json'>summary</a> · <a href='Case6/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case6/rl/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case6/rl/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case6/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case6/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case6/rl/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case6/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case6/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case6/rl/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case6/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case6/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case6/rl/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case6/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case6/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case6/rl/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case6/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case6/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case6/rl/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>rl · HPWL 153514.36 mm · overlap 0.000959 · valid False</summary>
+<img loading="lazy" src="Case6/rl/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case6/rl/summary.json">原始运行记录</a> · <a href="Case6/rl/state_v2/manifest.json">四通道投影版本</a> · <a href="Case6/rl/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case6/rl/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case6/rl/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case6/rl/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case6/rl/state_v2/checkpoint_0000.png" alt="Case6 rl iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case6/rl/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case6/rl/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case6/rl/state_v2/checkpoint_0200.png" alt="Case6 rl iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case6/rl/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case6/rl/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case6/rl/state_v2/checkpoint_0400.png" alt="Case6 rl iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case6/rl/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case6/rl/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case6/rl/state_v2/checkpoint_0600.png" alt="Case6 rl iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case6/rl/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case6/rl/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case6/rl/state_v2/checkpoint_0800.png" alt="Case6 rl iteration800 四通道"></details>
 </details>
-<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case6/algorithm_effects.png'></details></section>
-<section id='Case7'><h2>Case7</h2>
-<p>28 chiplets | area utilization 46.56%</p>
-<img loading='lazy' src='Case7/metric_trends.png' alt='完整指标走势'>
-<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
-<tr><td>SA (Metropolis)</td><td>47619.646</td><td>0.051616</td><td>False</td></tr>
-<tr><td>Analytical (gradient)</td><td>35843.854</td><td>0.000000</td><td>True</td></tr>
-<tr><td>RL (online REINFORCE)</td><td>37129.222</td><td>0.003958</td><td>False</td></tr>
-</table>
-<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case7/sa/summary.json'>summary</a> · <a href='Case7/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case7/sa/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case7/sa/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case7/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case7/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case7/sa/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case7/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case7/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case7/sa/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case7/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case7/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case7/sa/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case7/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case7/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case7/sa/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case7/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case7/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case7/sa/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>最终−初始：四通道变化</summary><img loading="lazy" src="Case6/state_v2/algorithm_effects.png" alt="独立轨迹变化"></details></section>
+<section id="Case7"><h2>Case7</h2>
+<p>28芯粒 · 面积利用率46.56%</p>
+<details><summary>priority 数值如何得到：逐芯粒连接度与颜色值</summary><table><tr><th>芯粒</th><th>incident pin 数</th><th>q_i / 色图值</th></tr>
+<tr><td>CPU2_0</td><td>704</td><td>1.000000</td></tr>
+<tr><td>CPU2_1</td><td>704</td><td>1.000000</td></tr>
+<tr><td>DRAM_0</td><td>352</td><td>0.500000</td></tr>
+<tr><td>DRAM_1</td><td>352</td><td>0.500000</td></tr>
+<tr><td>CPU1_0</td><td>308</td><td>0.437500</td></tr>
+<tr><td>CPU1_1</td><td>308</td><td>0.437500</td></tr>
+<tr><td>CPU1_2</td><td>308</td><td>0.437500</td></tr>
+<tr><td>CPU1_3</td><td>308</td><td>0.437500</td></tr>
+<tr><td>CPU1_4</td><td>308</td><td>0.437500</td></tr>
+<tr><td>CPU1_5</td><td>308</td><td>0.437500</td></tr>
+<tr><td>CPU1_6</td><td>308</td><td>0.437500</td></tr>
+<tr><td>CPU1_7</td><td>308</td><td>0.437500</td></tr>
+<tr><td>Analog_0</td><td>88</td><td>0.125000</td></tr>
+<tr><td>Analog_1</td><td>88</td><td>0.125000</td></tr>
+<tr><td>Analog_2</td><td>88</td><td>0.125000</td></tr>
+<tr><td>Analog_3</td><td>88</td><td>0.125000</td></tr>
+<tr><td>Analog_4</td><td>88</td><td>0.125000</td></tr>
+<tr><td>Analog_5</td><td>88</td><td>0.125000</td></tr>
+<tr><td>Analog_6</td><td>88</td><td>0.125000</td></tr>
+<tr><td>Analog_7</td><td>88</td><td>0.125000</td></tr>
+<tr><td>MEMS_0</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_1</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_2</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_3</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_4</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_5</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_6</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_7</td><td>44</td><td>0.062500</td></tr>
+</table><p>每个芯粒内部颜色由q_i决定；布局移动只改变其空间位置。重叠像素取最大q_i；低连接度不等于可忽略。</p></details>
+<img loading="lazy" src="Case7/metric_trends.png" alt="完整指标走势">
+<details><summary>sa · HPWL 47619.65 mm · overlap 0.051616 · valid False</summary>
+<img loading="lazy" src="Case7/sa/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case7/sa/summary.json">原始运行记录</a> · <a href="Case7/sa/state_v2/manifest.json">四通道投影版本</a> · <a href="Case7/sa/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case7/sa/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case7/sa/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case7/sa/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case7/sa/state_v2/checkpoint_0000.png" alt="Case7 sa iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case7/sa/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case7/sa/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case7/sa/state_v2/checkpoint_0200.png" alt="Case7 sa iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case7/sa/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case7/sa/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case7/sa/state_v2/checkpoint_0400.png" alt="Case7 sa iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case7/sa/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case7/sa/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case7/sa/state_v2/checkpoint_0600.png" alt="Case7 sa iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case7/sa/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case7/sa/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case7/sa/state_v2/checkpoint_0800.png" alt="Case7 sa iteration800 四通道"></details>
 </details>
-<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case7/analytical/summary.json'>summary</a> · <a href='Case7/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case7/analytical/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case7/analytical/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case7/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case7/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case7/analytical/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case7/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case7/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case7/analytical/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case7/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case7/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case7/analytical/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case7/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case7/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case7/analytical/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case7/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case7/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case7/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>analytical · HPWL 35843.85 mm · overlap 0.000000 · valid True</summary>
+<img loading="lazy" src="Case7/analytical/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case7/analytical/summary.json">原始运行记录</a> · <a href="Case7/analytical/state_v2/manifest.json">四通道投影版本</a> · <a href="Case7/analytical/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case7/analytical/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case7/analytical/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case7/analytical/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case7/analytical/state_v2/checkpoint_0000.png" alt="Case7 analytical iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case7/analytical/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case7/analytical/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case7/analytical/state_v2/checkpoint_0200.png" alt="Case7 analytical iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case7/analytical/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case7/analytical/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case7/analytical/state_v2/checkpoint_0400.png" alt="Case7 analytical iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case7/analytical/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case7/analytical/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case7/analytical/state_v2/checkpoint_0600.png" alt="Case7 analytical iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case7/analytical/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case7/analytical/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case7/analytical/state_v2/checkpoint_0800.png" alt="Case7 analytical iteration800 四通道"></details>
 </details>
-<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case7/rl/summary.json'>summary</a> · <a href='Case7/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case7/rl/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case7/rl/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case7/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case7/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case7/rl/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case7/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case7/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case7/rl/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case7/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case7/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case7/rl/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case7/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case7/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case7/rl/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case7/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case7/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case7/rl/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>rl · HPWL 37129.22 mm · overlap 0.003958 · valid False</summary>
+<img loading="lazy" src="Case7/rl/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case7/rl/summary.json">原始运行记录</a> · <a href="Case7/rl/state_v2/manifest.json">四通道投影版本</a> · <a href="Case7/rl/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case7/rl/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case7/rl/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case7/rl/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case7/rl/state_v2/checkpoint_0000.png" alt="Case7 rl iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case7/rl/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case7/rl/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case7/rl/state_v2/checkpoint_0200.png" alt="Case7 rl iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case7/rl/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case7/rl/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case7/rl/state_v2/checkpoint_0400.png" alt="Case7 rl iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case7/rl/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case7/rl/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case7/rl/state_v2/checkpoint_0600.png" alt="Case7 rl iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case7/rl/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case7/rl/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case7/rl/state_v2/checkpoint_0800.png" alt="Case7 rl iteration800 四通道"></details>
 </details>
-<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case7/algorithm_effects.png'></details></section>
-<section id='Case8'><h2>Case8</h2>
-<p>36 chiplets | area utilization 41.64%</p>
-<img loading='lazy' src='Case8/metric_trends.png' alt='完整指标走势'>
-<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
-<tr><td>SA (Metropolis)</td><td>38830.415</td><td>0.003793</td><td>False</td></tr>
-<tr><td>Analytical (gradient)</td><td>24248.717</td><td>0.000039</td><td>False</td></tr>
-<tr><td>RL (online REINFORCE)</td><td>30971.336</td><td>0.002025</td><td>False</td></tr>
-</table>
-<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case8/sa/summary.json'>summary</a> · <a href='Case8/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case8/sa/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case8/sa/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case8/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case8/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case8/sa/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case8/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case8/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case8/sa/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case8/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case8/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case8/sa/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case8/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case8/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case8/sa/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case8/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case8/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case8/sa/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>最终−初始：四通道变化</summary><img loading="lazy" src="Case7/state_v2/algorithm_effects.png" alt="独立轨迹变化"></details></section>
+<section id="Case8"><h2>Case8</h2>
+<p>36芯粒 · 面积利用率41.64%</p>
+<details><summary>priority 数值如何得到：逐芯粒连接度与颜色值</summary><table><tr><th>芯粒</th><th>incident pin 数</th><th>q_i / 色图值</th></tr>
+<tr><td>CPU1_6</td><td>352</td><td>1.000000</td></tr>
+<tr><td>CPU1_7</td><td>352</td><td>1.000000</td></tr>
+<tr><td>CPU1_0</td><td>308</td><td>0.875000</td></tr>
+<tr><td>CPU1_1</td><td>308</td><td>0.875000</td></tr>
+<tr><td>CPU1_10</td><td>308</td><td>0.875000</td></tr>
+<tr><td>CPU1_11</td><td>308</td><td>0.875000</td></tr>
+<tr><td>CPU1_2</td><td>308</td><td>0.875000</td></tr>
+<tr><td>CPU1_3</td><td>308</td><td>0.875000</td></tr>
+<tr><td>CPU1_4</td><td>308</td><td>0.875000</td></tr>
+<tr><td>CPU1_5</td><td>308</td><td>0.875000</td></tr>
+<tr><td>CPU1_8</td><td>308</td><td>0.875000</td></tr>
+<tr><td>CPU1_9</td><td>308</td><td>0.875000</td></tr>
+<tr><td>Analog_0</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_1</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_10</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_11</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_12</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_13</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_14</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_15</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_16</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_17</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_18</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_19</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_2</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_20</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_21</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_22</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_23</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_3</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_4</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_5</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_6</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_7</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_8</td><td>88</td><td>0.250000</td></tr>
+<tr><td>Analog_9</td><td>88</td><td>0.250000</td></tr>
+</table><p>每个芯粒内部颜色由q_i决定；布局移动只改变其空间位置。重叠像素取最大q_i；低连接度不等于可忽略。</p></details>
+<img loading="lazy" src="Case8/metric_trends.png" alt="完整指标走势">
+<details><summary>sa · HPWL 38830.41 mm · overlap 0.003793 · valid False</summary>
+<img loading="lazy" src="Case8/sa/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case8/sa/summary.json">原始运行记录</a> · <a href="Case8/sa/state_v2/manifest.json">四通道投影版本</a> · <a href="Case8/sa/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case8/sa/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case8/sa/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case8/sa/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case8/sa/state_v2/checkpoint_0000.png" alt="Case8 sa iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case8/sa/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case8/sa/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case8/sa/state_v2/checkpoint_0200.png" alt="Case8 sa iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case8/sa/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case8/sa/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case8/sa/state_v2/checkpoint_0400.png" alt="Case8 sa iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case8/sa/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case8/sa/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case8/sa/state_v2/checkpoint_0600.png" alt="Case8 sa iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case8/sa/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case8/sa/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case8/sa/state_v2/checkpoint_0800.png" alt="Case8 sa iteration800 四通道"></details>
 </details>
-<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case8/analytical/summary.json'>summary</a> · <a href='Case8/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case8/analytical/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case8/analytical/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case8/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case8/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case8/analytical/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case8/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case8/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case8/analytical/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case8/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case8/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case8/analytical/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case8/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case8/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case8/analytical/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case8/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case8/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case8/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>analytical · HPWL 24248.72 mm · overlap 0.000039 · valid False</summary>
+<img loading="lazy" src="Case8/analytical/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case8/analytical/summary.json">原始运行记录</a> · <a href="Case8/analytical/state_v2/manifest.json">四通道投影版本</a> · <a href="Case8/analytical/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case8/analytical/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case8/analytical/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case8/analytical/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case8/analytical/state_v2/checkpoint_0000.png" alt="Case8 analytical iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case8/analytical/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case8/analytical/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case8/analytical/state_v2/checkpoint_0200.png" alt="Case8 analytical iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case8/analytical/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case8/analytical/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case8/analytical/state_v2/checkpoint_0400.png" alt="Case8 analytical iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case8/analytical/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case8/analytical/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case8/analytical/state_v2/checkpoint_0600.png" alt="Case8 analytical iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case8/analytical/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case8/analytical/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case8/analytical/state_v2/checkpoint_0800.png" alt="Case8 analytical iteration800 四通道"></details>
 </details>
-<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case8/rl/summary.json'>summary</a> · <a href='Case8/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case8/rl/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case8/rl/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case8/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case8/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case8/rl/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case8/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case8/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case8/rl/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case8/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case8/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case8/rl/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case8/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case8/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case8/rl/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case8/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case8/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case8/rl/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>rl · HPWL 30971.34 mm · overlap 0.002025 · valid False</summary>
+<img loading="lazy" src="Case8/rl/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case8/rl/summary.json">原始运行记录</a> · <a href="Case8/rl/state_v2/manifest.json">四通道投影版本</a> · <a href="Case8/rl/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case8/rl/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case8/rl/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case8/rl/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case8/rl/state_v2/checkpoint_0000.png" alt="Case8 rl iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case8/rl/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case8/rl/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case8/rl/state_v2/checkpoint_0200.png" alt="Case8 rl iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case8/rl/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case8/rl/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case8/rl/state_v2/checkpoint_0400.png" alt="Case8 rl iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case8/rl/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case8/rl/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case8/rl/state_v2/checkpoint_0600.png" alt="Case8 rl iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case8/rl/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case8/rl/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case8/rl/state_v2/checkpoint_0800.png" alt="Case8 rl iteration800 四通道"></details>
 </details>
-<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case8/algorithm_effects.png'></details></section>
-<section id='Case9'><h2>Case9</h2>
-<p>44 chiplets | area utilization 55.88%</p>
-<img loading='lazy' src='Case9/metric_trends.png' alt='完整指标走势'>
-<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
-<tr><td>SA (Metropolis)</td><td>252410.423</td><td>0.032554</td><td>False</td></tr>
-<tr><td>Analytical (gradient)</td><td>223679.600</td><td>0.000416</td><td>False</td></tr>
-<tr><td>RL (online REINFORCE)</td><td>248132.775</td><td>0.019507</td><td>False</td></tr>
-</table>
-<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case9/sa/summary.json'>summary</a> · <a href='Case9/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case9/sa/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case9/sa/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case9/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case9/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case9/sa/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case9/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case9/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case9/sa/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case9/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case9/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case9/sa/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case9/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case9/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case9/sa/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case9/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case9/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case9/sa/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>最终−初始：四通道变化</summary><img loading="lazy" src="Case8/state_v2/algorithm_effects.png" alt="独立轨迹变化"></details></section>
+<section id="Case9"><h2>Case9</h2>
+<p>44芯粒 · 面积利用率55.88%</p>
+<details><summary>priority 数值如何得到：逐芯粒连接度与颜色值</summary><table><tr><th>芯粒</th><th>incident pin 数</th><th>q_i / 色图值</th></tr>
+<tr><td>CPU2_10</td><td>528</td><td>1.000000</td></tr>
+<tr><td>CPU2_11</td><td>528</td><td>1.000000</td></tr>
+<tr><td>GPU_0</td><td>528</td><td>1.000000</td></tr>
+<tr><td>GPU_1</td><td>528</td><td>1.000000</td></tr>
+<tr><td>GPU_2</td><td>528</td><td>1.000000</td></tr>
+<tr><td>GPU_3</td><td>528</td><td>1.000000</td></tr>
+<tr><td>GPU_4</td><td>528</td><td>1.000000</td></tr>
+<tr><td>GPU_5</td><td>528</td><td>1.000000</td></tr>
+<tr><td>GPU_6</td><td>528</td><td>1.000000</td></tr>
+<tr><td>GPU_7</td><td>528</td><td>1.000000</td></tr>
+<tr><td>CPU2_1</td><td>440</td><td>0.833333</td></tr>
+<tr><td>CPU2_2</td><td>440</td><td>0.833333</td></tr>
+<tr><td>CPU2_5</td><td>440</td><td>0.833333</td></tr>
+<tr><td>CPU2_6</td><td>440</td><td>0.833333</td></tr>
+<tr><td>CPU2_8</td><td>440</td><td>0.833333</td></tr>
+<tr><td>CPU2_9</td><td>440</td><td>0.833333</td></tr>
+<tr><td>CPU2_0</td><td>352</td><td>0.666667</td></tr>
+<tr><td>CPU2_3</td><td>352</td><td>0.666667</td></tr>
+<tr><td>CPU2_4</td><td>352</td><td>0.666667</td></tr>
+<tr><td>CPU2_7</td><td>352</td><td>0.666667</td></tr>
+<tr><td>DRAM_0</td><td>352</td><td>0.666667</td></tr>
+<tr><td>DRAM_1</td><td>352</td><td>0.666667</td></tr>
+<tr><td>HBM_0</td><td>352</td><td>0.666667</td></tr>
+<tr><td>HBM_1</td><td>352</td><td>0.666667</td></tr>
+<tr><td>HBM_2</td><td>352</td><td>0.666667</td></tr>
+<tr><td>HBM_3</td><td>352</td><td>0.666667</td></tr>
+<tr><td>HBM_4</td><td>352</td><td>0.666667</td></tr>
+<tr><td>HBM_5</td><td>352</td><td>0.666667</td></tr>
+<tr><td>HBM_6</td><td>352</td><td>0.666667</td></tr>
+<tr><td>HBM_7</td><td>352</td><td>0.666667</td></tr>
+<tr><td>IODie_0</td><td>352</td><td>0.666667</td></tr>
+<tr><td>IODie_1</td><td>352</td><td>0.666667</td></tr>
+<tr><td>CPU1_0</td><td>264</td><td>0.500000</td></tr>
+<tr><td>CPU1_1</td><td>264</td><td>0.500000</td></tr>
+<tr><td>CPU1_2</td><td>264</td><td>0.500000</td></tr>
+<tr><td>CPU1_3</td><td>264</td><td>0.500000</td></tr>
+<tr><td>Analog_0</td><td>88</td><td>0.166667</td></tr>
+<tr><td>Analog_1</td><td>88</td><td>0.166667</td></tr>
+<tr><td>Analog_2</td><td>88</td><td>0.166667</td></tr>
+<tr><td>Analog_3</td><td>88</td><td>0.166667</td></tr>
+<tr><td>Analog_4</td><td>88</td><td>0.166667</td></tr>
+<tr><td>Analog_5</td><td>88</td><td>0.166667</td></tr>
+<tr><td>Analog_6</td><td>88</td><td>0.166667</td></tr>
+<tr><td>Analog_7</td><td>88</td><td>0.166667</td></tr>
+</table><p>每个芯粒内部颜色由q_i决定；布局移动只改变其空间位置。重叠像素取最大q_i；低连接度不等于可忽略。</p></details>
+<img loading="lazy" src="Case9/metric_trends.png" alt="完整指标走势">
+<details><summary>sa · HPWL 252410.42 mm · overlap 0.032554 · valid False</summary>
+<img loading="lazy" src="Case9/sa/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case9/sa/summary.json">原始运行记录</a> · <a href="Case9/sa/state_v2/manifest.json">四通道投影版本</a> · <a href="Case9/sa/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case9/sa/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case9/sa/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case9/sa/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case9/sa/state_v2/checkpoint_0000.png" alt="Case9 sa iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case9/sa/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case9/sa/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case9/sa/state_v2/checkpoint_0200.png" alt="Case9 sa iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case9/sa/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case9/sa/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case9/sa/state_v2/checkpoint_0400.png" alt="Case9 sa iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case9/sa/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case9/sa/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case9/sa/state_v2/checkpoint_0600.png" alt="Case9 sa iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case9/sa/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case9/sa/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case9/sa/state_v2/checkpoint_0800.png" alt="Case9 sa iteration800 四通道"></details>
 </details>
-<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case9/analytical/summary.json'>summary</a> · <a href='Case9/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case9/analytical/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case9/analytical/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case9/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case9/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case9/analytical/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case9/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case9/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case9/analytical/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case9/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case9/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case9/analytical/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case9/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case9/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case9/analytical/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case9/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case9/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case9/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>analytical · HPWL 223679.60 mm · overlap 0.000416 · valid False</summary>
+<img loading="lazy" src="Case9/analytical/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case9/analytical/summary.json">原始运行记录</a> · <a href="Case9/analytical/state_v2/manifest.json">四通道投影版本</a> · <a href="Case9/analytical/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case9/analytical/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case9/analytical/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case9/analytical/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case9/analytical/state_v2/checkpoint_0000.png" alt="Case9 analytical iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case9/analytical/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case9/analytical/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case9/analytical/state_v2/checkpoint_0200.png" alt="Case9 analytical iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case9/analytical/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case9/analytical/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case9/analytical/state_v2/checkpoint_0400.png" alt="Case9 analytical iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case9/analytical/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case9/analytical/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case9/analytical/state_v2/checkpoint_0600.png" alt="Case9 analytical iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case9/analytical/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case9/analytical/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case9/analytical/state_v2/checkpoint_0800.png" alt="Case9 analytical iteration800 四通道"></details>
 </details>
-<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case9/rl/summary.json'>summary</a> · <a href='Case9/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case9/rl/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case9/rl/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case9/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case9/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case9/rl/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case9/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case9/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case9/rl/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case9/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case9/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case9/rl/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case9/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case9/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case9/rl/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case9/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case9/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case9/rl/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>rl · HPWL 248132.77 mm · overlap 0.019507 · valid False</summary>
+<img loading="lazy" src="Case9/rl/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case9/rl/summary.json">原始运行记录</a> · <a href="Case9/rl/state_v2/manifest.json">四通道投影版本</a> · <a href="Case9/rl/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case9/rl/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case9/rl/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case9/rl/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case9/rl/state_v2/checkpoint_0000.png" alt="Case9 rl iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case9/rl/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case9/rl/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case9/rl/state_v2/checkpoint_0200.png" alt="Case9 rl iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case9/rl/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case9/rl/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case9/rl/state_v2/checkpoint_0400.png" alt="Case9 rl iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case9/rl/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case9/rl/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case9/rl/state_v2/checkpoint_0600.png" alt="Case9 rl iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case9/rl/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case9/rl/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case9/rl/state_v2/checkpoint_0800.png" alt="Case9 rl iteration800 四通道"></details>
 </details>
-<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case9/algorithm_effects.png'></details></section>
-<section id='Case10'><h2>Case10</h2>
-<p>61 chiplets | area utilization 50.79%</p>
-<img loading='lazy' src='Case10/metric_trends.png' alt='完整指标走势'>
-<table><tr><th>算法</th><th>最终HPWL/mm</th><th>重叠率</th><th>合法</th></tr>
-<tr><td>SA (Metropolis)</td><td>149631.356</td><td>0.046305</td><td>False</td></tr>
-<tr><td>Analytical (gradient)</td><td>127016.511</td><td>0.000795</td><td>False</td></tr>
-<tr><td>RL (online REINFORCE)</td><td>148325.865</td><td>0.029426</td><td>False</td></tr>
-</table>
-<details><summary>SA (Metropolis)：五张快照、状态流与参数</summary><p><a href='Case10/sa/summary.json'>summary</a> · <a href='Case10/sa/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case10/sa/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case10/sa/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case10/sa/checkpoint_0000.pdf'>PDF</a> · <a href='Case10/sa/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case10/sa/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case10/sa/checkpoint_0200.pdf'>PDF</a> · <a href='Case10/sa/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case10/sa/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case10/sa/checkpoint_0400.pdf'>PDF</a> · <a href='Case10/sa/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case10/sa/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case10/sa/checkpoint_0600.pdf'>PDF</a> · <a href='Case10/sa/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case10/sa/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case10/sa/checkpoint_0800.pdf'>PDF</a> · <a href='Case10/sa/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case10/sa/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>最终−初始：四通道变化</summary><img loading="lazy" src="Case9/state_v2/algorithm_effects.png" alt="独立轨迹变化"></details></section>
+<section id="Case10"><h2>Case10</h2>
+<p>61芯粒 · 面积利用率50.79%</p>
+<details><summary>priority 数值如何得到：逐芯粒连接度与颜色值</summary><table><tr><th>芯粒</th><th>incident pin 数</th><th>q_i / 色图值</th></tr>
+<tr><td>CPU2_0</td><td>704</td><td>1.000000</td></tr>
+<tr><td>CPU2_4</td><td>704</td><td>1.000000</td></tr>
+<tr><td>CPU2_8</td><td>704</td><td>1.000000</td></tr>
+<tr><td>CPU2_1</td><td>616</td><td>0.875000</td></tr>
+<tr><td>CPU2_2</td><td>616</td><td>0.875000</td></tr>
+<tr><td>CPU2_3</td><td>616</td><td>0.875000</td></tr>
+<tr><td>CPU2_5</td><td>616</td><td>0.875000</td></tr>
+<tr><td>CPU2_6</td><td>616</td><td>0.875000</td></tr>
+<tr><td>CPU2_7</td><td>616</td><td>0.875000</td></tr>
+<tr><td>CPU1_0</td><td>352</td><td>0.500000</td></tr>
+<tr><td>CPU1_1</td><td>352</td><td>0.500000</td></tr>
+<tr><td>CPU1_2</td><td>352</td><td>0.500000</td></tr>
+<tr><td>CPU1_3</td><td>352</td><td>0.500000</td></tr>
+<tr><td>CPU1_4</td><td>352</td><td>0.500000</td></tr>
+<tr><td>CPU1_5</td><td>352</td><td>0.500000</td></tr>
+<tr><td>GPU_0</td><td>176</td><td>0.250000</td></tr>
+<tr><td>GPU_1</td><td>176</td><td>0.250000</td></tr>
+<tr><td>GPU_2</td><td>176</td><td>0.250000</td></tr>
+<tr><td>GPU_3</td><td>176</td><td>0.250000</td></tr>
+<tr><td>IODie_0</td><td>176</td><td>0.250000</td></tr>
+<tr><td>IODie_1</td><td>176</td><td>0.250000</td></tr>
+<tr><td>MEMS_0</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_1</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_10</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_11</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_12</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_13</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_14</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_15</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_16</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_17</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_18</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_19</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_2</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_20</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_21</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_22</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_23</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_24</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_25</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_26</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_27</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_28</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_29</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_3</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_30</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_31</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_32</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_33</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_34</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_35</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_4</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_5</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_6</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_7</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_8</td><td>44</td><td>0.062500</td></tr>
+<tr><td>MEMS_9</td><td>44</td><td>0.062500</td></tr>
+<tr><td>DUMMY_0</td><td>0</td><td>0.000000</td></tr>
+<tr><td>DUMMY_1</td><td>0</td><td>0.000000</td></tr>
+<tr><td>DUMMY_2</td><td>0</td><td>0.000000</td></tr>
+<tr><td>DUMMY_3</td><td>0</td><td>0.000000</td></tr>
+</table><p>每个芯粒内部颜色由q_i决定；布局移动只改变其空间位置。重叠像素取最大q_i；低连接度不等于可忽略。</p></details>
+<img loading="lazy" src="Case10/metric_trends.png" alt="完整指标走势">
+<details><summary>sa · HPWL 149631.36 mm · overlap 0.046305 · valid False</summary>
+<img loading="lazy" src="Case10/sa/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case10/sa/summary.json">原始运行记录</a> · <a href="Case10/sa/state_v2/manifest.json">四通道投影版本</a> · <a href="Case10/sa/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case10/sa/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case10/sa/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case10/sa/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case10/sa/state_v2/checkpoint_0000.png" alt="Case10 sa iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case10/sa/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case10/sa/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case10/sa/state_v2/checkpoint_0200.png" alt="Case10 sa iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case10/sa/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case10/sa/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case10/sa/state_v2/checkpoint_0400.png" alt="Case10 sa iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case10/sa/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case10/sa/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case10/sa/state_v2/checkpoint_0600.png" alt="Case10 sa iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case10/sa/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case10/sa/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case10/sa/state_v2/checkpoint_0800.png" alt="Case10 sa iteration800 四通道"></details>
 </details>
-<details><summary>Analytical (gradient)：五张快照、状态流与参数</summary><p><a href='Case10/analytical/summary.json'>summary</a> · <a href='Case10/analytical/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case10/analytical/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case10/analytical/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case10/analytical/checkpoint_0000.pdf'>PDF</a> · <a href='Case10/analytical/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case10/analytical/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case10/analytical/checkpoint_0200.pdf'>PDF</a> · <a href='Case10/analytical/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case10/analytical/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case10/analytical/checkpoint_0400.pdf'>PDF</a> · <a href='Case10/analytical/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case10/analytical/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case10/analytical/checkpoint_0600.pdf'>PDF</a> · <a href='Case10/analytical/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case10/analytical/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case10/analytical/checkpoint_0800.pdf'>PDF</a> · <a href='Case10/analytical/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case10/analytical/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>analytical · HPWL 127016.51 mm · overlap 0.000795 · valid False</summary>
+<img loading="lazy" src="Case10/analytical/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case10/analytical/summary.json">原始运行记录</a> · <a href="Case10/analytical/state_v2/manifest.json">四通道投影版本</a> · <a href="Case10/analytical/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case10/analytical/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case10/analytical/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case10/analytical/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case10/analytical/state_v2/checkpoint_0000.png" alt="Case10 analytical iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case10/analytical/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case10/analytical/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case10/analytical/state_v2/checkpoint_0200.png" alt="Case10 analytical iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case10/analytical/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case10/analytical/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case10/analytical/state_v2/checkpoint_0400.png" alt="Case10 analytical iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case10/analytical/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case10/analytical/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case10/analytical/state_v2/checkpoint_0600.png" alt="Case10 analytical iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case10/analytical/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case10/analytical/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case10/analytical/state_v2/checkpoint_0800.png" alt="Case10 analytical iteration800 四通道"></details>
 </details>
-<details><summary>RL (online REINFORCE)：五张快照、状态流与参数</summary><p><a href='Case10/rl/summary.json'>summary</a> · <a href='Case10/rl/trace.jsonl.gz'>逐次参数轨迹</a></p>
-<img loading='lazy' src='Case10/rl/state_flow.png' alt='五检查点总览'>
-<img loading='lazy' src='Case10/rl/parameter_trends.png' alt='完整参数走势'>
-<details><summary>iteration 0</summary><p><a href='Case10/rl/checkpoint_0000.pdf'>PDF</a> · <a href='Case10/rl/checkpoint_0000.json'>坐标与指标</a></p><img loading='lazy' src='Case10/rl/checkpoint_0000.png' alt='iteration 0'></details>
-<details><summary>iteration 200</summary><p><a href='Case10/rl/checkpoint_0200.pdf'>PDF</a> · <a href='Case10/rl/checkpoint_0200.json'>坐标与指标</a></p><img loading='lazy' src='Case10/rl/checkpoint_0200.png' alt='iteration 200'></details>
-<details><summary>iteration 400</summary><p><a href='Case10/rl/checkpoint_0400.pdf'>PDF</a> · <a href='Case10/rl/checkpoint_0400.json'>坐标与指标</a></p><img loading='lazy' src='Case10/rl/checkpoint_0400.png' alt='iteration 400'></details>
-<details><summary>iteration 600</summary><p><a href='Case10/rl/checkpoint_0600.pdf'>PDF</a> · <a href='Case10/rl/checkpoint_0600.json'>坐标与指标</a></p><img loading='lazy' src='Case10/rl/checkpoint_0600.png' alt='iteration 600'></details>
-<details><summary>iteration 800</summary><p><a href='Case10/rl/checkpoint_0800.pdf'>PDF</a> · <a href='Case10/rl/checkpoint_0800.json'>坐标与指标</a></p><img loading='lazy' src='Case10/rl/checkpoint_0800.png' alt='iteration 800'></details>
+<details><summary>rl · HPWL 148325.86 mm · overlap 0.029426 · valid False</summary>
+<img loading="lazy" src="Case10/rl/state_v2/state_flow.png" alt="四通道五检查点状态流">
+<p><a href="Case10/rl/summary.json">原始运行记录</a> · <a href="Case10/rl/state_v2/manifest.json">四通道投影版本</a> · <a href="Case10/rl/state_flow.png">历史三通道状态流</a></p>
+<img loading="lazy" src="Case10/rl/parameter_trends.png" alt="原始参数走势">
+<details><summary>iteration 0</summary><p><a href="Case10/rl/state_v2/checkpoint_0000.pdf">PDF</a> · <a href="Case10/rl/state_v2/checkpoint_0000.json">坐标与精确指标</a></p><img loading="lazy" src="Case10/rl/state_v2/checkpoint_0000.png" alt="Case10 rl iteration0 四通道"></details>
+<details><summary>iteration 200</summary><p><a href="Case10/rl/state_v2/checkpoint_0200.pdf">PDF</a> · <a href="Case10/rl/state_v2/checkpoint_0200.json">坐标与精确指标</a></p><img loading="lazy" src="Case10/rl/state_v2/checkpoint_0200.png" alt="Case10 rl iteration200 四通道"></details>
+<details><summary>iteration 400</summary><p><a href="Case10/rl/state_v2/checkpoint_0400.pdf">PDF</a> · <a href="Case10/rl/state_v2/checkpoint_0400.json">坐标与精确指标</a></p><img loading="lazy" src="Case10/rl/state_v2/checkpoint_0400.png" alt="Case10 rl iteration400 四通道"></details>
+<details><summary>iteration 600</summary><p><a href="Case10/rl/state_v2/checkpoint_0600.pdf">PDF</a> · <a href="Case10/rl/state_v2/checkpoint_0600.json">坐标与精确指标</a></p><img loading="lazy" src="Case10/rl/state_v2/checkpoint_0600.png" alt="Case10 rl iteration600 四通道"></details>
+<details><summary>iteration 800</summary><p><a href="Case10/rl/state_v2/checkpoint_0800.pdf">PDF</a> · <a href="Case10/rl/state_v2/checkpoint_0800.json">坐标与精确指标</a></p><img loading="lazy" src="Case10/rl/state_v2/checkpoint_0800.png" alt="Case10 rl iteration800 四通道"></details>
 </details>
-<details><summary>三算法最终−初始 map 差分</summary><img loading='lazy' src='Case10/algorithm_effects.png'></details></section>
+<details><summary>最终−初始：四通道变化</summary><img loading="lazy" src="Case10/state_v2/algorithm_effects.png" alt="独立轨迹变化"></details></section>
 </html>

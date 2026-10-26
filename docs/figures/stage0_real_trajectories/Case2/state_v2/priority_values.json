@@ -1,0 +1,35 @@
+{
+  "definition": "incident pin count / maximum incident pin count; ties preserved",
+  "values": [
+    {
+      "chiplet": "HBM_0",
+      "incident_pins": 704,
+      "priority": 0.2
+    },
+    {
+      "chiplet": "HBM_1",
+      "incident_pins": 704,
+      "priority": 0.2
+    },
+    {
+      "chiplet": "HBM_2",
+      "incident_pins": 704,
+      "priority": 0.2
+    },
+    {
+      "chiplet": "HBM_3",
+      "incident_pins": 704,
+      "priority": 0.2
+    },
+    {
+      "chiplet": "Virtuvian_0",
+      "incident_pins": 3520,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "Nimbus_0",
+      "incident_pins": 704,
+      "priority": 0.2
+    }
+  ]
+}

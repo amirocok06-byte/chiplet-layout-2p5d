@@ -1,0 +1,145 @@
+{
+  "definition": "incident pin count / maximum incident pin count; ties preserved",
+  "values": [
+    {
+      "chiplet": "CPU1_0",
+      "incident_pins": 308,
+      "priority": 0.4375
+    },
+    {
+      "chiplet": "CPU1_1",
+      "incident_pins": 308,
+      "priority": 0.4375
+    },
+    {
+      "chiplet": "CPU1_2",
+      "incident_pins": 308,
+      "priority": 0.4375
+    },
+    {
+      "chiplet": "CPU1_3",
+      "incident_pins": 308,
+      "priority": 0.4375
+    },
+    {
+      "chiplet": "CPU1_4",
+      "incident_pins": 308,
+      "priority": 0.4375
+    },
+    {
+      "chiplet": "CPU1_5",
+      "incident_pins": 308,
+      "priority": 0.4375
+    },
+    {
+      "chiplet": "CPU1_6",
+      "incident_pins": 308,
+      "priority": 0.4375
+    },
+    {
+      "chiplet": "CPU1_7",
+      "incident_pins": 308,
+      "priority": 0.4375
+    },
+    {
+      "chiplet": "CPU2_0",
+      "incident_pins": 704,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "CPU2_1",
+      "incident_pins": 704,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "DRAM_0",
+      "incident_pins": 352,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "DRAM_1",
+      "incident_pins": 352,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "Analog_0",
+      "incident_pins": 88,
+      "priority": 0.125
+    },
+    {
+      "chiplet": "Analog_1",
+      "incident_pins": 88,
+      "priority": 0.125
+    },
+    {
+      "chiplet": "Analog_2",
+      "incident_pins": 88,
+      "priority": 0.125
+    },
+    {
+      "chiplet": "Analog_3",
+      "incident_pins": 88,
+      "priority": 0.125
+    },
+    {
+      "chiplet": "Analog_4",
+      "incident_pins": 88,
+      "priority": 0.125
+    },
+    {
+      "chiplet": "Analog_5",
+      "incident_pins": 88,
+      "priority": 0.125
+    },
+    {
+      "chiplet": "Analog_6",
+      "incident_pins": 88,
+      "priority": 0.125
+    },
+    {
+      "chiplet": "Analog_7",
+      "incident_pins": 88,
+      "priority": 0.125
+    },
+    {
+      "chiplet": "MEMS_0",
+      "incident_pins": 44,
+      "priority": 0.0625
+    },
+    {
+      "chiplet": "MEMS_1",
+      "incident_pins": 44,
+      "priority": 0.0625
+    },
+    {
+      "chiplet": "MEMS_2",
+      "incident_pins": 44,
+      "priority": 0.0625
+    },
+    {
+      "chiplet": "MEMS_3",
+      "incident_pins": 44,
+      "priority": 0.0625
+    },
+    {
+      "chiplet": "MEMS_4",
+      "incident_pins": 44,
+      "priority": 0.0625
+    },
+    {
+      "chiplet": "MEMS_5",
+      "incident_pins": 44,
+      "priority": 0.0625
+    },
+    {
+      "chiplet": "MEMS_6",
+      "incident_pins": 44,
+      "priority": 0.0625
+    },
+    {
+      "chiplet": "MEMS_7",
+      "incident_pins": 44,
+      "priority": 0.0625
+    }
+  ]
+}

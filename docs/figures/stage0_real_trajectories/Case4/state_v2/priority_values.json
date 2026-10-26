@@ -1,0 +1,60 @@
+{
+  "definition": "incident pin count / maximum incident pin count; ties preserved",
+  "values": [
+    {
+      "chiplet": "CPU1_0",
+      "incident_pins": 2816,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "CPU1_1",
+      "incident_pins": 2112,
+      "priority": 0.75
+    },
+    {
+      "chiplet": "GPU_0",
+      "incident_pins": 1408,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "GPU_1",
+      "incident_pins": 1408,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "GPU_2",
+      "incident_pins": 1408,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "GPU_3",
+      "incident_pins": 1408,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "HBM_0",
+      "incident_pins": 704,
+      "priority": 0.25
+    },
+    {
+      "chiplet": "HBM_1",
+      "incident_pins": 704,
+      "priority": 0.25
+    },
+    {
+      "chiplet": "HBM_2",
+      "incident_pins": 704,
+      "priority": 0.25
+    },
+    {
+      "chiplet": "HBM_3",
+      "incident_pins": 704,
+      "priority": 0.25
+    },
+    {
+      "chiplet": "HBM_4",
+      "incident_pins": 704,
+      "priority": 0.25
+    }
+  ]
+}

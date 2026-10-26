@@ -1,8 +1,13 @@
 # 真实 Case1–10 的三算法五检查点
 
 用浏览器打开本目录的 [index.html](index.html)，按 Case 展开 SA、Analytical、
-RL，即可查看五张三联图、3×5 状态流、参数曲线和三算法指标曲线。
-每张快照同时显示 connectivity priority、空间热代理、HPWL 贡献场。
+RL，即可查看五张四联图、4×5 状态流、参数曲线和三算法指标曲线。
+每张快照按顺序显示 connectivity priority、空间热代理、HPWL 贡献场与 overlap/legality。
+逐通道的计算公式、单位、配色和色条解释见 [通道手册](../../channel_reference.md)；网页也内嵌完整图例和逐芯粒 priority 数值表。
+
+fourmap v2 由已有坐标重新投影，未重新优化；历史三联图保留原文件。
+新增 150 个四通道检查点（600 张 map）、190 幅 PNG/PDF/SVG，审核见 [state_v2_audit.json](state_v2_audit.json)。
+同 Case 的色阶固定；第四通道快照中白色表示无显示违反、红色越深违反越强；四通道差分图都用蓝色减少、红色增加，不能混读。
 
 逐 Case、逐指标的结果解读与原论文对照见 [RESULTS_COMPARISON.md](RESULTS_COMPARISON.md)，原始测量汇总为 [results_comparison.csv](results_comparison.csv)。论文数字与本地代表实现的结果分别标明条件与出处。
 

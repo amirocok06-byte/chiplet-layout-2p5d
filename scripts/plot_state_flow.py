@@ -13,8 +13,8 @@ import numpy as np
 
 from figure_export import export_figure
 from plot_grid import (
-    CHANNEL_LABELS,
-    CHANNELS,
+    FOUR_CHANNEL_LABELS,
+    channels_for_count,
     DEFAULT_DPI,
     DEFAULT_GRID_DIVISIONS,
     add_chiplet_outlines,
@@ -34,16 +34,16 @@ def plot_state_flow(
     dpi: int = DEFAULT_DPI,
     grid_divisions: int = DEFAULT_GRID_DIVISIONS,
     frame_labels: list[str] | None = None,
-    title: str | None = "State flow: order / thermal / HPWL",
-    channel_labels: tuple[str, str, str] = CHANNEL_LABELS,
+    title: str | None = "State flow",
+    channel_labels: Sequence[str] | None = None,
     limits: Sequence[tuple[float, float]] | None = None,
     chiplet_boxes: Sequence[np.ndarray] | None = None,
 ) -> None:
     with np.load(input_path, allow_pickle=False) as data:
         maps = np.asarray(data["maps"])
 
-    if maps.ndim != 4 or maps.shape[1] != 3:
-        raise ValueError("maps must have shape [time, 3, height, width]")
+    if maps.ndim != 4 or maps.shape[1] not in (3, 4):
+        raise ValueError("maps must have shape [time, 3 or 4, height, width]")
     if not np.isfinite(maps).all():
         raise ValueError("maps contain NaN or Inf")
     if maps.shape[0] == 0 or max_frames <= 0:
@@ -52,26 +52,36 @@ def plot_state_flow(
         raise ValueError("one frame label is required for each input frame")
     if chiplet_boxes is not None and len(chiplet_boxes) != maps.shape[0]:
         raise ValueError("chiplet_boxes must contain one box array per input frame")
-    if len(channel_labels) != 3 or (limits is not None and len(limits) != 3):
-        raise ValueError("channel_labels and limits must each contain three entries")
+    count = maps.shape[1]
+    channels = channels_for_count(count)
+    channel_labels = FOUR_CHANNEL_LABELS[:count] if channel_labels is None else channel_labels
+    if len(channel_labels) != count or (limits is not None and len(limits) != count):
+        raise ValueError("channel_labels and limits must match the channel count")
     # Include undisplayed frames in every scale, even when max_frames samples T.
     scales = limits if limits is not None else [
         compute_map_limits(maps[:, row], channel)
-        for row, channel in enumerate(CHANNELS)
+        for row, channel in enumerate(channels)
     ]
+
+    if count == 4:
+        legality = maps[3] if maps.ndim == 3 else maps[:, 3]
+        compute_map_limits(legality, "legality")
+        lo, hi = scales[3]
+        if not np.isfinite([lo, hi]).all() or lo != 0 or hi <= lo or hi < np.max(legality):
+            raise ValueError("legality limits must start at zero and cover all violations")
 
     frame_ids = np.unique(
         np.linspace(0, maps.shape[0] - 1, min(max_frames, maps.shape[0])).astype(int)
     )
     fig, axes = plt.subplots(
-        3,
+        count,
         len(frame_ids),
-        figsize=(3.6 * len(frame_ids), 8.5),
+        figsize=(3.6 * len(frame_ids), 8.5 * count / 3),
         squeeze=False,
         constrained_layout=True,
     )
 
-    for row, (channel, name) in enumerate(zip(CHANNELS, channel_labels)):
+    for row, (channel, name) in enumerate(zip(channels, channel_labels)):
         reference_image = None
         for col, frame_id in enumerate(frame_ids):
             axis = axes[row, col]

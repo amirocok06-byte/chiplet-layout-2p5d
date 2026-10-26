@@ -1,0 +1,30 @@
+{
+  "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+  "channels": [
+    "priority",
+    "thermal_proxy",
+    "hpwl",
+    "legality"
+  ],
+  "limits": [
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      4.1086812019348145
+    ],
+    [
+      0.0,
+      151.59434509277344
+    ],
+    [
+      0.0,
+      0.4285714328289032
+    ]
+  ],
+  "shared_across": "three algorithms and all five frames",
+  "priority_overlap_rule": "maximum q among geometrically covering chiplets",
+  "raster_is_not_validity_verdict": true
+}

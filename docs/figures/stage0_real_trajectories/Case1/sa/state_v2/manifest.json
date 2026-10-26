@@ -1,0 +1,18 @@
+{
+  "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+  "snapshots": [
+    "checkpoint_0000",
+    "checkpoint_0200",
+    "checkpoint_0400",
+    "checkpoint_0600",
+    "checkpoint_0800"
+  ],
+  "channels": [
+    "priority",
+    "thermal_proxy",
+    "hpwl",
+    "legality"
+  ],
+  "origin": "../summary.json",
+  "optimization_rerun": false
+}

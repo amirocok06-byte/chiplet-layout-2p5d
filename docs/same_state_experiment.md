@@ -11,7 +11,7 @@
 
 - 状态 `s_t` 是确定的物理问题、当前所有芯粒坐标、固定目标归一化常数和 evaluator 版本。
   problem checksum 包含板尺寸、芯粒尺寸/功耗/引脚/网络、归一化常数；state ID 再加入精确坐标 checksum。
-- 三张 256×256 map 由 `TracedProblem.maps` 确定性生成。priority 为算法无关连通性优先级，thermal 为空间代理，HPWL 为真实 pin bounding-box 贡献场。
+- 当前四张 256×256 map 由 `state_projection.project_state` 确定性生成，依次为归一化 incident-pin priority、功耗扩散代理、HPWL 引脚包围盒贡献和精确交集/边界越界投影；含义、公式、单位与配色见 [通道手册](channel_reference.md)。原 `TracedProblem.maps` 三通道接口保留历史兼容；129 个已采状态的四通道 sidecar 通过 `scripts/export_four_channel_contexts.py` 导出，不改变旧标签。
 - 首轮六个有限动作：SA 小/大位移与温度、解析法小/大学习率、RL 小/大位移与策略学习率。
   配置参数实际传入优化器，不再以不同配置名调用同一段恒等逻辑。
 - 每个 action 的“一步”是一个宏动作：默认 64 次候选 + 1 次起始评价，共 65 次目标评价。

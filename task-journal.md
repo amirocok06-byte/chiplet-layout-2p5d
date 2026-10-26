@@ -1,5 +1,14 @@
  # Task Journal / 任务日志
 
+## 四通道状态与图例同步（2026-10-26）
+
+- 按用户明确要求加入 M_overlap/legality，状态版本为 connectivity-priority-thermal-hpwl-legality-v2；三类算法 Agent 不随通道数变化。
+- Priority 明确定义为 incident pin 次数/最大次数；背景-1、断连0、并列保留、重叠像素取最大q。新增通道手册，逐项说明输入、公式、单位、配色、色条、空间含义与推断边界。
+- Legality 用精确 pair 交集面积覆盖加归一化边界越界投影，避免栅格同格假重叠；精确 evaluator 仍为合法性裁判。差分四列均为 after-before。
+- 150个历史检查点重新投影为600张map，导出190幅四通道图；原坐标/指标与thermal、HPWL数组保持，历史三联图保留。129个同状态布局新增v2观察sidecar，新采状态默认声明v2。
+- 网页增加完整公式/配色解释和逐芯粒priority数值表，PDF重编译为22页，并同步指定外部PDF与主目录文稿；此前主目录旧PDF删除状态由本次明确授权的新文稿更新替代，旧外部稿已备份在build目录。
+- 整包审核通过：190图对齐/字体/碰撞无失败或警告；658 passed、7 skipped，差分修正后另行通过相关回归。三对四通道和priority消融写入方案，未声称已获得CNN/Bandit增益。
+
 ## 本次记录（2026-10-25，同状态分叉与物理评估）
 
 - 在 `codex/stage0-visualization` 上继续实现；审计并保留 `codex/stage0-core` 的 paired sampling 接口，从 `codex/stage0-baselines` 引入 stage0_summary 模块与测试。

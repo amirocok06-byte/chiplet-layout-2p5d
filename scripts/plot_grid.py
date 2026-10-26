@@ -10,7 +10,24 @@ from matplotlib.patches import Rectangle
 DEFAULT_DPI = 300
 DEFAULT_GRID_DIVISIONS = 16
 CHANNELS = ("order", "thermal", "hpwl")
-CHANNEL_LABELS = ("Priority / order", "Thermal proxy", "HPWL contribution")
+CHANNEL_LABELS = ("Connectivity priority", "Spatial thermal proxy", "HPWL contribution")
+FOUR_CHANNELS = (*CHANNELS, "legality")
+FOUR_CHANNEL_LABELS = (*CHANNEL_LABELS, "Overlap / boundary violation\n(dimensionless; 0 = no displayed violation)")
+
+
+def channels_for_count(count: int) -> tuple[str, ...]:
+    """Keep the historical three-channel constants usable by existing callers."""
+    if count not in (3, 4):
+        raise ValueError("maps must contain 3 or 4 channels")
+    return FOUR_CHANNELS[:count]
+
+
+def _canonical_channel(channel: str) -> str:
+    channel = {"priority": "order", "thermal_proxy": "thermal"}.get(channel, channel)
+    if channel not in FOUR_CHANNELS:
+        raise ValueError(f"unknown map channel: {channel!r}")
+    return channel
+
 
 
 def configure_colorbar(colorbar, image, label):
@@ -32,11 +49,12 @@ def compute_map_limits(maps: np.ndarray, channel: str) -> tuple[float, float]:
     whitespace. Other channels include zero and use their complete raw range.
     No percentile clipping, smoothing, or per-frame normalization is applied.
     """
-    if channel not in CHANNELS:
-        raise ValueError(f"unknown map channel: {channel!r}")
+    channel = _canonical_channel(channel)
     values = np.asarray(maps)
     if values.size == 0 or not np.isfinite(values).all():
         raise ValueError("map values must be nonempty and finite")
+    if channel == "legality" and np.any(values < 0):
+        raise ValueError("legality values must be nonnegative")
     if channel == "order":
         return 0.0, 1.0
     lo = min(0.0, float(np.min(values)))
@@ -57,14 +75,17 @@ def draw_map(
     and color normalization never modify the input, including read-only views.
     Pass globally computed limits to compare frames, algorithms, or cases.
     """
-    if channel not in CHANNELS:
-        raise ValueError(f"unknown map channel: {channel!r}")
+    channel = _canonical_channel(channel)
     raw = np.asarray(values)
     if raw.ndim != 2 or raw.size == 0 or not np.isfinite(raw).all():
         raise ValueError("map values must be a nonempty finite 2D array")
-    lo, hi = compute_map_limits(raw, channel) if limits is None else limits
+    raw_limits = compute_map_limits(raw, channel)
+    lo, hi = raw_limits if limits is None else limits
     if not np.isfinite([lo, hi]).all() or hi <= lo:
         raise ValueError("limits must be finite with vmin < vmax")
+
+    if channel == "legality" and (lo != 0 or hi < float(np.max(raw))):
+        raise ValueError("legality limits must start at zero and cover all violations")
 
     if channel == "order":
         cmap = plt.get_cmap("viridis").resampled(16)
@@ -73,6 +94,10 @@ def draw_map(
     elif channel == "thermal":
         cmap = plt.get_cmap("inferno").copy()
         norm = PowerNorm(gamma=0.6, vmin=lo, vmax=hi)
+        mask = raw == 0
+    elif channel == "legality":
+        cmap = plt.get_cmap("Reds").copy()
+        norm = Normalize(vmin=lo, vmax=hi)
         mask = raw == 0
     else:
         cmap = plt.get_cmap("magma").copy()
@@ -89,7 +114,7 @@ def draw_map(
         # retain the input and all resolvable physical contributions unchanged.
         zero_tolerance = 64 * np.finfo(np.float64).eps * max(abs(lo), abs(hi))
         mask = np.abs(raw) <= zero_tolerance
-    cmap.set_bad("#f4f3ef")
+    cmap.set_bad("white" if channel == "legality" else "#f4f3ef")
     return axis.imshow(
         np.ma.array(raw, mask=mask, copy=True),
         cmap=cmap,

@@ -1,5 +1,9 @@
 # 面向2.5D系统集成的芯粒布局方法
 
+2026-10-26 状态表示更新为 fourmap v2：`[priority, thermal_proxy, HPWL, legality]`。
+[通道公式、单位与图例](docs/channel_reference.md) · [四通道网页](docs/figures/stage0_real_trajectories/index.html) · [更新的实验方案PDF](docs/experimental_design_contextual_bandit_2p5d.pdf)。
+已由原始坐标更新 150 个检查点、190 幅图，并为 129 个同状态布局导出四通道观察；原始动作收益与历史三通道记录保留。
+
 2026-10-25 新增：[同状态分叉、公共合法化与分阶段收益实验](docs/same_state_experiment.md)。
 实现分支为 `codex/stage0-visualization`，沿用 core 的 paired 记录并引入 baselines 的统计模块；
 从同一中间布局运行六个真实参数配置，生成 CNN/Bandit 可用的向量收益标签。

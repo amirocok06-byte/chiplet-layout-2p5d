@@ -1,0 +1,2980 @@
+{
+  "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+  "contexts": 129,
+  "records": [
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case1",
+      "source_state": "../states/48e039a3e100cc4311f633b9769974e7b500558551144cb3f1767b2e0b67b349.json",
+      "source_state_sha256": "b453ce902df149271cefa21401fbf7167f5d15fc5fd10f4b0be340a26738168c",
+      "maps_sha256": "1a8e11321c2630f05e7f0dc95eece7ac75b7625943216a3ac8bcc75f6f4ccfae",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "48e039a3e100cc4311f633b9769974e7b500558551144cb3f1767b2e0b67b349",
+      "case_split_group": "Case1",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case1",
+      "source_state": "../states/5d88c44eb1927440a5cab87d080e074e1cfa8a5f5c0c431dd4763771e3ce7da3.json",
+      "source_state_sha256": "658fff341a8cac8e73052971f5ed0a0f80fcaacc12087b7ebfac8bf328ce096b",
+      "maps_sha256": "6d4b31b2ae16672fac7b326a8476b8626d2f99a2e5ca59e0c46279051724bb96",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "5d88c44eb1927440a5cab87d080e074e1cfa8a5f5c0c431dd4763771e3ce7da3",
+      "case_split_group": "Case1",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case1",
+      "source_state": "../states/6c13757ae66941863129283fa47e849bca248aa235e238d25b7ebf72ffa9f0e7.json",
+      "source_state_sha256": "07c5803faa25e2738dc70b9dbb3ed4401103fd9d41ef476da9d6ee2ccdc7d585",
+      "maps_sha256": "5ca90eb451e06242a1e437d314c72f05b68e31d03aa46addde03deacb877420f",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "6c13757ae66941863129283fa47e849bca248aa235e238d25b7ebf72ffa9f0e7",
+      "case_split_group": "Case1",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case1",
+      "source_state": "../states/6f5cbc291dd0e492d1fccfffc23b704ca2b9a1160c2ce3c2f5de9ac328f1dfa3.json",
+      "source_state_sha256": "b43b46e55af830a7b7559309d4834a4461a39eac853dc224d2e47d1a7600c4a7",
+      "maps_sha256": "5736c47eaf47e5a08d0d66e9806f2f94c6e14fa60a2e383bf42aae1edb2aac5a",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "6f5cbc291dd0e492d1fccfffc23b704ca2b9a1160c2ce3c2f5de9ac328f1dfa3",
+      "case_split_group": "Case1",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case1",
+      "source_state": "../states/7415bbd682ec442610c8d53fa2ccb1049d665346276066cf0ab9bf8b95512744.json",
+      "source_state_sha256": "c7b53e02ce936918a4cea8a2a81021344d05403a0ea27d309f91651bbb05add4",
+      "maps_sha256": "eb07033b75d2197cfe2234a194071dee22d93eedf1683dfe93e67e1ddfd3e8f8",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "7415bbd682ec442610c8d53fa2ccb1049d665346276066cf0ab9bf8b95512744",
+      "case_split_group": "Case1",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case1",
+      "source_state": "../states/a3b8a1fef86956120b6d43bd86a6b635b99428d7923c7cf03bbd5f8574146033.json",
+      "source_state_sha256": "5d1db4b82b2bffe2d63517c22e0915a532c7cf24cdf3fae6e0c3c2bb61b09eae",
+      "maps_sha256": "4fae8318df6440a9286efd4d1c1d959d11b462cd6100da61226ca79c95cd5a12",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "a3b8a1fef86956120b6d43bd86a6b635b99428d7923c7cf03bbd5f8574146033",
+      "case_split_group": "Case1",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case1",
+      "source_state": "../states/a4614c8cd87648a06b92c1b1d0ff918f0d3d24eeae629be68eb96af62c1938ca.json",
+      "source_state_sha256": "9724b2e34b38ad1839f638127a290b6bf60cc75d4c10c7270d60b48fb3b9111e",
+      "maps_sha256": "63ff323e266e3b2052382e75948fd61e2f7caba2777466f32396d0d73f9b505c",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "a4614c8cd87648a06b92c1b1d0ff918f0d3d24eeae629be68eb96af62c1938ca",
+      "case_split_group": "Case1",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case1",
+      "source_state": "../states/b0831afffcd4701d1bc0e4b28d9427e7dcd5c93643cf752544e5b99333c85932.json",
+      "source_state_sha256": "55ca4a3612516010b6a9e4f41b80f969c55940240283e02b705afefc02268acb",
+      "maps_sha256": "056dc9c738881538bb1b20687845acf6c3dc7746b7b720a993ab965b9a763e75",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "b0831afffcd4701d1bc0e4b28d9427e7dcd5c93643cf752544e5b99333c85932",
+      "case_split_group": "Case1",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case1",
+      "source_state": "../states/c798bf430b9a83ab4c19613c3870a0422ebbd12819b640b0c5fe76307bc0c44d.json",
+      "source_state_sha256": "f7ba59a0e25e2d7165812172e377a4fc1bfdb657240165d8b8a117082d926b73",
+      "maps_sha256": "748f43986ec6dd2ef8668fd0bfcfd6ef42ca5574b180d2ba100aa0f38633389c",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "c798bf430b9a83ab4c19613c3870a0422ebbd12819b640b0c5fe76307bc0c44d",
+      "case_split_group": "Case1",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case1",
+      "source_state": "../states/dd23c9351eab4d9a2b5842c173a161e004eb003726789ff8259c9fcdfafc6281.json",
+      "source_state_sha256": "85d64f0e376e379e79fa0e08d5812b694a42dd03d095b4c189742361b766386f",
+      "maps_sha256": "c6e8e7ea955c52896d078e238202543ac6f540b3f62f5aa2ee83363c2f5dab40",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "dd23c9351eab4d9a2b5842c173a161e004eb003726789ff8259c9fcdfafc6281",
+      "case_split_group": "Case1",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case1",
+      "source_state": "../states/f89508142223428e63ca243753cacbbb3dcecab087c1c8292a7c69e38e9de908.json",
+      "source_state_sha256": "abb986e39a7f6eff130ad4f07b06f66ee9321407e39127534175e4a49358b429",
+      "maps_sha256": "11c0ca35d4bafc5c2683368991def67eea54f0d9d15979b46fac06659583a155",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "f89508142223428e63ca243753cacbbb3dcecab087c1c8292a7c69e38e9de908",
+      "case_split_group": "Case1",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case1",
+      "source_state": "../states/fb69664ab63bd0714269f835394432fbb8f4068c81c605359a3224fcf915769f.json",
+      "source_state_sha256": "94173e5a587cd6b06d49ee4625751cbef5c34898eba80278d37460673bd937bc",
+      "maps_sha256": "4ba7076fc9474d7bf544d0319e16b2b5c5a2de7ea3b8f719b5ec274aaca04620",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "fb69664ab63bd0714269f835394432fbb8f4068c81c605359a3224fcf915769f",
+      "case_split_group": "Case1",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case10",
+      "source_state": "../states/017b310b4fd6a7a2821bbf1f88a3c46c7d4a28ac5b11e4e9282788ba39cf4ac4.json",
+      "source_state_sha256": "6034c74ba9f4c32eb59303dfd7ad907c1762ffe0415aaa7fdbfb8551acc3f7ae",
+      "maps_sha256": "2990b4768ad5563271aa78ca10eecde68f8be1f108b8fc03d0a9aa049ddd968a",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "017b310b4fd6a7a2821bbf1f88a3c46c7d4a28ac5b11e4e9282788ba39cf4ac4",
+      "case_split_group": "Case10",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case10",
+      "source_state": "../states/0c1e0f95dad8e72fae6525e15dfc7e67b359dd46b409302bf0f979b2f5e2e6f7.json",
+      "source_state_sha256": "4d7f7a8764d6a6af813946568dafd733e6c8638821b43f89ee877aa8026694e6",
+      "maps_sha256": "ebdb781aa0e13b483cc01eea9d79ff93df1a2770b2b24d058e09ba4dd5e40a19",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "0c1e0f95dad8e72fae6525e15dfc7e67b359dd46b409302bf0f979b2f5e2e6f7",
+      "case_split_group": "Case10",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case10",
+      "source_state": "../states/0d6b0efbdd30494880a4aa1a70767966a15bdfb34ae6b53a7e759b85b89f73a6.json",
+      "source_state_sha256": "bdd1a2c0e8415dec3828586459f5ebbacccedde6c0fc90c5e4dc2826f23e7477",
+      "maps_sha256": "842c14d206aabc95a1818bcdd472386b55ad87057ffe4d8e66a8668e76ffbda7",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "0d6b0efbdd30494880a4aa1a70767966a15bdfb34ae6b53a7e759b85b89f73a6",
+      "case_split_group": "Case10",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case10",
+      "source_state": "../states/1b372161f01bdb31517dfe5fd5cfa3c211d08b7915f3364fcfbe5c2533298cfc.json",
+      "source_state_sha256": "d3fee9e55393190908902b6a573d55703f8805f232c1a07ee17e6fb2ee03b887",
+      "maps_sha256": "0a73c491c0d31e78df95eaf0742e657c682eb661f2515abe17dbb97b16847e8e",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "1b372161f01bdb31517dfe5fd5cfa3c211d08b7915f3364fcfbe5c2533298cfc",
+      "case_split_group": "Case10",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case10",
+      "source_state": "../states/4c33f2fe388ca719cbb42c681e2e80b6eb73ea0a3578851d37b6e96bc59e759c.json",
+      "source_state_sha256": "7abf9fe8b8224759b66a502728e8e7fdc24a978825ea7fce005d0557f47202ad",
+      "maps_sha256": "c208953ef2678a5458ffee6815a6299dcbac46124286dff3157e3ac668476bc4",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "4c33f2fe388ca719cbb42c681e2e80b6eb73ea0a3578851d37b6e96bc59e759c",
+      "case_split_group": "Case10",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case10",
+      "source_state": "../states/562db1767ccc4a5b2a80b68a4a40881f9eff4fdd39c7b789a01435444de56ade.json",
+      "source_state_sha256": "5418fb286a0e1a3591513d6e27b23aac98ba711db5d4c35b7078b2f5e983ae89",
+      "maps_sha256": "1546d292493090a08d573e47edaf6269dfe970e933ddbe9aa7871c94c4af81ce",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "562db1767ccc4a5b2a80b68a4a40881f9eff4fdd39c7b789a01435444de56ade",
+      "case_split_group": "Case10",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case10",
+      "source_state": "../states/6b141a486d595345e9a575b1877189c63fff3d7c339064c4608ffc3270d2e5d8.json",
+      "source_state_sha256": "457f59749abd3a56ef21960a5fb1425c5fa7e23747f4b2148cb503482066d093",
+      "maps_sha256": "da9725abec4b976ee7850d27662732e784d16aca9d1aae8e5006e6b2d604c1df",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "6b141a486d595345e9a575b1877189c63fff3d7c339064c4608ffc3270d2e5d8",
+      "case_split_group": "Case10",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case10",
+      "source_state": "../states/78a8f017aa09530120c8e533eba04189b4d439add18019b9389e139f0090356b.json",
+      "source_state_sha256": "d33eeda4b00907455e00ae778d7af6981854aac976a41f115144afab99edb0e3",
+      "maps_sha256": "63d1897b26a862657252de931323fe9bb615fd302812566ad886341674f538a1",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "78a8f017aa09530120c8e533eba04189b4d439add18019b9389e139f0090356b",
+      "case_split_group": "Case10",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case10",
+      "source_state": "../states/8c6c97bdd196d5bf5e22b6e0c6671bf033dd9c891dff6b4f9eac7ea037d9f68d.json",
+      "source_state_sha256": "1b474f8019adaf522f0d23709049ccafb835299c965d3a0abad07d9124e7824a",
+      "maps_sha256": "c4151ad9094cb6ba454179150189af8a71e0f6f4f40610cfb1e060ac7e485977",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "8c6c97bdd196d5bf5e22b6e0c6671bf033dd9c891dff6b4f9eac7ea037d9f68d",
+      "case_split_group": "Case10",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case10",
+      "source_state": "../states/90bf2d52aa1694d2afb0ed3f4c30f2beb7b104bc95060eb918d5df6fc6a22037.json",
+      "source_state_sha256": "f9290389fb2f80ce8f7f7b4f3b79bb043e99c34d92d263b4adcc4aa70b64732b",
+      "maps_sha256": "5a77d9b7e3648ddb755ce3830bf8fcfb16f146f186563ccb4af4e69a6286d85f",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "90bf2d52aa1694d2afb0ed3f4c30f2beb7b104bc95060eb918d5df6fc6a22037",
+      "case_split_group": "Case10",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case10",
+      "source_state": "../states/9550df8d1921f99bcc515ed8a62952416d49c36abc7438c2161a3c32d27edbf6.json",
+      "source_state_sha256": "25f7a4ca7a6cb433b92ea7f271e77c6961a226a0ce29c694513e2d2f3fe0e8d8",
+      "maps_sha256": "40e218f7f9d8805e227134abe8790d170d71b6af5c948f3c3b9fcd161d6829d4",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "9550df8d1921f99bcc515ed8a62952416d49c36abc7438c2161a3c32d27edbf6",
+      "case_split_group": "Case10",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case10",
+      "source_state": "../states/9e33e94074bc167bbfa56e2fef4b4d6f6609efc9361935e2960b5b0d4d1b53d1.json",
+      "source_state_sha256": "33795afa285c169d2793c7a1dbfbfe35402f1a6fd1dcc28ad999a69912d2fe44",
+      "maps_sha256": "321d65b8208a0ead8560a824499261de6951d04f56cf059ac4b4c36c44eca833",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "9e33e94074bc167bbfa56e2fef4b4d6f6609efc9361935e2960b5b0d4d1b53d1",
+      "case_split_group": "Case10",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case10",
+      "source_state": "../states/b045a4630aa05b687a100b8b0126bb6235f6734f6c6433838dc60a2a150ef76b.json",
+      "source_state_sha256": "f1d014a187aaf0cea40b1c726f16e62f7ec560b8427e73299b01b8396c67f434",
+      "maps_sha256": "2335ef7ace752ad79ce890843974dd983d7a221cab6a246c11c60afb9bb236a7",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "b045a4630aa05b687a100b8b0126bb6235f6734f6c6433838dc60a2a150ef76b",
+      "case_split_group": "Case10",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case10",
+      "source_state": "../states/be2feeb4f1ed34358a281db60c2b9cbc2f74c9f7392ae2a9a544a72b4d9e699a.json",
+      "source_state_sha256": "26a2f18595124658923a6740a7cf164e9ec5c4660a09c61b0eae7f48d460b707",
+      "maps_sha256": "93956d863c99f665c73e154bfc4e7e137ccd894a1a89d6076be4a85c2d71109f",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "be2feeb4f1ed34358a281db60c2b9cbc2f74c9f7392ae2a9a544a72b4d9e699a",
+      "case_split_group": "Case10",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case2",
+      "source_state": "../states/417819ebcf6dddf78fd9e44e8c8eba98268e50a6b861b9f5ed96587b917553aa.json",
+      "source_state_sha256": "33b32b90cf0e905b4b13f78b21530d86db4882b9c8637a9049d0095d476acb45",
+      "maps_sha256": "9c7b4124f364f9a4650a133c46548d9e1c07175be7da791d0be023df4223e2f7",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "417819ebcf6dddf78fd9e44e8c8eba98268e50a6b861b9f5ed96587b917553aa",
+      "case_split_group": "Case2",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case2",
+      "source_state": "../states/5f0bef79f710c60130b3a47decfb613e9b200600fbe3267443c099b948f3d66f.json",
+      "source_state_sha256": "0c869493cf44a53ed7e3907953686d52301a5b0270ba0fc5f323b69013c6374b",
+      "maps_sha256": "ce418ef6dd90c8f26e7cf217fbe1b1646ed2aed4a2cacc073c3b25d5bf6eddc1",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "5f0bef79f710c60130b3a47decfb613e9b200600fbe3267443c099b948f3d66f",
+      "case_split_group": "Case2",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case2",
+      "source_state": "../states/920b1c0a02dfd8cb0142e52da97163f25a0087a6a94a00cb950dcd43803987a8.json",
+      "source_state_sha256": "45448d8402cdd19d74631faaf39a4f7afcf1eab4206a34017bfd8d41ee03c6ff",
+      "maps_sha256": "7a6f28e3555c98d3928e36e13d2c2a401acdaf82f830ca161be6d49e0c409476",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "920b1c0a02dfd8cb0142e52da97163f25a0087a6a94a00cb950dcd43803987a8",
+      "case_split_group": "Case2",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case2",
+      "source_state": "../states/a27d013cd16ab3ef8cb7b6ff6aaf213b692e94ef3b42c97b3faf40d017f63249.json",
+      "source_state_sha256": "330dd89b082f3218e3380f08cfcc93b1ad0465ccb157b18b918c0a2fbae37a66",
+      "maps_sha256": "54e1829e01049c6ba55a6d1b43374ecec2685d22b0c9887ace841befd72dd69c",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "a27d013cd16ab3ef8cb7b6ff6aaf213b692e94ef3b42c97b3faf40d017f63249",
+      "case_split_group": "Case2",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case2",
+      "source_state": "../states/b6d4f862b37e0defdb2361649898e037b81761f246f2a4370189366e021235d7.json",
+      "source_state_sha256": "01cdf3312909dd7ca1a287a819ca13149df1caab1cbcd69b48fd9d84a022331d",
+      "maps_sha256": "2462be0ba7f4b874d0485b181bf6cbd19798f8266ba5a3488947e59b8eeb01b2",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "b6d4f862b37e0defdb2361649898e037b81761f246f2a4370189366e021235d7",
+      "case_split_group": "Case2",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case2",
+      "source_state": "../states/bd8f0f19bfb84717961786c4bf2dc22c0866c1bec187009b09d4451f2fcc0ea1.json",
+      "source_state_sha256": "4320f6829481d1979cfa1f83830f16a4a585caec27193f9dbb52c08cd2525ddb",
+      "maps_sha256": "fab9dd5ffe58125e0e4b8a55b5868f24e84381c683432e9f963264805eb76767",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "bd8f0f19bfb84717961786c4bf2dc22c0866c1bec187009b09d4451f2fcc0ea1",
+      "case_split_group": "Case2",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case2",
+      "source_state": "../states/c1003fa4c8508ef27a724581bbbb6744706415f5119aa2b80349e60e749887ed.json",
+      "source_state_sha256": "98da758abd92bf32b7007ab3c5917d3d0133090033ffc7aeeb57a5e869d70de1",
+      "maps_sha256": "7a8476d1c6b62d681d4f1442ed3474b75b76bc33c801fe88a74fc014cc24f792",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "c1003fa4c8508ef27a724581bbbb6744706415f5119aa2b80349e60e749887ed",
+      "case_split_group": "Case2",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case3",
+      "source_state": "../states/09209d27e69799ec070d02e9b95ce198233c6e57f9abd4b63692eeb04cb4a796.json",
+      "source_state_sha256": "593ad7d1283b178808339be232e6e9db5b4c760dd32e2c291782279fcc6061bb",
+      "maps_sha256": "fb3cf811924cbf6770bac970cab3fa25b11ea5b5fd149dc60325790688be7637",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "09209d27e69799ec070d02e9b95ce198233c6e57f9abd4b63692eeb04cb4a796",
+      "case_split_group": "Case3",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case3",
+      "source_state": "../states/20b6592104a478c5e58e2e05257e705fd40a57a248751c5d9bc2f9b61888d07c.json",
+      "source_state_sha256": "460b50aaedd112cf22bd999512fbc58d4b6876ec362f49949657240a183fd039",
+      "maps_sha256": "c4633269e13b06875a463b746c399c79e72f7e5b2a5de5927ec73be610006044",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "20b6592104a478c5e58e2e05257e705fd40a57a248751c5d9bc2f9b61888d07c",
+      "case_split_group": "Case3",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case3",
+      "source_state": "../states/6137393364cd13dab2265f5bfc970aa7021396cdf786b3aedbfeb6685dd10104.json",
+      "source_state_sha256": "bacbfac0c597a5fba15433dc25e7b0721adbd280fe0c87bff71b7574ec932fe3",
+      "maps_sha256": "5d867c54a89a21a69f269c7812dad0d94aa93b36e6196c1b50bfd3a96ad4c233",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "6137393364cd13dab2265f5bfc970aa7021396cdf786b3aedbfeb6685dd10104",
+      "case_split_group": "Case3",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case3",
+      "source_state": "../states/674c02f8982766dae25286639091e6ea73ff7a7ae8c06d301a426c09d2473cad.json",
+      "source_state_sha256": "625a0eb6ab29ceb14fe38884080ad4945dc45d76db6cefdf09c2633d53227fda",
+      "maps_sha256": "4a10bd1718d701487d928d2f94305ab1325ba787137769a8c9be01fa9e6da476",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "674c02f8982766dae25286639091e6ea73ff7a7ae8c06d301a426c09d2473cad",
+      "case_split_group": "Case3",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case3",
+      "source_state": "../states/6e402d1e0488c7be7e592786951fd3d9e0e6ffb6e09d44d39713729ff5eae696.json",
+      "source_state_sha256": "ba6e47319afbd8f73fe30c8f0f62623b46acb38be991a8840562cf58757091de",
+      "maps_sha256": "16ce6ff25d3c4443f56dfe7335977894d1a30cda66910897614bf89e019f3b32",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "6e402d1e0488c7be7e592786951fd3d9e0e6ffb6e09d44d39713729ff5eae696",
+      "case_split_group": "Case3",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case3",
+      "source_state": "../states/7ad8bc4ab2e2d28ba102d6e2f9049d35363a83603029465e2c61a44c8ac215c7.json",
+      "source_state_sha256": "2b40d2c89d225a18b4546a0150e6822ad79bdee3b3872380f5ba1801bc16ecf4",
+      "maps_sha256": "9c3f315edc9b0a9a3b2bba0a5ed00d2d22aa978f9aee84c5bcea709bf1e3bf5d",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "7ad8bc4ab2e2d28ba102d6e2f9049d35363a83603029465e2c61a44c8ac215c7",
+      "case_split_group": "Case3",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case3",
+      "source_state": "../states/805196148dace17beaffd845204190fec3dfd614ba725afcc65ecfc3eb301b2b.json",
+      "source_state_sha256": "6b04ee7a7fdf44cc4f4c6eb073cb9bde08b492171a6b34afbc80fd1cdb2c936c",
+      "maps_sha256": "927da0c613085a12d7345a9ff0bac559b83e946480bd12bb308da28da46b4f1b",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "805196148dace17beaffd845204190fec3dfd614ba725afcc65ecfc3eb301b2b",
+      "case_split_group": "Case3",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case3",
+      "source_state": "../states/840a1172cad9b0328b7d745769167d6485f89908eeae29982a84411727260dd6.json",
+      "source_state_sha256": "b4a1b76dd6c6f3968a5fb5a6b6e274195f5ff70494141aee7f62802e0bda361f",
+      "maps_sha256": "a17e0ddeaf9b92e627e69b7b11217724e717028a69925dbc7415b2220c69f869",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "840a1172cad9b0328b7d745769167d6485f89908eeae29982a84411727260dd6",
+      "case_split_group": "Case3",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case3",
+      "source_state": "../states/9a009eaa054320548c90810cc4c84caca7a5e16060181df6bcb86188f30491f6.json",
+      "source_state_sha256": "081ec166c5afd1b6498b743cc93cf3a7b758ccdf5d1110799423b966996251b3",
+      "maps_sha256": "0694da7898cd36a4c7a0b14b1839aa0b819920c38ed3e21c9a974db0f780386d",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "9a009eaa054320548c90810cc4c84caca7a5e16060181df6bcb86188f30491f6",
+      "case_split_group": "Case3",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case3",
+      "source_state": "../states/9e09416dc66b086a37c06443e5afb386403fa516082a011010e3bc10b4f058bf.json",
+      "source_state_sha256": "aac469f64221ab78bfae053e60cefb2b297c8d520e6e5b86520833ef72d2e34c",
+      "maps_sha256": "73f458dc59cb7643cfe8ccf483c733b23d7247844262c34c126de5c9fa952aa6",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "9e09416dc66b086a37c06443e5afb386403fa516082a011010e3bc10b4f058bf",
+      "case_split_group": "Case3",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case3",
+      "source_state": "../states/a27bb25577a18c8c67e74c36b1bb78c0cd3f667f04af5ac4507662d293fcc009.json",
+      "source_state_sha256": "409a3c106fc5f339166ae8ee5fe6f52be1ed527ba327fe0ac73d231bd5d1bb95",
+      "maps_sha256": "b85baa330e64da7c75cbb022d1a2e28a7bea9c4e1f2f578457d3786c7bd54125",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "a27bb25577a18c8c67e74c36b1bb78c0cd3f667f04af5ac4507662d293fcc009",
+      "case_split_group": "Case3",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case3",
+      "source_state": "../states/a4e7f89ab1a5489edc3297e3e0870dd8b7512abf2a8ea6e32ec5565a589c9e6d.json",
+      "source_state_sha256": "a9251efdb8f1aa52b441a382d63173d90c4bdd0bb7d0b2acad75f9cf5e2a3ea3",
+      "maps_sha256": "cdf0047c7c4132d115c7f1407aac0a21420dfce0059775ac567a9ec46a0919e0",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "a4e7f89ab1a5489edc3297e3e0870dd8b7512abf2a8ea6e32ec5565a589c9e6d",
+      "case_split_group": "Case3",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case3",
+      "source_state": "../states/aec400631b03d40e76c966a88febc98e22f0854918153edfcf95701a25c37ee6.json",
+      "source_state_sha256": "1a4ed1c6c2aaf39ff67909a7b740be21f0de9dd52909ad9cfd4c1c4dd83e0508",
+      "maps_sha256": "8abcfbae73ff2bf08aa5a71b2dd50382c3a79b152033c6caada29afefac84856",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "aec400631b03d40e76c966a88febc98e22f0854918153edfcf95701a25c37ee6",
+      "case_split_group": "Case3",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case3",
+      "source_state": "../states/c46eecf917c5c86baf9720401bb0e34395914ec4d35f12b8638a3a82a4edbc95.json",
+      "source_state_sha256": "d0ef146c397598ff0c0633d1e44da4fdfb0d7c8f253ee3dcd550679649af25a1",
+      "maps_sha256": "2c3cc2c5f067b6bcc79a4dc13cf27c0def7749b5d6f82d860bb3e4eafbcc3ff1",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "c46eecf917c5c86baf9720401bb0e34395914ec4d35f12b8638a3a82a4edbc95",
+      "case_split_group": "Case3",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case4",
+      "source_state": "../states/0ea99a557574d322bb9656531811a6977cb1d5f99134314b50458dcfbb13b010.json",
+      "source_state_sha256": "1acaf71c6d7026079c116a4397621eaf2c9292c927684d382e7bc68fd3982199",
+      "maps_sha256": "91d3f4bb7ca465fbe6d7dcb69421f6557ce99b2f89bda310c8017a2d3be0e242",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "0ea99a557574d322bb9656531811a6977cb1d5f99134314b50458dcfbb13b010",
+      "case_split_group": "Case4",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case4",
+      "source_state": "../states/193386d718a11e14275468d06f4302444fe102c02381323eb13ab2c5b3448760.json",
+      "source_state_sha256": "0447403bc90503bf1385ce6b3cfed9f77daab9f4670cdffc53e52652b5ed3fd9",
+      "maps_sha256": "5aca8c15896429d25912a7054ffa096ca3eb1c5c61026191983813f1dd11d5a9",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "193386d718a11e14275468d06f4302444fe102c02381323eb13ab2c5b3448760",
+      "case_split_group": "Case4",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case4",
+      "source_state": "../states/28b0b6807be56d3517fad38b96a8888ed37f720032b03ffaa2aa71ea29a87710.json",
+      "source_state_sha256": "e579fe5af8e4bbd86f6d7fafcd8ca144a5fa0e0661d39c636033c57d004c377a",
+      "maps_sha256": "6e516dc398c443827e028396c2573f041d1cc8b6623f9518cd135dd61d9d95e9",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "28b0b6807be56d3517fad38b96a8888ed37f720032b03ffaa2aa71ea29a87710",
+      "case_split_group": "Case4",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case4",
+      "source_state": "../states/33865d7c3b5ed9ab271c2e4505db0e3a4125c4bcbb832f041d226e0b212f0728.json",
+      "source_state_sha256": "539c7e049425561b7f1463b48654d3cad02b24cdf3bc2579d336e9b6b8df618d",
+      "maps_sha256": "6e2a896a93810d2bd80b4c842af783349bc7aed9b0a537d3161ab26825b7476e",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "33865d7c3b5ed9ab271c2e4505db0e3a4125c4bcbb832f041d226e0b212f0728",
+      "case_split_group": "Case4",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case4",
+      "source_state": "../states/4f81f90134f07ae20f720cd9bd57cf030ae1de2bb73aa1794006af37df789b8b.json",
+      "source_state_sha256": "b768ecf4cf99318395ff79512b8770705f2ce3cdea845e20c565e9d76a6ca494",
+      "maps_sha256": "056849fe17320ab937ae54e1db7c6f8f878b6e49d28360182688ca45bbc92115",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "4f81f90134f07ae20f720cd9bd57cf030ae1de2bb73aa1794006af37df789b8b",
+      "case_split_group": "Case4",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case4",
+      "source_state": "../states/98d99339ea338f7734b5c23f1078f465e12e2e805f2cd228a418978744e64d64.json",
+      "source_state_sha256": "b88da55ac41e4d13e5205156c66041e6a544f6f09b4f887a0a2d2fb8f1ba8b55",
+      "maps_sha256": "11a6fe9d45064ffaa5edbec0b28688007c4ca1b12d5cd31fad1bb1fa21d38510",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "98d99339ea338f7734b5c23f1078f465e12e2e805f2cd228a418978744e64d64",
+      "case_split_group": "Case4",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case4",
+      "source_state": "../states/9bc3dc42f5f2058f2b239e28c05b7a4d415ef4f3e5298f71f0d46f429b000530.json",
+      "source_state_sha256": "5721bcac7e8ef2173350beb319f4636c545216efcd1e14bad71f59bd91ebd01d",
+      "maps_sha256": "719ff7e3cd12bb5ee04c503434600a342b93f05af46b50a16657c4acfc3aae79",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "9bc3dc42f5f2058f2b239e28c05b7a4d415ef4f3e5298f71f0d46f429b000530",
+      "case_split_group": "Case4",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case4",
+      "source_state": "../states/ac66975189635d052cfde49c9be2b79fde92374121c8746f39d3aad12e7f1277.json",
+      "source_state_sha256": "de91fc9b63c542d9bf7b86df0573db44a45c6da6fd8f68cdec11c851fa6706b3",
+      "maps_sha256": "72be771e88a6f3848d3b3418185b064fc6d8ebfd809c1b944c7d8b2333382925",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "ac66975189635d052cfde49c9be2b79fde92374121c8746f39d3aad12e7f1277",
+      "case_split_group": "Case4",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case4",
+      "source_state": "../states/baebf8a7b8144969ba9d1594c9a0803972035d50af24a597f60252296b748422.json",
+      "source_state_sha256": "948e6dafb8ef2102ec687beef21e94303702763c60b40712491a5b662f9a2bee",
+      "maps_sha256": "b809335080a037fa162a614620e79a3e0dcaa1ec91ce67457f640bee5e5e18d6",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "baebf8a7b8144969ba9d1594c9a0803972035d50af24a597f60252296b748422",
+      "case_split_group": "Case4",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case4",
+      "source_state": "../states/cf5123ce38142b4fabd0a0b612e848d2c67e528f5d73ae506321db26c54ab042.json",
+      "source_state_sha256": "51438ededc80a880ffa0ca911c3046ec473844a4aeedf62a7a3a065ff6940e7b",
+      "maps_sha256": "f647f9dc9f0e9dfe1e52bee9ddec457408991b7b7187036ad77015467867d0fe",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "cf5123ce38142b4fabd0a0b612e848d2c67e528f5d73ae506321db26c54ab042",
+      "case_split_group": "Case4",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case4",
+      "source_state": "../states/cfa6fc623a91a2376619828cfb0f124a203aceb2d1dbd8c1759149e69733e62a.json",
+      "source_state_sha256": "ca683aee032db44f9b0b48d2c8bbfe9347dcf2fb6011ee861c563276f84b2e59",
+      "maps_sha256": "0b4f80d94d27f9ce18a18061a2e7d29cc96ef47268ae1afd99dd905e219fe54d",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "cfa6fc623a91a2376619828cfb0f124a203aceb2d1dbd8c1759149e69733e62a",
+      "case_split_group": "Case4",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case4",
+      "source_state": "../states/e1f452cdd6de912973e92473969cc62db85755535c315580de3c733524fa5890.json",
+      "source_state_sha256": "17f726221994f968d6a1fcfbe5a0c42b17bd9e76bf4da65b0a07776d5ea85b15",
+      "maps_sha256": "407d0864d1449393cf9bba6f715144852c45cc7b91b94a8492d147cffe1fa605",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "e1f452cdd6de912973e92473969cc62db85755535c315580de3c733524fa5890",
+      "case_split_group": "Case4",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case4",
+      "source_state": "../states/e3c7bc60f5218ae8d8ecf156bd02812213f4046b56cd83b4daa3149058f8a4cd.json",
+      "source_state_sha256": "c2c845a9168c2a87ae94e7803d23c6273b3788269abee2bf5833602104eb02c9",
+      "maps_sha256": "9a8d400f3d256b1df1f2599dea2e822169494080bba9984eaf3c3ddc79c1b3a6",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "e3c7bc60f5218ae8d8ecf156bd02812213f4046b56cd83b4daa3149058f8a4cd",
+      "case_split_group": "Case4",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case4",
+      "source_state": "../states/e706f77e0de987211c6c46d4b7e6e0689fa990b678e7ba87fc15df8db572a307.json",
+      "source_state_sha256": "a666d47da5b7670be8d50d081afceb5b599b9e64885f12f9955154e0f4ef1980",
+      "maps_sha256": "8430e6d7acb768330335dcb2cdf2850e7572aea52689ce8797fea386b449ec6e",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "e706f77e0de987211c6c46d4b7e6e0689fa990b678e7ba87fc15df8db572a307",
+      "case_split_group": "Case4",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case5",
+      "source_state": "../states/07215eb0a26f7a7980a5370d66ec848217caf878a9d477b81cb77f788618b884.json",
+      "source_state_sha256": "895a0c9fa1dfdc06c678da10936ee5a579a2f7ff35b384a6383ec99ba7038659",
+      "maps_sha256": "36b7c686bb4dc3e20832ffcf2482e2df529a8a20f46a7564b5014b3a8fbbb4a5",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "07215eb0a26f7a7980a5370d66ec848217caf878a9d477b81cb77f788618b884",
+      "case_split_group": "Case5",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case5",
+      "source_state": "../states/126084fe0f6adf3d26ec3a1be32f76b741f2ebeda301a1656d9083dd46ca3f61.json",
+      "source_state_sha256": "9d008b4fb0bda08940cba6ffe1ed49900ef2ca3f2448e5e0880f6fba7671401c",
+      "maps_sha256": "9a6d81fb98504c20e3c9731531d925130f472366bb2c3fc05612a5f6dad65880",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "126084fe0f6adf3d26ec3a1be32f76b741f2ebeda301a1656d9083dd46ca3f61",
+      "case_split_group": "Case5",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case5",
+      "source_state": "../states/1b5b75e14d89d78a5cd51078c2efabff95b0d9ce7b09b3d754844a6a0ca98521.json",
+      "source_state_sha256": "21f466ec31d85f3234ea56a3ec7668bced6ba85e618a49e3b1da633bef8dd901",
+      "maps_sha256": "1551553ea7335d41f869f1257860b2a82f41287628f4e3a4336ac908e0b9d3f4",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "1b5b75e14d89d78a5cd51078c2efabff95b0d9ce7b09b3d754844a6a0ca98521",
+      "case_split_group": "Case5",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case5",
+      "source_state": "../states/24878ba74905714b2de60e8005c7d6afb6d705470ce43e1f262721ec24468309.json",
+      "source_state_sha256": "f92bd45b9e721e2f22bf15acd0626e684b392fb0a9326347664f228c955c0006",
+      "maps_sha256": "916fb7cb2f91278077fa16ff924d332c436dd786520832162c2f63bdbafbf264",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "24878ba74905714b2de60e8005c7d6afb6d705470ce43e1f262721ec24468309",
+      "case_split_group": "Case5",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case5",
+      "source_state": "../states/4ddc5a03b25cdb0ec87451f792f7e32e751e7cd126a5622de4dcdf881a4b5988.json",
+      "source_state_sha256": "a1e6279730564cb6e2e78d26a0e11176c700f15dc4379f91b058ca3c98798bd8",
+      "maps_sha256": "aef7531b414e0e48a02f7a68c0f210765e41e9f5cd2f3b52dc5c934d0369abaf",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "4ddc5a03b25cdb0ec87451f792f7e32e751e7cd126a5622de4dcdf881a4b5988",
+      "case_split_group": "Case5",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case5",
+      "source_state": "../states/505783323567700b7d183034f8f04903be36916d47c61841301a91b8de56face.json",
+      "source_state_sha256": "8240c3395dc7da0b1fefb42286433f472aad32bce7dab88fb2ab0ec236b22917",
+      "maps_sha256": "854a9ee9e3fa5a76644db0ce2a3c964f3222477b58c6aa20771c77d56c5c59b3",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "505783323567700b7d183034f8f04903be36916d47c61841301a91b8de56face",
+      "case_split_group": "Case5",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case5",
+      "source_state": "../states/5ab641607fa308c9d3c500f435d5bb54539b425edefb2d01195622e0e3fe467c.json",
+      "source_state_sha256": "09aa657088eb9437ae70c0f7cb0bdb31d9e02771dbd62e5f7fbd54165fb2518e",
+      "maps_sha256": "50314a7b9ec6a1d13502f4eb77e809eb832ed88cfe06d8fcb8e56b8d03b4ac05",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "5ab641607fa308c9d3c500f435d5bb54539b425edefb2d01195622e0e3fe467c",
+      "case_split_group": "Case5",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case5",
+      "source_state": "../states/8c3225cca2a2b1bbf8c5cda771e47046618615173b1f7d7e42e70cf78dc9a64a.json",
+      "source_state_sha256": "1645f679108d8277fe3c7657ab141fbbed5e1721ecf112dd53ddb8545a298a2c",
+      "maps_sha256": "4950ac77381db40d7fa63318834e252c0a5d47393cb826b1b50b2e620eddcb1f",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "8c3225cca2a2b1bbf8c5cda771e47046618615173b1f7d7e42e70cf78dc9a64a",
+      "case_split_group": "Case5",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case5",
+      "source_state": "../states/b47c90105624602d174ce0f2aa8303485dd4c22bb0058afe9b1253d52524517e.json",
+      "source_state_sha256": "6812f27ff90979ce88a0a50f6760720c6fa634715c507b0e1869de3cf4309206",
+      "maps_sha256": "185fa523519f1384e811439d88d565524c2e77dc9a30e70655ac912422a5d766",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "b47c90105624602d174ce0f2aa8303485dd4c22bb0058afe9b1253d52524517e",
+      "case_split_group": "Case5",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case5",
+      "source_state": "../states/c07c69c17afc5abc0e709c81df4dc3dfadd231e21fc30c5b31d1050e02e64aca.json",
+      "source_state_sha256": "ca509e66e7ee076520117846c0c23435c73db7f573163f8c34b0a677724c58bd",
+      "maps_sha256": "d0d628e6bb7990482918e56f5f4ed040ae47b95f8f4ede10cc49e09b236c68b7",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "c07c69c17afc5abc0e709c81df4dc3dfadd231e21fc30c5b31d1050e02e64aca",
+      "case_split_group": "Case5",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case5",
+      "source_state": "../states/d9ce0e845a61dc1c46e3a90cbb698952d629577813fdedf8820d95a7ca1a468b.json",
+      "source_state_sha256": "a7023b559833608775cec4a2237f989f98bde586bacf9ee8b2204c47484abd7d",
+      "maps_sha256": "19fc1d86e2254c30dec7de556f121b128816bba8c6de2216dc888d706eae8212",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "d9ce0e845a61dc1c46e3a90cbb698952d629577813fdedf8820d95a7ca1a468b",
+      "case_split_group": "Case5",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case5",
+      "source_state": "../states/e46ef697788ed0db4a1a0a15c1cfaf7a8447692f153ec79a452f8396f4133e83.json",
+      "source_state_sha256": "a92c95cf93e815e44470f40efae12a216d7daa6e93568f6ccef76d3d9aa4db69",
+      "maps_sha256": "6033a9389c4d866636d9269def4869393fc149b19180a637e331d167557392a9",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "e46ef697788ed0db4a1a0a15c1cfaf7a8447692f153ec79a452f8396f4133e83",
+      "case_split_group": "Case5",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case5",
+      "source_state": "../states/f1a825a7a74365def22d1183604182b997368cc50da789fea8704ac6ea92f79d.json",
+      "source_state_sha256": "25305063e9c50a39047e3cf0ccf1b067cb4343848c19630dab6dc0de288ae55d",
+      "maps_sha256": "65e4ed4830c4ccd6d6d538c72e42daead72f915a6f6e55dca68d8802ba65a947",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "f1a825a7a74365def22d1183604182b997368cc50da789fea8704ac6ea92f79d",
+      "case_split_group": "Case5",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case5",
+      "source_state": "../states/f7fbec808a850edbe40c58924bba57474cf7db16d6f52f74b13e290588fea752.json",
+      "source_state_sha256": "f4f7222fb153c3cd3e0ebfdddf157c61a98f64bb48b2c689ba23a0b15a39c12f",
+      "maps_sha256": "fc8d5bfb224068d31003e90e2cd86d3ba78755d91bd0e8a1e56126dd05be0c00",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "f7fbec808a850edbe40c58924bba57474cf7db16d6f52f74b13e290588fea752",
+      "case_split_group": "Case5",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case6",
+      "source_state": "../states/09c68fb872bdcfad9bc264dc7662bd49885468b47c071f629b5093f9e5913fdd.json",
+      "source_state_sha256": "83bc202da23be59b47d3a344a561db32cb4e73e4954c21d1673325f338d27514",
+      "maps_sha256": "577701c07d82009d3d9c3aa0b47afcfd04ee5647e893e2f4c01cb0633ecfe3b4",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "09c68fb872bdcfad9bc264dc7662bd49885468b47c071f629b5093f9e5913fdd",
+      "case_split_group": "Case6",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case6",
+      "source_state": "../states/5398dab01e88a27a4012bc6dc3afb734c3d39eb25645814d0491873ed32cf410.json",
+      "source_state_sha256": "14cc29af0397499ea1f108a0f81ed467cc4a604235e890b3da03ad9664836a20",
+      "maps_sha256": "9a843488654f8f02096838092449bb5b3cc75cdccf17be746ca9116e7fa365ba",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "5398dab01e88a27a4012bc6dc3afb734c3d39eb25645814d0491873ed32cf410",
+      "case_split_group": "Case6",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case6",
+      "source_state": "../states/6a691fa48d54280ce9f3f812203706dfe0b237745dc3bd650bc2908c50a9ec4e.json",
+      "source_state_sha256": "ebb6e05104881c651a2cfd362203f902ea298438c8dc0e06bad9a04fd668f653",
+      "maps_sha256": "9cb8a0b40ff389fab99a450d5c5a5db6ad2b90dbe5d6edc8317103e57aea80ce",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "6a691fa48d54280ce9f3f812203706dfe0b237745dc3bd650bc2908c50a9ec4e",
+      "case_split_group": "Case6",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case6",
+      "source_state": "../states/7625818fd8583f5fc7fb0db1c24fed2c12a7eb05deb6bbf1a57c5c573d80f45f.json",
+      "source_state_sha256": "d383272b3dfa2e95256181e268cd850638f7d65e60c473fa55f2d51bbb07f3c7",
+      "maps_sha256": "57f67b1cde4a2f7781a9a9d67ed21b5b73c794cc62b15e1960bf1ca51cfa40a3",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "7625818fd8583f5fc7fb0db1c24fed2c12a7eb05deb6bbf1a57c5c573d80f45f",
+      "case_split_group": "Case6",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case6",
+      "source_state": "../states/94fdaa999e7cc9e38e9fc7e7b3c8f69209e48c32a75bc050139d5ad5ea592645.json",
+      "source_state_sha256": "d797afac1bda6de912871fa3568db435a1f9a2c8ddb89943bd4ce0b010d9f1e7",
+      "maps_sha256": "2e00867fcf972d4f1b0f483fd34fb410992e3b385ec78016e22b77cebd0b7d8e",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "94fdaa999e7cc9e38e9fc7e7b3c8f69209e48c32a75bc050139d5ad5ea592645",
+      "case_split_group": "Case6",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case6",
+      "source_state": "../states/aa2f206554ec9b4d2445fdfa84a308c90aa640890c883a60c82bf2c58d75c071.json",
+      "source_state_sha256": "e72be6577ff9aead8f3dad67d0679defff2bee76425254770d9b0e19ea5e895f",
+      "maps_sha256": "f627cd416da0c025a7006b3a3b8d663c061fcb73a12b4ccb7b1df9d42a087438",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "aa2f206554ec9b4d2445fdfa84a308c90aa640890c883a60c82bf2c58d75c071",
+      "case_split_group": "Case6",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case6",
+      "source_state": "../states/bdac4725ec6aeaba8d3366ea6b787e8659ce807f9d1291af98747154fd257bdd.json",
+      "source_state_sha256": "4c659b948c4b061f702b817b765854607f18c7db936e2fcf2b53238e47a671fd",
+      "maps_sha256": "3b20c2577c6dba3e94ebd95ac46d1694321d084aca28f3b5d50751b9c4996e50",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "bdac4725ec6aeaba8d3366ea6b787e8659ce807f9d1291af98747154fd257bdd",
+      "case_split_group": "Case6",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case6",
+      "source_state": "../states/c246f73b2b87e2f2be9f2cd95017792e489ad02f0dd5ff8ea8ed5d884f15bd43.json",
+      "source_state_sha256": "6035ce3435f31e99ddaf5e917df8a6dfe94f9cd8b63b60a708bf231e676b0545",
+      "maps_sha256": "d910390f7f08bd46628d6beff805b49440649c054de7b1048a180fe5fd6bd6c7",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "c246f73b2b87e2f2be9f2cd95017792e489ad02f0dd5ff8ea8ed5d884f15bd43",
+      "case_split_group": "Case6",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case6",
+      "source_state": "../states/c839010ccded0b24968a86e1aaa003cf9526d3247e1e5230860852389511195b.json",
+      "source_state_sha256": "1a1910e00ac702e0c92ef4405480a679e6bf0296286f1ceedb12c11069893fc0",
+      "maps_sha256": "8626c29f194b148746b36cca4e1a3381bb93a0b8ce4bb9228bb40ffd7d352600",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "c839010ccded0b24968a86e1aaa003cf9526d3247e1e5230860852389511195b",
+      "case_split_group": "Case6",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case6",
+      "source_state": "../states/cc40a388f350540bf6c0a2882af889cd9c4b8a15e22769c02abb69391977aaf0.json",
+      "source_state_sha256": "f9e836fe2c5f9699e27b96f6b0cbb1a7fd575ff0d575408419fd2c4fc8d65ed5",
+      "maps_sha256": "b6cc054923e84e76ae267bd0f84674b995e3ae61beeb9785339089a7631283f3",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "cc40a388f350540bf6c0a2882af889cd9c4b8a15e22769c02abb69391977aaf0",
+      "case_split_group": "Case6",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case6",
+      "source_state": "../states/d219e14eddaa76ef8b95a69319a4a1adfd31c83b9f1512456c70b0ff7eeb039f.json",
+      "source_state_sha256": "733ff769bf6ec2baa6c0c6d640042b61072863831c6fbed40e9246a31125f315",
+      "maps_sha256": "6e4d957b93332430dfd617302221d14153a58dd28d18522fd1f498050520239f",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "d219e14eddaa76ef8b95a69319a4a1adfd31c83b9f1512456c70b0ff7eeb039f",
+      "case_split_group": "Case6",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case6",
+      "source_state": "../states/ea6bcc2704a4d0ce4e6109328eb9afb8bc95fdc546d134585f08c95f98931f7e.json",
+      "source_state_sha256": "f7788b7c117b77b6f3e46079dbb5d83846571e007ba8f1f85313493628b5e347",
+      "maps_sha256": "671def9401f8f13bbd53124282a8b7d941251a325d7b9e04866ebf98ac8e82cb",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "ea6bcc2704a4d0ce4e6109328eb9afb8bc95fdc546d134585f08c95f98931f7e",
+      "case_split_group": "Case6",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case6",
+      "source_state": "../states/ebba17059cb988676606ff508670a9a1fd2e2a1e2e677f6ad08c59f0da99a2f8.json",
+      "source_state_sha256": "b1d999a4be0420846fd3a90fee6aff05225ee2faf21617451bf620b37f1b9612",
+      "maps_sha256": "a13d9759414a3cd4d5969643e9d868cdb61cd5e650ebc05374e54b4780113700",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "ebba17059cb988676606ff508670a9a1fd2e2a1e2e677f6ad08c59f0da99a2f8",
+      "case_split_group": "Case6",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case6",
+      "source_state": "../states/fc9cdedeb710b688227b21cc2a5684fea47c013e22d4f52bee143ddddf58dfbf.json",
+      "source_state_sha256": "ace6ccd5f510bbf72f7a3f9aff0e7562e14214440dee7c2018639a5538275a41",
+      "maps_sha256": "e3fb595f191fd744a1a352e6f8a94915beb5f7b8310766301df4f43f3bba8fb6",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "fc9cdedeb710b688227b21cc2a5684fea47c013e22d4f52bee143ddddf58dfbf",
+      "case_split_group": "Case6",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case7",
+      "source_state": "../states/137cfeaa85855711b658fcc44a1cdbe03bda277ac30e4272efdd360cca3b6a2b.json",
+      "source_state_sha256": "a3ee37670cf5a23187b8f11017955c989e4e12c5a554c275c004aa0a2341764f",
+      "maps_sha256": "cca56efe01e5a6617d5e7ca512882c3206063d2cc7e5c24a845396d3b59bee11",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "137cfeaa85855711b658fcc44a1cdbe03bda277ac30e4272efdd360cca3b6a2b",
+      "case_split_group": "Case7",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case7",
+      "source_state": "../states/13d9ee9494e15ba5a58eba8030a90671ad08d2e6180998c4905591dc0afb69b8.json",
+      "source_state_sha256": "401588504e1971bf3637985b2319ad1a50aeb155c8aec822b0938b22f59b9c57",
+      "maps_sha256": "ddc5aac893dfea9fc5c3fc8b6f5558f014ac8b592c5119d3f28efa36fbf01460",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "13d9ee9494e15ba5a58eba8030a90671ad08d2e6180998c4905591dc0afb69b8",
+      "case_split_group": "Case7",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case7",
+      "source_state": "../states/16bd84580f2c8d60ee75631ea284ab9274ada77241fc1f14e445367a8f96e50d.json",
+      "source_state_sha256": "550ff1cd4ad5006bd217b4a477417344a3abcaf60d54162b8011bd58db14aed5",
+      "maps_sha256": "3346e2106fd8abd17a4f70a5b92a2c2cdff8cdcd51f3242385eef71ec7765c7d",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "16bd84580f2c8d60ee75631ea284ab9274ada77241fc1f14e445367a8f96e50d",
+      "case_split_group": "Case7",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case7",
+      "source_state": "../states/24c41a3df1bd559e81cbe530ba3235c407e52fb6e9fbd31ef8ed6eb48343413d.json",
+      "source_state_sha256": "bcc4917d85a7bd22557024759b49cc4f2e3b88b84a5441bcd8d9871a81abfeae",
+      "maps_sha256": "0c300888c8f8cbca9b887a87a41f296bffb4fc68b52c267c29f5a613af4c68dc",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "24c41a3df1bd559e81cbe530ba3235c407e52fb6e9fbd31ef8ed6eb48343413d",
+      "case_split_group": "Case7",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case7",
+      "source_state": "../states/43a04cfedb8868206ae654296bf45efb1468f4afa926c2c2a2d09c46e2d3791e.json",
+      "source_state_sha256": "d275adf01916b7878ea96bb94920ee73b6732e6f21c9c97bbaa1c7aaede9e3e8",
+      "maps_sha256": "4e6258ab38c819b1797b30444cb06e0ffad872c2e3735e04dfc19774c8b69803",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "43a04cfedb8868206ae654296bf45efb1468f4afa926c2c2a2d09c46e2d3791e",
+      "case_split_group": "Case7",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case7",
+      "source_state": "../states/4a121b2143ba8c452d195313024d15ac3b574caabbd3c485b0db926f6884c2d6.json",
+      "source_state_sha256": "9efccb0e832c491632de297ea040e5f050937ffa2e51e2be2bce7c4ee136c770",
+      "maps_sha256": "16fee3f1487bdb0f7a298cf106aa15dc11697ded0fb8eb51ef3b7913d7c7ab26",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "4a121b2143ba8c452d195313024d15ac3b574caabbd3c485b0db926f6884c2d6",
+      "case_split_group": "Case7",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case7",
+      "source_state": "../states/5848db1cc2f9c12d5a5130c66bf1168702d651ae49335c835f655c1f3868cbcd.json",
+      "source_state_sha256": "af2037b93bf98a5a8c763de494cd41bfded52603f89dd5712032e711a7e20d5a",
+      "maps_sha256": "d3250f3d69ad0c8cca14af5b449f05e3e1a1a77c1ad0f99fc8af518e69370eb9",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "5848db1cc2f9c12d5a5130c66bf1168702d651ae49335c835f655c1f3868cbcd",
+      "case_split_group": "Case7",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case7",
+      "source_state": "../states/77b94106359118bf0c146ca0127d2fadfc3d5b17418c19880d3a72ba0c6512a2.json",
+      "source_state_sha256": "4278be122cce6a17a462f489d4cd829ff9d7f98ced42a88060e978e4c631d3d3",
+      "maps_sha256": "d3d986737ff6ae87718982285974d7eba3567700177ee40b1aaf21e2633cb412",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "77b94106359118bf0c146ca0127d2fadfc3d5b17418c19880d3a72ba0c6512a2",
+      "case_split_group": "Case7",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case7",
+      "source_state": "../states/8fe3989c9228da0e0daecbb56dd83553b0517e86852da63612c544f1cc12c625.json",
+      "source_state_sha256": "a34d99229c01ed51096684de525c4af50012bde8ed511c004f4f52a478857c10",
+      "maps_sha256": "24fe1b7b86733c582659a7cf5eb6801e6ad146cc8319109fdffd39970e8d0a01",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "8fe3989c9228da0e0daecbb56dd83553b0517e86852da63612c544f1cc12c625",
+      "case_split_group": "Case7",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case7",
+      "source_state": "../states/91ec4415bd01fd7b8a98949e0be465c62b4aa93ddfdbb66ba17b221be9d8f952.json",
+      "source_state_sha256": "7030612283c3ea5d3551e99bb04160207ce763c25beb8bfc9619efd0a16ddafe",
+      "maps_sha256": "e7790e058767a1340a7bbbb97ce84f2a91282a74f8f15e53865bfb37837e6e3d",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "91ec4415bd01fd7b8a98949e0be465c62b4aa93ddfdbb66ba17b221be9d8f952",
+      "case_split_group": "Case7",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case7",
+      "source_state": "../states/a152a856daf9234eac2dc118d3fd21e56d473a08976ebb8365b6b9adc803a1a0.json",
+      "source_state_sha256": "c67af9aeeacf738b677e4b6774e9aa24d346a92c98bfc453a60116340b6af5a5",
+      "maps_sha256": "b361fd307da3a32517550a5632ccf6bd0309f5363f2ec47b4000d28d7c1d2b64",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "a152a856daf9234eac2dc118d3fd21e56d473a08976ebb8365b6b9adc803a1a0",
+      "case_split_group": "Case7",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case7",
+      "source_state": "../states/a5a6dd9437acf8234e4ecce246b3ad4f8235b48f10b130d9c720665f1f7b8811.json",
+      "source_state_sha256": "da31b8f7e3ee0fbba0abfcc56543319ed8620f0d91ff43d5c16b5bc17c326c60",
+      "maps_sha256": "d1362e0788e8146eaca1021d0d0542680fca8d7e849a05507c6a432ae48ecc41",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "a5a6dd9437acf8234e4ecce246b3ad4f8235b48f10b130d9c720665f1f7b8811",
+      "case_split_group": "Case7",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case7",
+      "source_state": "../states/d6f7d5a1880b72c2622e5642f1db765ab2a61ada851423473fff232ad9b73e97.json",
+      "source_state_sha256": "97881157d52fcf86bf102060f2e9cbdb87ef67178c7cdc0be7a7089b0ad8f9af",
+      "maps_sha256": "8d78a450c644aeb248a210f721399b0332f7ce8fdb82703ca9a755f77a715c7d",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "d6f7d5a1880b72c2622e5642f1db765ab2a61ada851423473fff232ad9b73e97",
+      "case_split_group": "Case7",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case7",
+      "source_state": "../states/e2c9e8af18e426c7daed390c548335d5b176aba772683e9652d538d46eba7eaa.json",
+      "source_state_sha256": "4f2783df01d8d4fb38234b1faaa10403b5db2ffe7dda33696780ab9cf1fcae1e",
+      "maps_sha256": "9f2fd967903e8c641a45959b460857663aabf730ffc338d31a4c1e63d78ff671",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "e2c9e8af18e426c7daed390c548335d5b176aba772683e9652d538d46eba7eaa",
+      "case_split_group": "Case7",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case8",
+      "source_state": "../states/05956ea4721bd0156621fd381b7ed67c2ffd8afe85e8fe9ba2f5e3bf57d1ff70.json",
+      "source_state_sha256": "0f090a12440469538bb0e0d36de6e305b0cd9f3bab9617b6ef95740316d628c7",
+      "maps_sha256": "8271431358a8c41eac4f52923cf58fd8589bbccd909a87067c6f65645cccb46a",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "05956ea4721bd0156621fd381b7ed67c2ffd8afe85e8fe9ba2f5e3bf57d1ff70",
+      "case_split_group": "Case8",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case8",
+      "source_state": "../states/0897036377800ac75e437c498589177cae700477a35ca386c5fcc84369befb20.json",
+      "source_state_sha256": "4c72a0d6833df71501f9fa8739a2fbe3ea0eac91a5ebb179c11a1d0cc0c59a40",
+      "maps_sha256": "9f0f0c03c495510071708c7c67a5868de7cf2966637e22a7f24dfc5014994b2b",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "0897036377800ac75e437c498589177cae700477a35ca386c5fcc84369befb20",
+      "case_split_group": "Case8",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case8",
+      "source_state": "../states/091c6875ff74014c50e248dfcca2e7d228dba849439219f442dda9d233917d7d.json",
+      "source_state_sha256": "212e90829be93e6f396507790ab0982f71354d231aa31266f8452d31af33bb9a",
+      "maps_sha256": "0010a74cc571f7c2aa05ac66fa501a47a7fe8435a267d8c0393d06cbc27938a8",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "091c6875ff74014c50e248dfcca2e7d228dba849439219f442dda9d233917d7d",
+      "case_split_group": "Case8",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case8",
+      "source_state": "../states/1f6c109721d817d0e9cbc38e43daa4ffff86a4b24920763d7b36e6ad7b086498.json",
+      "source_state_sha256": "057fc1168b380306d8ea6aafc4850c56cd3812d37d17d0a6cef87d415f66c5c3",
+      "maps_sha256": "ce7f0ea23e9946f86a5817448bf783edb66ed78e965ecbaab6875836b2e68734",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "1f6c109721d817d0e9cbc38e43daa4ffff86a4b24920763d7b36e6ad7b086498",
+      "case_split_group": "Case8",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case8",
+      "source_state": "../states/359795470424896a036d40726085200aa07c8d1ea932c2f92f295900c3e51d9e.json",
+      "source_state_sha256": "1790c35be6fb1cade3e4671f9c66840675690c67c833535e4c2b87c669fd1d6f",
+      "maps_sha256": "a8700d95dc8775b9baf81629f01830afc436fd88142922eb30f9ded014559851",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "359795470424896a036d40726085200aa07c8d1ea932c2f92f295900c3e51d9e",
+      "case_split_group": "Case8",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case8",
+      "source_state": "../states/51ee5e0793989067dd36b28b693ecb91403a7ed0a6ef53d186750d5f7ce39ed4.json",
+      "source_state_sha256": "2b9b83788acff5a218acf07d252cfefe121f5a498bc404ac01795282f2b9e713",
+      "maps_sha256": "1b72066e7b6987b43e509a005f43f13cd71e97f8df1ed6527dd292e8ed58a1d2",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "51ee5e0793989067dd36b28b693ecb91403a7ed0a6ef53d186750d5f7ce39ed4",
+      "case_split_group": "Case8",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case8",
+      "source_state": "../states/63fa8d2622337e0d8262fb7d1d397980c7fe209942e76479b754f59388baa0d4.json",
+      "source_state_sha256": "3c634a284e28d2dac734511dcb1128cd23a8126a0b9e017ff8e717977588317f",
+      "maps_sha256": "678de393022e59ff7a7a867aade903e089ec2bd2bac73998d0093638fc82b0c5",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "63fa8d2622337e0d8262fb7d1d397980c7fe209942e76479b754f59388baa0d4",
+      "case_split_group": "Case8",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case8",
+      "source_state": "../states/675156f3759ed4e1635c4f266681f8613d3be257dd1e65ba0c470ba730fc3cfc.json",
+      "source_state_sha256": "59409b1b910c787020546c7fcb7ba7f783c86b996ba7bc98e55b9c934a241abd",
+      "maps_sha256": "89f9bf78cdcce40fc805a25136e34c51eea86e1c5072b912666d7c823b1691d9",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "675156f3759ed4e1635c4f266681f8613d3be257dd1e65ba0c470ba730fc3cfc",
+      "case_split_group": "Case8",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case8",
+      "source_state": "../states/b3bfc086614f7346177a0dd7dc89b3ba9ab0352bd3fc72423efc6888671a740e.json",
+      "source_state_sha256": "b8ad8277d8b40cda5f08d8d0040b036b468d2cccfff1e1390488bd32879b1dad",
+      "maps_sha256": "827f3652a6ae42b71ee6981999bda78527c3ce6660425173659778f4543564e3",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "b3bfc086614f7346177a0dd7dc89b3ba9ab0352bd3fc72423efc6888671a740e",
+      "case_split_group": "Case8",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case8",
+      "source_state": "../states/b99f1a671b6a5ffea5088f9d3042d9d4b348a2cca96dc3352365b37926a7bc25.json",
+      "source_state_sha256": "f9cc18255ae16fa871595dcf4462ec44104a09170be9699fa053f69c8c22eb20",
+      "maps_sha256": "e8df7adfed2bba14481c92b595fa5b836bd25f0d43604e0d0ae5b128bd3a42bb",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "b99f1a671b6a5ffea5088f9d3042d9d4b348a2cca96dc3352365b37926a7bc25",
+      "case_split_group": "Case8",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case8",
+      "source_state": "../states/ce036aff5c034f12ec5f261f259d02e02f2226325c22bb4dcfac06b601c97b92.json",
+      "source_state_sha256": "8aa77ebbe7981022719eb91f7736c4a4dada25812a43d2a8f56f20a294903648",
+      "maps_sha256": "2070a693263912045ec09f98aae7012826b26b54c89fa4e0b688bc85588fec07",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "ce036aff5c034f12ec5f261f259d02e02f2226325c22bb4dcfac06b601c97b92",
+      "case_split_group": "Case8",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case8",
+      "source_state": "../states/dc6dbe97ed4f28605fefc147161d09f2c6d07bd16c5a23b4b89b9b29b61115a8.json",
+      "source_state_sha256": "3ab4e41c5e52a60cfc932dd8a91ae72402f787e7112ece14b36626d2ef513ce5",
+      "maps_sha256": "4aa3d3219c2dd63d08ea455543a5d5340430eb9a381ffba00b03c72993f366d0",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "dc6dbe97ed4f28605fefc147161d09f2c6d07bd16c5a23b4b89b9b29b61115a8",
+      "case_split_group": "Case8",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case8",
+      "source_state": "../states/ed77094c7f348a50d1d99a7cad8b1c2bf7dd36ed9ddb551811a4f8a6ec59315d.json",
+      "source_state_sha256": "1fe2b967d40da298718c23c461c838dbbb93fdfab2b106d8ade548ca0fa6b88e",
+      "maps_sha256": "36ed4ab344f5e2b38a7462b07225b356769dcc18fb07fb692e5e8fb21f34e33e",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "ed77094c7f348a50d1d99a7cad8b1c2bf7dd36ed9ddb551811a4f8a6ec59315d",
+      "case_split_group": "Case8",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case9",
+      "source_state": "../states/08bf93fae8cbe3ac934ad00faf2bcf4c354c39c6c8368c881e936acae13e5237.json",
+      "source_state_sha256": "a3bb278604db4df7f0015920571190bf71d0f1ef3d6a5e546ab097950d12331f",
+      "maps_sha256": "8850ee14a2d7df2dc1f627481933641720a7b7fdda6ec32df7e9c9be5ef42ccf",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "08bf93fae8cbe3ac934ad00faf2bcf4c354c39c6c8368c881e936acae13e5237",
+      "case_split_group": "Case9",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case9",
+      "source_state": "../states/4668051640cf60a64a7b6ccdf0c472dd1544764590e3234501f99b809a870ed4.json",
+      "source_state_sha256": "ec987b1bd8c1be656ec14f5b2fe8938dfb77edde1250453b310cfb83c2a9c0f3",
+      "maps_sha256": "4f365eb52fe44bbfd5293d951bc31e7f5b0919274713e0fee74dc0f845c81329",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "4668051640cf60a64a7b6ccdf0c472dd1544764590e3234501f99b809a870ed4",
+      "case_split_group": "Case9",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case9",
+      "source_state": "../states/5e5379a86cea4e745c446aa2145af9193beae69a1431879b15d1aec9fac3a6ad.json",
+      "source_state_sha256": "a0c01a2f2386a24af0e817e32e910370153e4106fd5d47808ac2a53aee69758d",
+      "maps_sha256": "06c6f00be8383776071b977b868f5bc35df958231b49ff32f4d3336ec1c7623d",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "5e5379a86cea4e745c446aa2145af9193beae69a1431879b15d1aec9fac3a6ad",
+      "case_split_group": "Case9",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case9",
+      "source_state": "../states/82280e202d40b4459a5821e1c080227fd9e483979cbb2197a8ea6fe4c14eec95.json",
+      "source_state_sha256": "c53b2446968692234aed991b832ab2489290a70838aa0006e82665d76566f82e",
+      "maps_sha256": "08e26a4e349bf970ba8023a4dd930120408b8335924ce256ae5c9b718ce40feb",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "82280e202d40b4459a5821e1c080227fd9e483979cbb2197a8ea6fe4c14eec95",
+      "case_split_group": "Case9",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case9",
+      "source_state": "../states/87aa4537e0b5ccf58d56542d24a34043d33e508367696f149de11c4694164765.json",
+      "source_state_sha256": "660dfb635d124d130c97c71e0f38fe8c778ac23e714f5e734f89bdb5384d7872",
+      "maps_sha256": "f4fcadd6a230cf0685ed01534b66fc244dd05099ba5b2d413c6951127757d5b8",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "87aa4537e0b5ccf58d56542d24a34043d33e508367696f149de11c4694164765",
+      "case_split_group": "Case9",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case9",
+      "source_state": "../states/c037fe6a93d30f6df326ccdb7e82e2becebaed3415ddd280899ac752ce9aecc1.json",
+      "source_state_sha256": "8b7d57f05df9993a16353f98c7d0be30506e539bc374fdfc4bc70edfb66e80a0",
+      "maps_sha256": "63ebdaefb722ee48ee4b1c48ee3082dfc2ea136ee7112c2a0b3ecc5775277a2c",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "c037fe6a93d30f6df326ccdb7e82e2becebaed3415ddd280899ac752ce9aecc1",
+      "case_split_group": "Case9",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case9",
+      "source_state": "../states/c6f94a513606c9c6968308252e8a9937cc6d510b42c8bc1491bc3c8cc2f6d1b2.json",
+      "source_state_sha256": "20908d1d0a417dad0d814e0e138e40e0c48f8df592ffba98535a7759c9b03f28",
+      "maps_sha256": "07d5554558ed6d1acc0b2abf1a92e7ffd4614606cc60d2e6e4f0bb9dd91ce416",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "c6f94a513606c9c6968308252e8a9937cc6d510b42c8bc1491bc3c8cc2f6d1b2",
+      "case_split_group": "Case9",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case9",
+      "source_state": "../states/d1162588bbf4cc2fa4ec3aca3a0566af3a3cd183d7bf744bcde485965e89a0c3.json",
+      "source_state_sha256": "3bb487e9b798879985089c975a6ed72827eb66e673be312712a617b2ce8c122c",
+      "maps_sha256": "d0e55bd015d9be87ace995cf7b1ac35ee38899db3a2aa33f0cfdedf1e33c105f",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "d1162588bbf4cc2fa4ec3aca3a0566af3a3cd183d7bf744bcde485965e89a0c3",
+      "case_split_group": "Case9",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case9",
+      "source_state": "../states/d53354f7113664350bfaa84997d6eca1e8f948127a9cacec9765042862a17b90.json",
+      "source_state_sha256": "3ecdf4060da1bb4685fba77c9e82f53298165de6c12b0e83c8e8846907a68738",
+      "maps_sha256": "6d7ea7dab4dea06a2d0022757fd2a6e372ade47ac7f8c20460886c58f42e519a",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "d53354f7113664350bfaa84997d6eca1e8f948127a9cacec9765042862a17b90",
+      "case_split_group": "Case9",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case9",
+      "source_state": "../states/dc12245575f049071c22f72c948eb4abbdaba481d00de95bccbfab6cda2b94c6.json",
+      "source_state_sha256": "a84d734ada876598a0a062007f8ba889e92ffb97cfccd4e0b2f2b21e8c034c6a",
+      "maps_sha256": "e5c5fe329a5042730505a430f79862889805708eafea774865fe043f5e852d5a",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "dc12245575f049071c22f72c948eb4abbdaba481d00de95bccbfab6cda2b94c6",
+      "case_split_group": "Case9",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case9",
+      "source_state": "../states/dea2c7b69f7af585cf6f9f450609abb50493bde7f38d87c60b0256e908d6f127.json",
+      "source_state_sha256": "3f6c932b0b703926937ad1a2538b0432f7e148f704d81208d6d0d4dc7d46c0bf",
+      "maps_sha256": "2cabae9d7a8252f8fc822b0f204484fffc7cf96fa5dba705c0f6395f71696069",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "dea2c7b69f7af585cf6f9f450609abb50493bde7f38d87c60b0256e908d6f127",
+      "case_split_group": "Case9",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case9",
+      "source_state": "../states/edd9b157f15bfd6aefdffd8fa6ffb3c4772bd3caaee7b60ef652d33811ab20d0.json",
+      "source_state_sha256": "729188367fe8ac77c867d8fdde98825f647f1032bab96c90980f15d5e5f2049c",
+      "maps_sha256": "60ab13aede14a206967f21544ae77ff7ed125d388a8cd679cbf5a59de254d5f8",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "edd9b157f15bfd6aefdffd8fa6ffb3c4772bd3caaee7b60ef652d33811ab20d0",
+      "case_split_group": "Case9",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    },
+    {
+      "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+      "channels": [
+        "priority",
+        "thermal_proxy",
+        "hpwl",
+        "legality"
+      ],
+      "map_shape": [
+        4,
+        256,
+        256
+      ],
+      "case": "Case9",
+      "source_state": "../states/ee1240f46bd5c7038a42d3ce2705bbf91564f4897d8ddd58bc4d53c525c458c4.json",
+      "source_state_sha256": "5d86bb07b23cd77a86f51b017501c439a0b5bb06ee58656bab822f5ffb467a7b",
+      "maps_sha256": "e8aedc26fada8f986e5ff653c2b06a2b971930e1d9b79f1933285c1e94acc5e6",
+      "action_labels": "../labels.jsonl",
+      "input_checksum": "ee1240f46bd5c7038a42d3ce2705bbf91564f4897d8ddd58bc4d53c525c458c4",
+      "case_split_group": "Case9",
+      "evaluator_calls": 0,
+      "existing_labels_unchanged": true
+    }
+  ],
+  "map_shape": [
+    4,
+    256,
+    256
+  ],
+  "projection_source_sha256": "37d1423e25e9da8437bae649c241252bfef30a6152d232fc56f50a906ce2e100",
+  "note": "Map exports only; no optimizer rerun, no new reward and no CNN training."
+}

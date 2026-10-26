@@ -1,0 +1,23 @@
+{
+  "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+  "channels": [
+    "priority",
+    "thermal_proxy",
+    "hpwl",
+    "legality"
+  ],
+  "map_shape": [
+    4,
+    256,
+    256
+  ],
+  "case": "Case9",
+  "source_state": "../states/ee1240f46bd5c7038a42d3ce2705bbf91564f4897d8ddd58bc4d53c525c458c4.json",
+  "source_state_sha256": "5d86bb07b23cd77a86f51b017501c439a0b5bb06ee58656bab822f5ffb467a7b",
+  "maps_sha256": "e8aedc26fada8f986e5ff653c2b06a2b971930e1d9b79f1933285c1e94acc5e6",
+  "action_labels": "../labels.jsonl",
+  "input_checksum": "ee1240f46bd5c7038a42d3ce2705bbf91564f4897d8ddd58bc4d53c525c458c4",
+  "case_split_group": "Case9",
+  "evaluator_calls": 0,
+  "existing_labels_unchanged": true
+}

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+from collections.abc import Sequence
 
 import matplotlib
 
@@ -13,8 +14,7 @@ from matplotlib.colors import TwoSlopeNorm
 
 from figure_export import export_figure
 from plot_grid import (
-    CHANNEL_LABELS,
-    CHANNELS,
+    channels_for_count,
     DEFAULT_DPI,
     DEFAULT_GRID_DIVISIONS,
     add_raw_pixel_grid,
@@ -30,15 +30,16 @@ def plot_algorithm_effects(
     *,
     dpi: int = DEFAULT_DPI,
     grid_divisions: int = DEFAULT_GRID_DIVISIONS,
+    limits: Sequence[tuple[float, float]] | None = None,
 ) -> None:
     with np.load(input_path, allow_pickle=False) as data:
         before = np.asarray(data["before_maps"])
         after = np.asarray(data["after_maps"])
 
-    if before.ndim != 3 or before.shape[0] != 3:
-        raise ValueError("before_maps must have shape [3, height, width]")
+    if before.ndim != 3 or before.shape[0] not in (3, 4):
+        raise ValueError("before_maps must have shape [3 or 4, height, width]")
     if after.ndim != 4 or after.shape[1:] != before.shape:
-        raise ValueError("after_maps must have shape [algorithm, 3, height, width]")
+        raise ValueError("after_maps must have shape [algorithm, 3 or 4, height, width]")
     if len(labels) != after.shape[0]:
         raise ValueError("one label is required for each algorithm")
     if not labels:
@@ -46,6 +47,12 @@ def plot_algorithm_effects(
     if not np.isfinite(before).all() or not np.isfinite(after).all():
         raise ValueError("maps contain NaN or Inf")
 
+    count = before.shape[0]
+    channels = channels_for_count(count)
+    if limits is not None and len(limits) != count:
+        raise ValueError("limits must match the channel count")
+    display_names = ("Connectivity priority", "Spatial thermal proxy",
+                     "HPWL contribution", "Overlap / boundary violation")
     delta = after.astype(np.float64) - before[None, ...]
     # One symmetric range per channel across every algorithm, including zeros.
     norms = [
@@ -54,27 +61,28 @@ def plot_algorithm_effects(
     ]
     fig, axes = plt.subplots(
         len(labels),
-        3,
-        figsize=(4.8 * 3, 3.8 * len(labels)),
+        count,
+        figsize=(4.8 * count, 3.8 * len(labels)),
         squeeze=False,
         constrained_layout=True,
     )
 
     for row, label in enumerate(labels):
-        for col, channel in enumerate(CHANNELS):
+        for col, channel in enumerate(channels):
             axis = axes[row, col]
             image_delta = delta[row, col]
             axis.imshow(
-                image_delta,
-                cmap="coolwarm",
-                origin="lower",
-                interpolation="nearest",
-                norm=norms[col],
+                    image_delta,
+                    cmap="coolwarm",
+                    origin="lower",
+                    interpolation="nearest",
+                    norm=(TwoSlopeNorm(vmin=limits[col][0], vcenter=0., vmax=limits[col][1])
+                          if limits is not None else norms[col]),
             )
             height, width = image_delta.shape
             axis.set_title(
                 map_title(
-                    f"{label}: Δ {CHANNEL_LABELS[col]}",
+                    f"{label}: Δ {display_names[col]}",
                     height=height,
                     width=width,
                     divisions=grid_divisions,
@@ -87,7 +95,7 @@ def plot_algorithm_effects(
                 width=width,
                 divisions=grid_divisions,
             )
-    for col, name in enumerate(CHANNEL_LABELS):
+    for col, name in enumerate(display_names[:count]):
         colorbar = fig.colorbar(axes[0, col].images[0], ax=axes[:, col].tolist(), shrink=0.8)
         configure_colorbar(colorbar, axes[0, col].images[0], f"Δ {name}")
 

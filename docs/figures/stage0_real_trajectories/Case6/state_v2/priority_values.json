@@ -1,0 +1,105 @@
+{
+  "definition": "incident pin count / maximum incident pin count; ties preserved",
+  "values": [
+    {
+      "chiplet": "CPU2_0",
+      "incident_pins": 704,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "CPU2_1",
+      "incident_pins": 704,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "CPU2_2",
+      "incident_pins": 704,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "CPU2_3",
+      "incident_pins": 704,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "CPU2_4",
+      "incident_pins": 704,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "CPU2_5",
+      "incident_pins": 704,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "CPU2_6",
+      "incident_pins": 704,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "CPU2_7",
+      "incident_pins": 704,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "GPU_0",
+      "incident_pins": 704,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "GPU_1",
+      "incident_pins": 704,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "GPU_2",
+      "incident_pins": 704,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "GPU_3",
+      "incident_pins": 704,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "HBM_0",
+      "incident_pins": 352,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "HBM_1",
+      "incident_pins": 352,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "HBM_2",
+      "incident_pins": 352,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "HBM_3",
+      "incident_pins": 352,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "DRAM_0",
+      "incident_pins": 352,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "DRAM_1",
+      "incident_pins": 352,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "DRAM_2",
+      "incident_pins": 352,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "DRAM_3",
+      "incident_pins": 352,
+      "priority": 0.5
+    }
+  ]
+}

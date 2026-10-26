@@ -1,0 +1,45 @@
+{
+  "definition": "incident pin count / maximum incident pin count; ties preserved",
+  "values": [
+    {
+      "chiplet": "CPU2_0",
+      "incident_pins": 2816,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "CPU2_1",
+      "incident_pins": 2816,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "CPU2_2",
+      "incident_pins": 2816,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "CPU2_3",
+      "incident_pins": 2816,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "DRAM_0",
+      "incident_pins": 1408,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "DRAM_1",
+      "incident_pins": 1408,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "DRAM_2",
+      "incident_pins": 1408,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "DRAM_3",
+      "incident_pins": 1408,
+      "priority": 0.5
+    }
+  ]
+}

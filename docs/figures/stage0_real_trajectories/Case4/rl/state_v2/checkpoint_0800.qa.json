@@ -1,0 +1,14 @@
+[
+  {
+    "tool": "audit_pdf_text",
+    "returncode": 0,
+    "stdout": "{\n  \"pdf\": \"docs\\\\figures\\\\stage0_real_trajectories\\\\Case4\\\\rl\\\\state_v2\\\\checkpoint_0800.pdf\",\n  \"auditable\": true,\n  \"minimum_required_pt\": 5.0,\n  \"minimum_found_pt\": 6.0,\n  \"text_run_count\": 22,\n  \"below_minimum_count\": 0,\n  \"below_minimum\": [],\n  \"warnings\": []\n}\n",
+    "stderr": ""
+  },
+  {
+    "tool": "audit_figure_collisions",
+    "returncode": 0,
+    "stdout": "Nature Figure Rendered Collision Audit\npdf: docs\\figures\\stage0_real_trajectories\\Case4\\rl\\state_v2\\checkpoint_0800.pdf\npages: 1\nvisible text boxes: 81\nstroke paths: 227\n\n\nsummary: 0 fail, 0 warn, 0 contained fill overlays, 0 contained image overlays\nverdict: PASS\nnote: contained overlays can be intentional; WARN findings need final-size visual review\n",
+    "stderr": ""
+  }
+]

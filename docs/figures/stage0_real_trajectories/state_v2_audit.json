@@ -1,0 +1,17 @@
+{
+  "status": "pass",
+  "checkpoints": 150,
+  "maps": 600,
+  "figures": 190,
+  "all_historical_metrics_and_coordinates_unchanged": true,
+  "thermal_hpwl_arrays_identical_to_v1": true,
+  "all_alignment_pass": true,
+  "collision_failures": 0,
+  "collision_warnings": [],
+  "optimizer_rerun": false,
+  "source_preflight_notes": [
+    "Literal export scanner cannot follow shared figure_export.py; actual PNG/PDF/SVG exports and rendered QA are verified for every figure.",
+    "Large research-inspection figures, not resized journal-submission panels; journal-width defaults do not apply."
+  ],
+  "projection_source_sha256": "37d1423e25e9da8437bae649c241252bfef30a6152d232fc56f50a906ce2e100"
+}

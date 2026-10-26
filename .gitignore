@@ -13,6 +13,7 @@ tmp/
 .planning/
 docs/figures/stage0_synthetic_smoke/raw/*.npz
 docs/figures/stage0_real_trajectories/**/raw/*.npz
+docs/figures/stage0_same_state/**/state_v2/raw/*.npz
 .idea/
 .vscode/
 *.log

@@ -1,0 +1,62 @@
+{
+  "state_version": "connectivity-priority-thermal-hpwl-legality-v2",
+  "channels": [
+    "priority",
+    "thermal_proxy",
+    "hpwl",
+    "legality"
+  ],
+  "map_shape": [
+    4,
+    256,
+    256
+  ],
+  "step": 200,
+  "positions": [
+    [
+      0.5458660349698983,
+      0.35525050543603875
+    ],
+    [
+      0.2962478331183493,
+      0.5631849348999323
+    ],
+    [
+      0.3195520791693157,
+      0.06611547015718439
+    ],
+    [
+      0.534767161849806,
+      0.10772187681339115
+    ],
+    [
+      0.3000069357233826,
+      0.3065752759873885
+    ],
+    [
+      0.7692307692307692,
+      0.5744524762331848
+    ],
+    [
+      0.04100016972423798,
+      0.14814832400657077
+    ],
+    [
+      0.5227829005643386,
+      0.6213192293219848
+    ]
+  ],
+  "metrics": {
+    "objective": 1.1241656520705925,
+    "hpwl_mm": 136766.28419705277,
+    "thermal_proxy_peak": 2.39573909889569,
+    "overlap_fraction": 0.0,
+    "penetration_penalty": 0.0,
+    "valid": true
+  },
+  "boundary_valid": true,
+  "historical_snapshot": "../checkpoint_0200.json",
+  "historical_snapshot_sha256": "5d39b906373a12547365e88943eeb7a03ebc675091f79b77b19111cdc65b570c",
+  "maps_sha256": "2c5d5d7d5ae72da28cb76b22d9fcfa9b2c58f551ce2a017a8f4572bcbb5f9256",
+  "optimization_rerun": false
+}

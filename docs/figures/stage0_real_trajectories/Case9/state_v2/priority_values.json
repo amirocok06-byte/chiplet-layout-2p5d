@@ -1,0 +1,225 @@
+{
+  "definition": "incident pin count / maximum incident pin count; ties preserved",
+  "values": [
+    {
+      "chiplet": "CPU1_0",
+      "incident_pins": 264,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "CPU1_1",
+      "incident_pins": 264,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "CPU1_2",
+      "incident_pins": 264,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "CPU1_3",
+      "incident_pins": 264,
+      "priority": 0.5
+    },
+    {
+      "chiplet": "CPU2_0",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "CPU2_1",
+      "incident_pins": 440,
+      "priority": 0.8333333333333334
+    },
+    {
+      "chiplet": "CPU2_2",
+      "incident_pins": 440,
+      "priority": 0.8333333333333334
+    },
+    {
+      "chiplet": "CPU2_3",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "CPU2_4",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "CPU2_5",
+      "incident_pins": 440,
+      "priority": 0.8333333333333334
+    },
+    {
+      "chiplet": "CPU2_6",
+      "incident_pins": 440,
+      "priority": 0.8333333333333334
+    },
+    {
+      "chiplet": "CPU2_7",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "CPU2_8",
+      "incident_pins": 440,
+      "priority": 0.8333333333333334
+    },
+    {
+      "chiplet": "CPU2_9",
+      "incident_pins": 440,
+      "priority": 0.8333333333333334
+    },
+    {
+      "chiplet": "CPU2_10",
+      "incident_pins": 528,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "CPU2_11",
+      "incident_pins": 528,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "GPU_0",
+      "incident_pins": 528,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "GPU_1",
+      "incident_pins": 528,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "GPU_2",
+      "incident_pins": 528,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "GPU_3",
+      "incident_pins": 528,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "GPU_4",
+      "incident_pins": 528,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "GPU_5",
+      "incident_pins": 528,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "GPU_6",
+      "incident_pins": 528,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "GPU_7",
+      "incident_pins": 528,
+      "priority": 1.0
+    },
+    {
+      "chiplet": "HBM_0",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "HBM_1",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "HBM_2",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "HBM_3",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "HBM_4",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "HBM_5",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "HBM_6",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "HBM_7",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "DRAM_0",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "DRAM_1",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "IODie_0",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "IODie_1",
+      "incident_pins": 352,
+      "priority": 0.6666666666666666
+    },
+    {
+      "chiplet": "Analog_0",
+      "incident_pins": 88,
+      "priority": 0.16666666666666666
+    },
+    {
+      "chiplet": "Analog_1",
+      "incident_pins": 88,
+      "priority": 0.16666666666666666
+    },
+    {
+      "chiplet": "Analog_2",
+      "incident_pins": 88,
+      "priority": 0.16666666666666666
+    },
+    {
+      "chiplet": "Analog_3",
+      "incident_pins": 88,
+      "priority": 0.16666666666666666
+    },
+    {
+      "chiplet": "Analog_4",
+      "incident_pins": 88,
+      "priority": 0.16666666666666666
+    },
+    {
+      "chiplet": "Analog_5",
+      "incident_pins": 88,
+      "priority": 0.16666666666666666
+    },
+    {
+      "chiplet": "Analog_6",
+      "incident_pins": 88,
+      "priority": 0.16666666666666666
+    },
+    {
+      "chiplet": "Analog_7",
+      "incident_pins": 88,
+      "priority": 0.16666666666666666
+    }
+  ]
+}
