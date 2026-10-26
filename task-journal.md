@@ -1,5 +1,15 @@
  # Task Journal / 任务日志
 
+## 同状态实验交付（2026-10-26）
+
+- 实现位于 `.worktrees/stage0-visualization` / `codex/stage0-visualization`，提交 `0e4c0fa`；主分支同步 README 入口与此日志。
+- 沿用 core 的 paired checksum/delta 接口，迁入 baselines 的 stage0_summary 及测试；两个旧分支不改写历史。
+- 新增 Case4 59 mm 替代几何、公共合法化、真实参数配置和同状态六臂三 seed 采样；129 状态/2,322 标签，预算和坐标回放通过。合法性恢复与合法状态优化分层，公共合法化收益单列。
+- 增加 legalizer-only 控制，发现 61 个恢复状态的后处理奖励打平，禁止强制生成唯一最优动作；61 个合法优化状态有数值动作均值差异。
+- 实际运行正式 27 个 HotSpot 样本并按 Case 留出，MAE 58.9105°C；空间代理未获得可信温度校准，完整分层封装模型仍待实现。保存固定配置、全部运行输入输出及早期 19 次模拟。
+- 验证 636 passed、7 skipped；README 中已提供可视化分支的设计、结果、识别性诊断和热校准入口。继续遵守本地/GitHub 同步与部署后文档复查规定。
+- 主工作树已有的 `docs/experimental_design_contextual_bandit_2p5d.pdf` 删除状态保持原样，未暂存、恢复或提交。
+
 ## 长期同步规定
 
 1. 每次源码、配置、测试、文档、图表或 PDF 修改，都必须同步更新本地目录 `F:/GAME/Chiplet-Layout-2.5D` 与 GitHub 仓库 `amirocok06-byte/chiplet-layout-2p5d`。

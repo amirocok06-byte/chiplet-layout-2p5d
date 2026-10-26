@@ -1,5 +1,13 @@
 # 面向2.5D系统集成的芯粒布局方法
 
+2026-10-26 同状态实验已在 `codex/stage0-visualization` 完成并提交 `0e4c0fa`：
+[设计与复现](https://github.com/amirocok06-byte/chiplet-layout-2p5d/blob/codex/stage0-visualization/docs/same_state_experiment.md)、
+[逐 Case/配置结果](https://github.com/amirocok06-byte/chiplet-layout-2p5d/blob/codex/stage0-visualization/docs/figures/stage0_same_state/README.md)、
+[合法化对照与标签可识别性](https://github.com/amirocok06-byte/chiplet-layout-2p5d/blob/codex/stage0-visualization/docs/figures/stage0_same_state/EXPERIMENT_FINDINGS.md)、
+[真实 HotSpot 校准](https://github.com/amirocok06-byte/chiplet-layout-2p5d/blob/codex/stage0-visualization/docs/figures/stage0_hotspot_calibration/README.md)。
+已采集 129 状态/2,322 标签，Case4 另立 59 mm 几何版本并保留原始诊断；
+HotSpot 留出 MAE 58.91°C，当前热代理仍不标为温度。实现继承 core paired 接口，并迁入 baselines 的统计工具。
+
 **Chiplet Layout for 2.5D System Integration**
 
 目前，模拟退火（Simulated Annealing, SA）、解析式布局（Analytical Placement）和强化学习兼容布局（RL-compatible Placement）三类方法已经具备足够成熟的研究与工程基础。本项目将这三类方法放入统一的 2.5D 芯粒布局实验协议中，在相同输入、物理评估器、预算、随机种子和结果记录规范下进行公平比较，并为后续 CNN 状态编码与 Contextual Bandit 方法提供可复现的数据接口。
