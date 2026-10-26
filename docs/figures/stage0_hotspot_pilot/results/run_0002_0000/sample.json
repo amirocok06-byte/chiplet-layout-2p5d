@@ -1,0 +1,125 @@
+{
+  "sample_id": "Case1/Case1/seed44",
+  "case_id": "Case1",
+  "layout_id": "Case1/seed44",
+  "layout_sha256": "0ca0d0307c9647f7ead2241f10fc5fef4b705859c30f04b4e064f9531a9ffc46",
+  "geometry": {
+    "names": [
+      "CPU1_0",
+      "GPU_0",
+      "GPU_1",
+      "HBM_0",
+      "HBM_1",
+      "HBM_2"
+    ],
+    "board_mm": [
+      42.0,
+      42.0
+    ],
+    "sizes": [
+      [
+        0.2857142857142857,
+        0.2857142857142857
+      ],
+      [
+        0.42857142857142855,
+        0.42857142857142855
+      ],
+      [
+        0.42857142857142855,
+        0.42857142857142855
+      ],
+      [
+        0.19047619047619047,
+        0.2857142857142857
+      ],
+      [
+        0.19047619047619047,
+        0.2857142857142857
+      ],
+      [
+        0.19047619047619047,
+        0.2857142857142857
+      ]
+    ],
+    "positions": [
+      [
+        0.0,
+        0.42857142857142855
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.42857142857142855,
+        0.0
+      ],
+      [
+        0.0,
+        0.7142857142857142
+      ],
+      [
+        0.19047619047619047,
+        0.7142857142857142
+      ],
+      [
+        0.2857142857142857,
+        0.42857142857142855
+      ]
+    ]
+  },
+  "powers_watts": [
+    105.0,
+    300.0,
+    300.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "thermal_proxy_peak": 0.9446622410625902,
+  "proxy_version": "trajectory-spatial-proxy-v1",
+  "temperatures_kelvin": {
+    "CPU1_0": 431.87,
+    "GPU_0": 449.4,
+    "GPU_1": 445.51,
+    "HBM_0": 406.4,
+    "HBM_1": 409.19,
+    "HBM_2": 425.56
+  },
+  "peak_celsius": 176.25,
+  "config_sha256": "30b3790b15be2b1eb5660e1a97b5302ab835a91f5afa3e78088aed838c21e5c7",
+  "executable_sha256": "22440f9931bae8398461be7a522aa806e6181ed2571ab5c3f3c0b4b3d461a178",
+  "floorplan_sha256": "6ce0ae1d88020897e1ea1d663572179b884d6c185fde20571d3bb7656e57dd6e",
+  "power_trace_sha256": "b0c3adc8359e85bae737fcb9601f4fa059f5a8010c87b889e130d43379edf7f0",
+  "steady_sha256": "0115f7f3f89d1a4815d007dcb4b6039dd6bc9113e94e7bc3928424c774b00e09",
+  "command": [
+    "wsl",
+    "-d",
+    "Ubuntu-24.04-G",
+    "--",
+    "/mnt/f/GAME/2027-SRTP-面向2.5D系统集成的芯粒布局方法研究/4-开源源码/TAP-2.5D/util/hotspot",
+    "-c",
+    "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/results/run_0002_0000/hotspot.config",
+    "-f",
+    "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/results/run_0002_0000/layout.flp",
+    "-p",
+    "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/results/run_0002_0000/power.ptrace",
+    "-steady_file",
+    "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/results/run_0002_0000/steady.k",
+    "-model_type",
+    "block"
+  ],
+  "run_directory": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\hotspot-case-calibration-ae7v1c2p\\results\\run_0002_0000",
+  "elapsed_seconds": 0.15317929999991975,
+  "created_utc": "2026-10-25T13:59:34.760913+00:00",
+  "model": "HotSpot block; dead space = zero-power silicon; chiplet peak only",
+  "effective_overrides": {
+    "model_type": "block"
+  },
+  "adapter_sha256": "56dc8005f4176bd60b2740e65a142b5954a59dfd06c147ba7b2fb9ba8a2c6081",
+  "source_problem": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\hotspot-case-calibration-ae7v1c2p\\states\\Case1\\problem.json",
+  "source_state": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\hotspot-case-calibration-ae7v1c2p\\states\\Case1\\states\\seed44.json",
+  "source_problem_sha256": "10b86169201a04edc1168396970d16f981d6ec102817a75edee082898011991a",
+  "source_state_sha256": "6e490a164d7e73f3b6252be3e4885ae39c3c30cdcb01502206a94939252edd9d"
+}

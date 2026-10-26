@@ -1,0 +1,125 @@
+{
+  "sample_id": "Case1/Case1/6f5cbc291dd0e492d1fccfffc23b704ca2b9a1160c2ce3c2f5de9ac328f1dfa3",
+  "case_id": "Case1",
+  "layout_id": "Case1/6f5cbc291dd0e492d1fccfffc23b704ca2b9a1160c2ce3c2f5de9ac328f1dfa3",
+  "layout_sha256": "50d3cbb5f8da45f84163117e27f75d22266bcf6fdbe66e78528a5423dbfe49aa",
+  "geometry": {
+    "names": [
+      "CPU1_0",
+      "GPU_0",
+      "GPU_1",
+      "HBM_0",
+      "HBM_1",
+      "HBM_2"
+    ],
+    "board_mm": [
+      42.0,
+      42.0
+    ],
+    "sizes": [
+      [
+        0.2857142857142857,
+        0.2857142857142857
+      ],
+      [
+        0.42857142857142855,
+        0.42857142857142855
+      ],
+      [
+        0.42857142857142855,
+        0.42857142857142855
+      ],
+      [
+        0.19047619047619047,
+        0.2857142857142857
+      ],
+      [
+        0.19047619047619047,
+        0.2857142857142857
+      ],
+      [
+        0.19047619047619047,
+        0.2857142857142857
+      ]
+    ],
+    "positions": [
+      [
+        0.15206270394736404,
+        0.2057823104432684
+      ],
+      [
+        0.3282717857469232,
+        0.4914965961575541
+      ],
+      [
+        0.43777698966164974,
+        0.0
+      ],
+      [
+        0.7568432143183517,
+        0.42857142857142855
+      ],
+      [
+        0.1377955952707327,
+        0.4914965961575541
+      ],
+      [
+        0.807429711402351,
+        0.7142857142857142
+      ]
+    ]
+  },
+  "powers_watts": [
+    105.0,
+    300.0,
+    300.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "thermal_proxy_peak": 0.9318043805656715,
+  "proxy_version": "trajectory-spatial-proxy-v1",
+  "temperatures_kelvin": {
+    "CPU1_0": 439.4,
+    "GPU_0": 454.33,
+    "GPU_1": 448.15,
+    "HBM_0": 426.69,
+    "HBM_1": 431.53,
+    "HBM_2": 414.89
+  },
+  "peak_celsius": 181.18,
+  "config_sha256": "30b3790b15be2b1eb5660e1a97b5302ab835a91f5afa3e78088aed838c21e5c7",
+  "executable_sha256": "22440f9931bae8398461be7a522aa806e6181ed2571ab5c3f3c0b4b3d461a178",
+  "floorplan_sha256": "59c8ea02c109eabbdb0020c2b131b0c6611bc0732e754b9d3943c0c753cf6793",
+  "power_trace_sha256": "4ed280e9139df70a8ee07d22c8a263eca26e26b79459b628af6c2e4665d07f5a",
+  "steady_sha256": "eef7ae9b2e8d68b10dafa350a49d4fc7d3b15dbe615fa57461cab4ccdc4d03ec",
+  "command": [
+    "wsl",
+    "-d",
+    "Ubuntu-24.04-G",
+    "--",
+    "/mnt/f/GAME/2027-SRTP-面向2.5D系统集成的芯粒布局方法研究/4-开源源码/TAP-2.5D/util/hotspot",
+    "-c",
+    "/mnt/f/GAME/Chiplet-Layout-2.5D/.worktrees/stage0-visualization/docs/figures/stage0_hotspot_calibration/run_0000_0003/hotspot.config",
+    "-f",
+    "/mnt/f/GAME/Chiplet-Layout-2.5D/.worktrees/stage0-visualization/docs/figures/stage0_hotspot_calibration/run_0000_0003/layout.flp",
+    "-p",
+    "/mnt/f/GAME/Chiplet-Layout-2.5D/.worktrees/stage0-visualization/docs/figures/stage0_hotspot_calibration/run_0000_0003/power.ptrace",
+    "-steady_file",
+    "/mnt/f/GAME/Chiplet-Layout-2.5D/.worktrees/stage0-visualization/docs/figures/stage0_hotspot_calibration/run_0000_0003/steady.k",
+    "-model_type",
+    "block"
+  ],
+  "run_directory": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\docs\\figures\\stage0_hotspot_calibration\\run_0000_0003",
+  "elapsed_seconds": 4.641268800000034,
+  "created_utc": "2026-10-25T14:04:04.987235+00:00",
+  "model": "HotSpot block; dead space = zero-power silicon; chiplet peak only",
+  "effective_overrides": {
+    "model_type": "block"
+  },
+  "adapter_sha256": "72375acf753517a9c9654eacb8527272b011910693a10e37307624701956e8b4",
+  "source_problem": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\docs\\figures\\stage0_same_state\\Case1\\problem.json",
+  "source_state": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\docs\\figures\\stage0_same_state\\Case1\\states\\6f5cbc291dd0e492d1fccfffc23b704ca2b9a1160c2ce3c2f5de9ac328f1dfa3.json",
+  "source_problem_sha256": "fff2402521ec8f87ff655cf86d510e22fd87a3e7542903304af03faa327f6d27",
+  "source_state_sha256": "b43b46e55af830a7b7559309d4834a4461a39eac853dc224d2e47d1a7600c4a7"
+}

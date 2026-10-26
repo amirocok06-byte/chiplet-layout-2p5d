@@ -1,0 +1,125 @@
+{
+  "sample_id": "Case1/Case1/a3b8a1fef86956120b6d43bd86a6b635b99428d7923c7cf03bbd5f8574146033",
+  "case_id": "Case1",
+  "layout_id": "Case1/a3b8a1fef86956120b6d43bd86a6b635b99428d7923c7cf03bbd5f8574146033",
+  "layout_sha256": "7bf1c13ca2fcfebb84a3f8f40d5b8809b7fecea04061e6585dda905a05229ab0",
+  "geometry": {
+    "names": [
+      "CPU1_0",
+      "GPU_0",
+      "GPU_1",
+      "HBM_0",
+      "HBM_1",
+      "HBM_2"
+    ],
+    "board_mm": [
+      42.0,
+      42.0
+    ],
+    "sizes": [
+      [
+        0.2857142857142857,
+        0.2857142857142857
+      ],
+      [
+        0.42857142857142855,
+        0.42857142857142855
+      ],
+      [
+        0.42857142857142855,
+        0.42857142857142855
+      ],
+      [
+        0.19047619047619047,
+        0.2857142857142857
+      ],
+      [
+        0.19047619047619047,
+        0.2857142857142857
+      ],
+      [
+        0.19047619047619047,
+        0.2857142857142857
+      ]
+    ],
+    "positions": [
+      [
+        0.13877046712265362,
+        0.20999014712432806
+      ],
+      [
+        0.31548071720250803,
+        0.49570443283861376
+      ],
+      [
+        0.4244847528369393,
+        0.0
+      ],
+      [
+        0.7440521457739366,
+        0.42857142857142855
+      ],
+      [
+        0.12500452672631757,
+        0.49570443283861376
+      ],
+      [
+        0.8095238095238095,
+        0.7142857142857142
+      ]
+    ]
+  },
+  "powers_watts": [
+    105.0,
+    300.0,
+    300.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "thermal_proxy_peak": 0.9314372826469026,
+  "proxy_version": "trajectory-spatial-proxy-v1",
+  "temperatures_kelvin": {
+    "CPU1_0": 439.89,
+    "GPU_0": 454.57,
+    "GPU_1": 448.81,
+    "HBM_0": 427.38,
+    "HBM_1": 431.86,
+    "HBM_2": 412.09
+  },
+  "peak_celsius": 181.42000000000002,
+  "config_sha256": "30b3790b15be2b1eb5660e1a97b5302ab835a91f5afa3e78088aed838c21e5c7",
+  "executable_sha256": "22440f9931bae8398461be7a522aa806e6181ed2571ab5c3f3c0b4b3d461a178",
+  "floorplan_sha256": "f3801b535f8eba95c491a03d0eb56e707c76de5399dfde9cb74321ddbeb12ebc",
+  "power_trace_sha256": "36017d8a0d6451a29d2e53ecdf16c9cd6655635bcad33cefca631231fbe693c6",
+  "steady_sha256": "74681940f9b2a964a4c3d3f0feb035e2a1ecfb2e5f994dce427bd0318528752d",
+  "command": [
+    "wsl",
+    "-d",
+    "Ubuntu-24.04-G",
+    "--",
+    "/mnt/f/GAME/2027-SRTP-面向2.5D系统集成的芯粒布局方法研究/4-开源源码/TAP-2.5D/util/hotspot",
+    "-c",
+    "/mnt/f/GAME/Chiplet-Layout-2.5D/.worktrees/stage0-visualization/docs/figures/stage0_hotspot_calibration/run_0002_0003/hotspot.config",
+    "-f",
+    "/mnt/f/GAME/Chiplet-Layout-2.5D/.worktrees/stage0-visualization/docs/figures/stage0_hotspot_calibration/run_0002_0003/layout.flp",
+    "-p",
+    "/mnt/f/GAME/Chiplet-Layout-2.5D/.worktrees/stage0-visualization/docs/figures/stage0_hotspot_calibration/run_0002_0003/power.ptrace",
+    "-steady_file",
+    "/mnt/f/GAME/Chiplet-Layout-2.5D/.worktrees/stage0-visualization/docs/figures/stage0_hotspot_calibration/run_0002_0003/steady.k",
+    "-model_type",
+    "block"
+  ],
+  "run_directory": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\docs\\figures\\stage0_hotspot_calibration\\run_0002_0003",
+  "elapsed_seconds": 0.179352199999812,
+  "created_utc": "2026-10-25T14:04:05.358945+00:00",
+  "model": "HotSpot block; dead space = zero-power silicon; chiplet peak only",
+  "effective_overrides": {
+    "model_type": "block"
+  },
+  "adapter_sha256": "72375acf753517a9c9654eacb8527272b011910693a10e37307624701956e8b4",
+  "source_problem": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\docs\\figures\\stage0_same_state\\Case1\\problem.json",
+  "source_state": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\docs\\figures\\stage0_same_state\\Case1\\states\\a3b8a1fef86956120b6d43bd86a6b635b99428d7923c7cf03bbd5f8574146033.json",
+  "source_problem_sha256": "fff2402521ec8f87ff655cf86d510e22fd87a3e7542903304af03faa327f6d27",
+  "source_state_sha256": "5d1db4b82b2bffe2d63517c22e0915a532c7cf24cdf3fae6e0c3c2bb61b09eae"
+}

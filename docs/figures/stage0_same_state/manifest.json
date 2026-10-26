@@ -1,0 +1,56 @@
+{
+  "format": "counterfactual-experiment-v1",
+  "cases": [
+    "Case1",
+    "Case2",
+    "Case3",
+    "Case4",
+    "Case5",
+    "Case6",
+    "Case7",
+    "Case8",
+    "Case9",
+    "Case10"
+  ],
+  "seeds": [
+    20261025,
+    20261026,
+    20261027
+  ],
+  "budget": 65,
+  "warmup_steps": 64,
+  "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:09:58) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "numpy": "2.4.6",
+  "source_commit": "1461f6a17c193beab7959d9a2540c0fbcd96aa33",
+  "source_sha256": {
+    "__init__.py": "b208ad0523d942983a965351bae1a9700997c58a6df2ba8f174a8dc41632a2fe",
+    "arms.py": "8b788e4bdb31ca13553a38a6605be9ec854cdcff71d307ad53fac43b4d714559",
+    "bookshelf.py": "285559379dcb8eb49205a9c5efe5f5d94ddda622d648dd3ec985f042562a20f0",
+    "canonical.py": "7a14e72c6456e88933952bc8be07605d77d68670d58b21de780815cbf4d69a5f",
+    "counterfactual.py": "21717e9c558a511c3be721e53d3171cd4e90fff5b3ac47cd4f8adbeee4e3d4f1",
+    "counterfactual_run.py": "160b65bc38888920d6e0351953dc3547327c4292e26c90a5a2c9f533a406ca59",
+    "evaluator.py": "6bfaf0953963bb2580b9c654c37a3fba25b4fb3b50669b1ecbad8cb52819c90e",
+    "geometry_versions.py": "4279e7d1a9757e6132d98a9e1d6269df0a5b4b2650c1c645b91aae599031f7cc",
+    "hotspot.py": "56dc8005f4176bd60b2740e65a142b5954a59dfd06c147ba7b2fb9ba8a2c6081",
+    "legalization.py": "a82cf6fb5c05146d53c557e5008809e3939a90f0bb7a7465aa9615dc805cdcfc",
+    "map_projector.py": "7b5ff476011ac1234a9263a52573e5eb49fa120d59575e7d9517667ef6897d3a",
+    "sampling.py": "453a5a2f4f07a3ddc62f9d7b8a221f1646a5528702d4f762da159c7b5a97789f",
+    "stage0_summary.py": "024e3ceafbefe140bcbaf89f458f24e9a37c576eaeb870af4520bfb2bcf35e38",
+    "trajectory_data.py": "d109d59dae73dd18333d8efb09c369885f8ee27f4ed3b4d8ed939e78cb46218d",
+    "trajectory_optimizers.py": "4a95a62c0ea70a06ef9de8ca693bc6a737379af32ac78f08b87e4d5a6085bf3f",
+    "trajectory_problem.py": "df90b997f2437439b96d112b49dce5615caba88175e2fee1169bf0bee3afcfdb",
+    "trajectory_rl.py": "c5eab9e1261b2e386094c6a1aac33616babd29b441f1ec35c1694a6cad095045",
+    "trajectory_run.py": "e0ed3dfb43d1a5fee8b9f9c049aa1a3607bd707de9b07eb57babada4f07bced7",
+    "visual_demo.py": "29f209e97e5a1b58cde9b382f4332c59cf1d9643e74018769c3680554a90875c",
+    "workers.py": "7eaf23fb03d71e600ef7ccade0f52ae800c3543c14d54b57ecd76618e3b19ab6"
+  },
+  "source_seed": 20261024,
+  "thread_limits": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "record_count": 2322,
+  "status": "complete"
+}

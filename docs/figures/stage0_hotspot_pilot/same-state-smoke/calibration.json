@@ -1,0 +1,1374 @@
+{
+  "schema_version": 1,
+  "target": "peak chiplet steady-state Celsius",
+  "fit": {
+    "slope": -469.9885106678564,
+    "intercept_celsius": 620.3004421279495,
+    "method": "ordinary least squares",
+    "training_proxy_range": [
+      0.9327999314275531,
+      0.9446622410625902
+    ]
+  },
+  "split_by": "case",
+  "held_out_groups": [
+    "Case4"
+  ],
+  "train_sample_ids": [
+    "Case1/Case1/27ed786cc534126b17d00720fcc91c1d74826895dfc692094bafcbb0fafdd53c",
+    "Case1/Case1/7415bbd682ec442610c8d53fa2ccb1049d665346276066cf0ab9bf8b95512744",
+    "Case1/Case1/a3b2421e5d5d38d826ac0158f8fa1527ad3b52860c9a4bc56541532a4f093846"
+  ],
+  "held_out_sample_ids": [
+    "Case4/Case4/0ea99a557574d322bb9656531811a6977cb1d5f99134314b50458dcfbb13b010",
+    "Case4/Case4/2cebaef5bb988ee4ba408ca8cc82b39c9e543a6696331b1e2ae75037b5cee602",
+    "Case4/Case4/407cea8222f6c55a9ac278f8f70e76541cff7564a97e25da25f6dca047841c9f",
+    "Case4/Case4/4c9f626132de815e815a076b3ee71af20a1e4df77854d2d080d5973ac3e43905",
+    "Case4/Case4/9752005218c75e7b92eef70d204176a84fdc7f45a1758b6585ed1606215a3cde"
+  ],
+  "train_metrics": {
+    "count": 3,
+    "mae_celsius": 0.27682264801228484,
+    "rmse_celsius": 0.314368376795802
+  },
+  "held_out_metrics": {
+    "count": 5,
+    "mae_celsius": 129.89580340538637,
+    "rmse_celsius": 129.90829630747461
+  },
+  "config_sha256": "30b3790b15be2b1eb5660e1a97b5302ab835a91f5afa3e78088aed838c21e5c7",
+  "executable_sha256": "22440f9931bae8398461be7a522aa806e6181ed2571ab5c3f3c0b4b3d461a178",
+  "proxy_version": "trajectory-spatial-proxy-v1",
+  "samples_sha256": "b4c3af588d7a33db2ce9d359cb44d9c7c0985b0200f1f3914a58d7b28242d9ec",
+  "samples": [
+    {
+      "sample_id": "Case1/Case1/27ed786cc534126b17d00720fcc91c1d74826895dfc692094bafcbb0fafdd53c",
+      "case_id": "Case1",
+      "layout_id": "Case1/27ed786cc534126b17d00720fcc91c1d74826895dfc692094bafcbb0fafdd53c",
+      "layout_sha256": "399d84f41762e5fc839e52be565b9d95ca2395c27eb384afc8d72cf25a65bf50",
+      "geometry": {
+        "names": [
+          "CPU1_0",
+          "GPU_0",
+          "GPU_1",
+          "HBM_0",
+          "HBM_1",
+          "HBM_2"
+        ],
+        "board_mm": [
+          42.0,
+          42.0
+        ],
+        "sizes": [
+          [
+            0.2857142857142857,
+            0.2857142857142857
+          ],
+          [
+            0.42857142857142855,
+            0.42857142857142855
+          ],
+          [
+            0.42857142857142855,
+            0.42857142857142855
+          ],
+          [
+            0.19047619047619047,
+            0.2857142857142857
+          ],
+          [
+            0.19047619047619047,
+            0.2857142857142857
+          ],
+          [
+            0.19047619047619047,
+            0.2857142857142857
+          ]
+        ],
+        "positions": [
+          [
+            0.6082702915438625,
+            0.42857142857142855
+          ],
+          [
+            0.17969886297243398,
+            0.4559491161838693
+          ],
+          [
+            0.3422761948123301,
+            0.0
+          ],
+          [
+            0.7708476233837587,
+            0.14285714285714285
+          ],
+          [
+            0.15180000433613966,
+            0.1702348304695836
+          ],
+          [
+            0.8095238095238095,
+            0.7142857142857142
+          ]
+        ]
+      },
+      "powers_watts": [
+        105.0,
+        300.0,
+        300.0,
+        25.0,
+        25.0,
+        25.0
+      ],
+      "thermal_proxy_peak": 0.9348008858251774,
+      "proxy_version": "trajectory-spatial-proxy-v1",
+      "temperatures_kelvin": {
+        "CPU1_0": 439.58,
+        "GPU_0": 454.52,
+        "GPU_1": 451.09,
+        "HBM_0": 424.8,
+        "HBM_1": 433.18,
+        "HBM_2": 410.79
+      },
+      "peak_celsius": 181.37,
+      "config_sha256": "30b3790b15be2b1eb5660e1a97b5302ab835a91f5afa3e78088aed838c21e5c7",
+      "executable_sha256": "22440f9931bae8398461be7a522aa806e6181ed2571ab5c3f3c0b4b3d461a178",
+      "floorplan_sha256": "f76a34e25c3cf525a7f4b2b21f290db265665788d7a6714d7956ac7a1df339f7",
+      "power_trace_sha256": "c6a66e533936328b38bba1aff19aed2664e869423f3a8768a21d1f89a805f93b",
+      "steady_sha256": "6f6e3ea88dc93b3daa0729ddce5b9731ef399d22f6f1128c8f835756d2efbc2d",
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04-G",
+        "--",
+        "/mnt/f/GAME/2027-SRTP-面向2.5D系统集成的芯粒布局方法研究/4-开源源码/TAP-2.5D/util/hotspot",
+        "-c",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0000_0000/hotspot.config",
+        "-f",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0000_0000/layout.flp",
+        "-p",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0000_0000/power.ptrace",
+        "-steady_file",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0000_0000/steady.k",
+        "-model_type",
+        "block"
+      ],
+      "run_directory": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\hotspot-case-calibration-ae7v1c2p\\same-state-smoke\\run_0000_0000",
+      "elapsed_seconds": 3.284580900000037,
+      "created_utc": "2026-10-25T14:00:07.328588+00:00",
+      "model": "HotSpot block; dead space = zero-power silicon; chiplet peak only",
+      "effective_overrides": {
+        "model_type": "block"
+      },
+      "adapter_sha256": "56dc8005f4176bd60b2740e65a142b5954a59dfd06c147ba7b2fb9ba8a2c6081",
+      "source_problem": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case1\\problem.json",
+      "source_state": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case1\\states\\27ed786cc534126b17d00720fcc91c1d74826895dfc692094bafcbb0fafdd53c.json",
+      "source_problem_sha256": "fff2402521ec8f87ff655cf86d510e22fd87a3e7542903304af03faa327f6d27",
+      "source_state_sha256": "1d74dad64ce6d593f9bcf6f9529291b8d79c4753c27fd3be8b927be395ebb390"
+    },
+    {
+      "sample_id": "Case1/Case1/7415bbd682ec442610c8d53fa2ccb1049d665346276066cf0ab9bf8b95512744",
+      "case_id": "Case1",
+      "layout_id": "Case1/7415bbd682ec442610c8d53fa2ccb1049d665346276066cf0ab9bf8b95512744",
+      "layout_sha256": "0ca0d0307c9647f7ead2241f10fc5fef4b705859c30f04b4e064f9531a9ffc46",
+      "geometry": {
+        "names": [
+          "CPU1_0",
+          "GPU_0",
+          "GPU_1",
+          "HBM_0",
+          "HBM_1",
+          "HBM_2"
+        ],
+        "board_mm": [
+          42.0,
+          42.0
+        ],
+        "sizes": [
+          [
+            0.2857142857142857,
+            0.2857142857142857
+          ],
+          [
+            0.42857142857142855,
+            0.42857142857142855
+          ],
+          [
+            0.42857142857142855,
+            0.42857142857142855
+          ],
+          [
+            0.19047619047619047,
+            0.2857142857142857
+          ],
+          [
+            0.19047619047619047,
+            0.2857142857142857
+          ],
+          [
+            0.19047619047619047,
+            0.2857142857142857
+          ]
+        ],
+        "positions": [
+          [
+            0.0,
+            0.42857142857142855
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.42857142857142855,
+            0.0
+          ],
+          [
+            0.0,
+            0.7142857142857142
+          ],
+          [
+            0.19047619047619047,
+            0.7142857142857142
+          ],
+          [
+            0.2857142857142857,
+            0.42857142857142855
+          ]
+        ]
+      },
+      "powers_watts": [
+        105.0,
+        300.0,
+        300.0,
+        25.0,
+        25.0,
+        25.0
+      ],
+      "thermal_proxy_peak": 0.9446622410625902,
+      "proxy_version": "trajectory-spatial-proxy-v1",
+      "temperatures_kelvin": {
+        "CPU1_0": 431.87,
+        "GPU_0": 449.4,
+        "GPU_1": 445.51,
+        "HBM_0": 406.4,
+        "HBM_1": 409.19,
+        "HBM_2": 425.56
+      },
+      "peak_celsius": 176.25,
+      "config_sha256": "30b3790b15be2b1eb5660e1a97b5302ab835a91f5afa3e78088aed838c21e5c7",
+      "executable_sha256": "22440f9931bae8398461be7a522aa806e6181ed2571ab5c3f3c0b4b3d461a178",
+      "floorplan_sha256": "6ce0ae1d88020897e1ea1d663572179b884d6c185fde20571d3bb7656e57dd6e",
+      "power_trace_sha256": "b0c3adc8359e85bae737fcb9601f4fa059f5a8010c87b889e130d43379edf7f0",
+      "steady_sha256": "0115f7f3f89d1a4815d007dcb4b6039dd6bc9113e94e7bc3928424c774b00e09",
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04-G",
+        "--",
+        "/mnt/f/GAME/2027-SRTP-面向2.5D系统集成的芯粒布局方法研究/4-开源源码/TAP-2.5D/util/hotspot",
+        "-c",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0001_0001/hotspot.config",
+        "-f",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0001_0001/layout.flp",
+        "-p",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0001_0001/power.ptrace",
+        "-steady_file",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0001_0001/steady.k",
+        "-model_type",
+        "block"
+      ],
+      "run_directory": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\hotspot-case-calibration-ae7v1c2p\\same-state-smoke\\run_0001_0001",
+      "elapsed_seconds": 0.14734240000007048,
+      "created_utc": "2026-10-25T14:00:07.490633+00:00",
+      "model": "HotSpot block; dead space = zero-power silicon; chiplet peak only",
+      "effective_overrides": {
+        "model_type": "block"
+      },
+      "adapter_sha256": "56dc8005f4176bd60b2740e65a142b5954a59dfd06c147ba7b2fb9ba8a2c6081",
+      "source_problem": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case1\\problem.json",
+      "source_state": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case1\\states\\7415bbd682ec442610c8d53fa2ccb1049d665346276066cf0ab9bf8b95512744.json",
+      "source_problem_sha256": "fff2402521ec8f87ff655cf86d510e22fd87a3e7542903304af03faa327f6d27",
+      "source_state_sha256": "2632df684ed33ec19ce5ec3df345c28e33ddfae5c472aa695153205b94f330e8"
+    },
+    {
+      "sample_id": "Case1/Case1/a3b2421e5d5d38d826ac0158f8fa1527ad3b52860c9a4bc56541532a4f093846",
+      "case_id": "Case1",
+      "layout_id": "Case1/a3b2421e5d5d38d826ac0158f8fa1527ad3b52860c9a4bc56541532a4f093846",
+      "layout_sha256": "ae90161b2d2713a2ec47436bf3383e97566abc2dbcaa6847e478e120b83d104f",
+      "geometry": {
+        "names": [
+          "CPU1_0",
+          "GPU_0",
+          "GPU_1",
+          "HBM_0",
+          "HBM_1",
+          "HBM_2"
+        ],
+        "board_mm": [
+          42.0,
+          42.0
+        ],
+        "sizes": [
+          [
+            0.2857142857142857,
+            0.2857142857142857
+          ],
+          [
+            0.42857142857142855,
+            0.42857142857142855
+          ],
+          [
+            0.42857142857142855,
+            0.42857142857142855
+          ],
+          [
+            0.19047619047619047,
+            0.2857142857142857
+          ],
+          [
+            0.19047619047619047,
+            0.2857142857142857
+          ],
+          [
+            0.19047619047619047,
+            0.2857142857142857
+          ]
+        ],
+        "positions": [
+          [
+            0.601469668045676,
+            0.42857142857142855
+          ],
+          [
+            0.17289823947424748,
+            0.4746337993075175
+          ],
+          [
+            0.33993621406859925,
+            0.0
+          ],
+          [
+            0.7685076426400278,
+            0.14285714285714285
+          ],
+          [
+            0.14946002359240879,
+            0.18891951359323178
+          ],
+          [
+            0.8095238095238095,
+            0.7142857142857142
+          ]
+        ]
+      },
+      "powers_watts": [
+        105.0,
+        300.0,
+        300.0,
+        25.0,
+        25.0,
+        25.0
+      ],
+      "thermal_proxy_peak": 0.9327999314275531,
+      "proxy_version": "trajectory-spatial-proxy-v1",
+      "temperatures_kelvin": {
+        "CPU1_0": 439.79,
+        "GPU_0": 454.7,
+        "GPU_1": 450.76,
+        "HBM_0": 424.56,
+        "HBM_1": 433.61,
+        "HBM_2": 410.64
+      },
+      "peak_celsius": 181.55,
+      "config_sha256": "30b3790b15be2b1eb5660e1a97b5302ab835a91f5afa3e78088aed838c21e5c7",
+      "executable_sha256": "22440f9931bae8398461be7a522aa806e6181ed2571ab5c3f3c0b4b3d461a178",
+      "floorplan_sha256": "5dd2364a8450bbc2691ef960427537c52145dc0e5dfd6a7d71ab69bccf69190a",
+      "power_trace_sha256": "c6a66e533936328b38bba1aff19aed2664e869423f3a8768a21d1f89a805f93b",
+      "steady_sha256": "68fc294d12ed16384173ae7c0cc61de34c2c7f8beb7e3425568e4ce1f492ed10",
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04-G",
+        "--",
+        "/mnt/f/GAME/2027-SRTP-面向2.5D系统集成的芯粒布局方法研究/4-开源源码/TAP-2.5D/util/hotspot",
+        "-c",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0002_0004/hotspot.config",
+        "-f",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0002_0004/layout.flp",
+        "-p",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0002_0004/power.ptrace",
+        "-steady_file",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0002_0004/steady.k",
+        "-model_type",
+        "block"
+      ],
+      "run_directory": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\hotspot-case-calibration-ae7v1c2p\\same-state-smoke\\run_0002_0004",
+      "elapsed_seconds": 0.17806019999989076,
+      "created_utc": "2026-10-25T14:00:07.687252+00:00",
+      "model": "HotSpot block; dead space = zero-power silicon; chiplet peak only",
+      "effective_overrides": {
+        "model_type": "block"
+      },
+      "adapter_sha256": "56dc8005f4176bd60b2740e65a142b5954a59dfd06c147ba7b2fb9ba8a2c6081",
+      "source_problem": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case1\\problem.json",
+      "source_state": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case1\\states\\a3b2421e5d5d38d826ac0158f8fa1527ad3b52860c9a4bc56541532a4f093846.json",
+      "source_problem_sha256": "fff2402521ec8f87ff655cf86d510e22fd87a3e7542903304af03faa327f6d27",
+      "source_state_sha256": "0b57cbc4baf79268c7de0d8b506e012e5fcd8b0febb8a9ad8883831013005c19"
+    },
+    {
+      "sample_id": "Case4/Case4/0ea99a557574d322bb9656531811a6977cb1d5f99134314b50458dcfbb13b010",
+      "case_id": "Case4",
+      "layout_id": "Case4/0ea99a557574d322bb9656531811a6977cb1d5f99134314b50458dcfbb13b010",
+      "layout_sha256": "8a2f3c62f331e51876c7e7c9050451c79294f38b4cdbb62aa8ebf5b34cd1024f",
+      "geometry": {
+        "names": [
+          "CPU1_0",
+          "CPU1_1",
+          "GPU_0",
+          "GPU_1",
+          "GPU_2",
+          "GPU_3",
+          "HBM_0",
+          "HBM_1",
+          "HBM_2",
+          "HBM_3",
+          "HBM_4"
+        ],
+        "board_mm": [
+          59.0,
+          59.0
+        ],
+        "sizes": [
+          [
+            0.2033898305084746,
+            0.2033898305084746
+          ],
+          [
+            0.2033898305084746,
+            0.2033898305084746
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ]
+        ],
+        "positions": [
+          [
+            0.03525261059583018,
+            0.3326066389657437
+          ],
+          [
+            0.03525261059583018,
+            0.5359964694742183
+          ],
+          [
+            0.20334695499918565,
+            0.027521893203031826
+          ],
+          [
+            0.23864244110430477,
+            0.3326066389657437
+          ],
+          [
+            0.5084317007618975,
+            0.027521893203031833
+          ],
+          [
+            0.5437271868670166,
+            0.3326066389657437
+          ],
+          [
+            0.060641948085725934,
+            0.12921680845726913
+          ],
+          [
+            0.2670924943760431,
+            0.6376913847284555
+          ],
+          [
+            0.4026857147150261,
+            0.6376913847284555
+          ],
+          [
+            0.8135164465246094,
+            0.12866589287995803
+          ],
+          [
+            0.8488119326297285,
+            0.3320557233884326
+          ]
+        ]
+      },
+      "powers_watts": [
+        105.0,
+        105.0,
+        300.0,
+        300.0,
+        300.0,
+        300.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0
+      ],
+      "thermal_proxy_peak": 1.0433783828369723,
+      "proxy_version": "trajectory-spatial-proxy-v1",
+      "temperatures_kelvin": {
+        "CPU1_0": 509.35,
+        "CPU1_1": 502.97,
+        "GPU_0": 528.49,
+        "GPU_1": 533.0,
+        "GPU_2": 526.85,
+        "GPU_3": 527.23,
+        "HBM_0": 498.2,
+        "HBM_1": 493.53,
+        "HBM_2": 492.68,
+        "HBM_3": 494.31,
+        "HBM_4": 490.49
+      },
+      "peak_celsius": 259.85,
+      "config_sha256": "30b3790b15be2b1eb5660e1a97b5302ab835a91f5afa3e78088aed838c21e5c7",
+      "executable_sha256": "22440f9931bae8398461be7a522aa806e6181ed2571ab5c3f3c0b4b3d461a178",
+      "floorplan_sha256": "2512c622551e5b618ec3f1b52c69ecf579d22e7b518bf012888fe2d76ec43a84",
+      "power_trace_sha256": "89900ebe46a19a6a84e858e7ad47e0f3b89cf5d3512a83d9b9037ffe48cc22fb",
+      "steady_sha256": "a476811f89ec1d4ea5eb1a01a647aed15bc27debef6dbe289335ce27a602962e",
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04-G",
+        "--",
+        "/mnt/f/GAME/2027-SRTP-面向2.5D系统集成的芯粒布局方法研究/4-开源源码/TAP-2.5D/util/hotspot",
+        "-c",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0003_0008/hotspot.config",
+        "-f",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0003_0008/layout.flp",
+        "-p",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0003_0008/power.ptrace",
+        "-steady_file",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0003_0008/steady.k",
+        "-model_type",
+        "block"
+      ],
+      "run_directory": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\hotspot-case-calibration-ae7v1c2p\\same-state-smoke\\run_0003_0008",
+      "elapsed_seconds": 0.17265710000015133,
+      "created_utc": "2026-10-25T14:00:07.898970+00:00",
+      "model": "HotSpot block; dead space = zero-power silicon; chiplet peak only",
+      "effective_overrides": {
+        "model_type": "block"
+      },
+      "adapter_sha256": "56dc8005f4176bd60b2740e65a142b5954a59dfd06c147ba7b2fb9ba8a2c6081",
+      "source_problem": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case4\\problem.json",
+      "source_state": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case4\\states\\0ea99a557574d322bb9656531811a6977cb1d5f99134314b50458dcfbb13b010.json",
+      "source_problem_sha256": "b304838aa5f5c88509d8d437bb899f5c020ddffe97b054dae005f182a21c5648",
+      "source_state_sha256": "65c4b2df314c74997a60499ad39a793a463fbace83185891de2f23659ed146e5"
+    },
+    {
+      "sample_id": "Case4/Case4/2cebaef5bb988ee4ba408ca8cc82b39c9e543a6696331b1e2ae75037b5cee602",
+      "case_id": "Case4",
+      "layout_id": "Case4/2cebaef5bb988ee4ba408ca8cc82b39c9e543a6696331b1e2ae75037b5cee602",
+      "layout_sha256": "d67bbd2d2541dd698d48ea7a8f43ef6706b879534f5d4d7686842a4e9efd485f",
+      "geometry": {
+        "names": [
+          "CPU1_0",
+          "CPU1_1",
+          "GPU_0",
+          "GPU_1",
+          "GPU_2",
+          "GPU_3",
+          "HBM_0",
+          "HBM_1",
+          "HBM_2",
+          "HBM_3",
+          "HBM_4"
+        ],
+        "board_mm": [
+          59.0,
+          59.0
+        ],
+        "sizes": [
+          [
+            0.2033898305084746,
+            0.2033898305084746
+          ],
+          [
+            0.2033898305084746,
+            0.2033898305084746
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ]
+        ],
+        "positions": [
+          [
+            0.4578643977074309,
+            0.0056185915599832326
+          ],
+          [
+            0.015582042585820022,
+            0.31786119971877264
+          ],
+          [
+            0.15277965194471904,
+            0.0
+          ],
+          [
+            0.2189718730942946,
+            0.3050847457627119
+          ],
+          [
+            0.0208803873977335,
+            0.6101694915254238
+          ],
+          [
+            0.5240566188570065,
+            0.20900842206845782
+          ],
+          [
+            0.01718643160573599,
+            0.11447136921029805
+          ],
+          [
+            0.3259651331604454,
+            0.6101694915254238
+          ],
+          [
+            0.5240566188570065,
+            0.5140931678311698
+          ],
+          [
+            0.6612542282159055,
+            0.0056185915599832326
+          ],
+          [
+            0.7968474485548885,
+            0.0056185915599832326
+          ]
+        ]
+      },
+      "powers_watts": [
+        105.0,
+        105.0,
+        300.0,
+        300.0,
+        300.0,
+        300.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0
+      ],
+      "thermal_proxy_peak": 1.0278228270557852,
+      "proxy_version": "trajectory-spatial-proxy-v1",
+      "temperatures_kelvin": {
+        "CPU1_0": 509.26,
+        "CPU1_1": 521.85,
+        "GPU_0": 540.94,
+        "GPU_1": 539.2,
+        "GPU_2": 520.75,
+        "GPU_3": 519.99,
+        "HBM_0": 511.28,
+        "HBM_1": 506.43,
+        "HBM_2": 498.43,
+        "HBM_3": 490.06,
+        "HBM_4": 478.63
+      },
+      "peak_celsius": 267.7900000000001,
+      "config_sha256": "30b3790b15be2b1eb5660e1a97b5302ab835a91f5afa3e78088aed838c21e5c7",
+      "executable_sha256": "22440f9931bae8398461be7a522aa806e6181ed2571ab5c3f3c0b4b3d461a178",
+      "floorplan_sha256": "facd61f1e657af207e1ca398894ed61deb8db02d258ef6b8130d30dd67e946f3",
+      "power_trace_sha256": "fd995260375bfd76519e14ec13452adecab82bb681bd94d6bd65f13353158913",
+      "steady_sha256": "703b5dd337acd1e058d4e13037ae2f2db3b798a6383fac4dc34f72486b23568e",
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04-G",
+        "--",
+        "/mnt/f/GAME/2027-SRTP-面向2.5D系统集成的芯粒布局方法研究/4-开源源码/TAP-2.5D/util/hotspot",
+        "-c",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0004_0008/hotspot.config",
+        "-f",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0004_0008/layout.flp",
+        "-p",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0004_0008/power.ptrace",
+        "-steady_file",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0004_0008/steady.k",
+        "-model_type",
+        "block"
+      ],
+      "run_directory": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\hotspot-case-calibration-ae7v1c2p\\same-state-smoke\\run_0004_0008",
+      "elapsed_seconds": 0.1872077000000445,
+      "created_utc": "2026-10-25T14:00:08.099736+00:00",
+      "model": "HotSpot block; dead space = zero-power silicon; chiplet peak only",
+      "effective_overrides": {
+        "model_type": "block"
+      },
+      "adapter_sha256": "56dc8005f4176bd60b2740e65a142b5954a59dfd06c147ba7b2fb9ba8a2c6081",
+      "source_problem": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case4\\problem.json",
+      "source_state": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case4\\states\\2cebaef5bb988ee4ba408ca8cc82b39c9e543a6696331b1e2ae75037b5cee602.json",
+      "source_problem_sha256": "b304838aa5f5c88509d8d437bb899f5c020ddffe97b054dae005f182a21c5648",
+      "source_state_sha256": "8239eced0baf471ef0fe807f33f2e4a0fd8802dc4ea4044ffa15d1cb54dc7e5b"
+    },
+    {
+      "sample_id": "Case4/Case4/407cea8222f6c55a9ac278f8f70e76541cff7564a97e25da25f6dca047841c9f",
+      "case_id": "Case4",
+      "layout_id": "Case4/407cea8222f6c55a9ac278f8f70e76541cff7564a97e25da25f6dca047841c9f",
+      "layout_sha256": "2d9be37e8756ded3bf392ca09db7b8caa80f9a0a30a87814bd983c61bff7faac",
+      "geometry": {
+        "names": [
+          "CPU1_0",
+          "CPU1_1",
+          "GPU_0",
+          "GPU_1",
+          "GPU_2",
+          "GPU_3",
+          "HBM_0",
+          "HBM_1",
+          "HBM_2",
+          "HBM_3",
+          "HBM_4"
+        ],
+        "board_mm": [
+          59.0,
+          59.0
+        ],
+        "sizes": [
+          [
+            0.2033898305084746,
+            0.2033898305084746
+          ],
+          [
+            0.2033898305084746,
+            0.2033898305084746
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ]
+        ],
+        "positions": [
+          [
+            0.44307621655232454,
+            0.015690894861871224
+          ],
+          [
+            0.007974500191924,
+            0.3269254604429847
+          ],
+          [
+            0.13799147078961266,
+            0.0
+          ],
+          [
+            0.2113643307003986,
+            0.3050847457627119
+          ],
+          [
+            0.004532699898681998,
+            0.6101694915254238
+          ],
+          [
+            0.5164490764631104,
+            0.2190807253703458
+          ],
+          [
+            0.0023982504506296076,
+            0.12353562993451012
+          ],
+          [
+            0.3096174456613939,
+            0.6101694915254238
+          ],
+          [
+            0.5164490764631104,
+            0.5241654711330577
+          ],
+          [
+            0.6464660470607991,
+            0.015690894861871224
+          ],
+          [
+            0.7820592673997822,
+            0.002600142484992637
+          ]
+        ]
+      },
+      "powers_watts": [
+        105.0,
+        105.0,
+        300.0,
+        300.0,
+        300.0,
+        300.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0
+      ],
+      "thermal_proxy_peak": 1.0280525660810922,
+      "proxy_version": "trajectory-spatial-proxy-v1",
+      "temperatures_kelvin": {
+        "CPU1_0": 515.67,
+        "CPU1_1": 523.6,
+        "GPU_0": 542.74,
+        "GPU_1": 540.98,
+        "GPU_2": 522.13,
+        "GPU_3": 521.75,
+        "HBM_0": 512.47,
+        "HBM_1": 507.8,
+        "HBM_2": 500.3,
+        "HBM_3": 493.94,
+        "HBM_4": 478.25
+      },
+      "peak_celsius": 269.59000000000003,
+      "config_sha256": "30b3790b15be2b1eb5660e1a97b5302ab835a91f5afa3e78088aed838c21e5c7",
+      "executable_sha256": "22440f9931bae8398461be7a522aa806e6181ed2571ab5c3f3c0b4b3d461a178",
+      "floorplan_sha256": "16c9d73768ae0dead7561f8791c9850d0788d467648b1f526b7df36a4008eb27",
+      "power_trace_sha256": "fb77bf3bbac67e7fe43845698e830f57ede216e50613b1b1248bd197f01f2fe7",
+      "steady_sha256": "250b2662bc9f2ba3a2f4fb7f1e0c9282696e99154438e15180df538e3c00a7a6",
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04-G",
+        "--",
+        "/mnt/f/GAME/2027-SRTP-面向2.5D系统集成的芯粒布局方法研究/4-开源源码/TAP-2.5D/util/hotspot",
+        "-c",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0005_0008/hotspot.config",
+        "-f",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0005_0008/layout.flp",
+        "-p",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0005_0008/power.ptrace",
+        "-steady_file",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0005_0008/steady.k",
+        "-model_type",
+        "block"
+      ],
+      "run_directory": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\hotspot-case-calibration-ae7v1c2p\\same-state-smoke\\run_0005_0008",
+      "elapsed_seconds": 0.16443519999984346,
+      "created_utc": "2026-10-25T14:00:08.277510+00:00",
+      "model": "HotSpot block; dead space = zero-power silicon; chiplet peak only",
+      "effective_overrides": {
+        "model_type": "block"
+      },
+      "adapter_sha256": "56dc8005f4176bd60b2740e65a142b5954a59dfd06c147ba7b2fb9ba8a2c6081",
+      "source_problem": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case4\\problem.json",
+      "source_state": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case4\\states\\407cea8222f6c55a9ac278f8f70e76541cff7564a97e25da25f6dca047841c9f.json",
+      "source_problem_sha256": "b304838aa5f5c88509d8d437bb899f5c020ddffe97b054dae005f182a21c5648",
+      "source_state_sha256": "62f8f088efc26acac0a2c0c70c5c35ba3a08e1e2ddc967fe1521ff3024d18874"
+    },
+    {
+      "sample_id": "Case4/Case4/4c9f626132de815e815a076b3ee71af20a1e4df77854d2d080d5973ac3e43905",
+      "case_id": "Case4",
+      "layout_id": "Case4/4c9f626132de815e815a076b3ee71af20a1e4df77854d2d080d5973ac3e43905",
+      "layout_sha256": "a90a97611d01f59fb1b1e2b21629fa17a60693a84a867538c728d43cc157adc7",
+      "geometry": {
+        "names": [
+          "CPU1_0",
+          "CPU1_1",
+          "GPU_0",
+          "GPU_1",
+          "GPU_2",
+          "GPU_3",
+          "HBM_0",
+          "HBM_1",
+          "HBM_2",
+          "HBM_3",
+          "HBM_4"
+        ],
+        "board_mm": [
+          59.0,
+          59.0
+        ],
+        "sizes": [
+          [
+            0.2033898305084746,
+            0.2033898305084746
+          ],
+          [
+            0.2033898305084746,
+            0.2033898305084746
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ]
+        ],
+        "positions": [
+          [
+            0.03525261059583018,
+            0.3316506792614797
+          ],
+          [
+            0.03525261059583018,
+            0.5350405097699542
+          ],
+          [
+            0.18428595130493508,
+            0.026565933498767784
+          ],
+          [
+            0.23864244110430477,
+            0.3316506792614797
+          ],
+          [
+            0.48937069706764696,
+            0.02656593349876779
+          ],
+          [
+            0.5437271868670166,
+            0.3316506792614797
+          ],
+          [
+            0.04869273096595203,
+            0.12826084875300509
+          ],
+          [
+            0.2670924943760431,
+            0.6367354250241916
+          ],
+          [
+            0.4026857147150261,
+            0.6367354250241916
+          ],
+          [
+            0.7944554428303588,
+            0.12826084875300509
+          ],
+          [
+            0.8488119326297285,
+            0.3316506792614797
+          ]
+        ]
+      },
+      "powers_watts": [
+        105.0,
+        105.0,
+        300.0,
+        300.0,
+        300.0,
+        300.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0
+      ],
+      "thermal_proxy_peak": 1.0425080077000484,
+      "proxy_version": "trajectory-spatial-proxy-v1",
+      "temperatures_kelvin": {
+        "CPU1_0": 510.65,
+        "CPU1_1": 503.91,
+        "GPU_0": 528.13,
+        "GPU_1": 533.15,
+        "GPU_2": 526.93,
+        "GPU_3": 526.52,
+        "HBM_0": 499.28,
+        "HBM_1": 493.9,
+        "HBM_2": 492.87,
+        "HBM_3": 495.73,
+        "HBM_4": 489.82
+      },
+      "peak_celsius": 260.0,
+      "config_sha256": "30b3790b15be2b1eb5660e1a97b5302ab835a91f5afa3e78088aed838c21e5c7",
+      "executable_sha256": "22440f9931bae8398461be7a522aa806e6181ed2571ab5c3f3c0b4b3d461a178",
+      "floorplan_sha256": "a5072591493793e4a7dd260511ba79086288772232a829076926290e4b8b8af6",
+      "power_trace_sha256": "f670aebf9a7c4549bb17b5e0a63feb6b899595f4fbd43d945bb8135685b6e867",
+      "steady_sha256": "0a25da25e599b10cd090eea18f55690e14c3e058560b2854dc5aa7941ec6f745",
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04-G",
+        "--",
+        "/mnt/f/GAME/2027-SRTP-面向2.5D系统集成的芯粒布局方法研究/4-开源源码/TAP-2.5D/util/hotspot",
+        "-c",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0006_0008/hotspot.config",
+        "-f",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0006_0008/layout.flp",
+        "-p",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0006_0008/power.ptrace",
+        "-steady_file",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0006_0008/steady.k",
+        "-model_type",
+        "block"
+      ],
+      "run_directory": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\hotspot-case-calibration-ae7v1c2p\\same-state-smoke\\run_0006_0008",
+      "elapsed_seconds": 0.1577329000001555,
+      "created_utc": "2026-10-25T14:00:08.449785+00:00",
+      "model": "HotSpot block; dead space = zero-power silicon; chiplet peak only",
+      "effective_overrides": {
+        "model_type": "block"
+      },
+      "adapter_sha256": "56dc8005f4176bd60b2740e65a142b5954a59dfd06c147ba7b2fb9ba8a2c6081",
+      "source_problem": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case4\\problem.json",
+      "source_state": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case4\\states\\4c9f626132de815e815a076b3ee71af20a1e4df77854d2d080d5973ac3e43905.json",
+      "source_problem_sha256": "b304838aa5f5c88509d8d437bb899f5c020ddffe97b054dae005f182a21c5648",
+      "source_state_sha256": "9272dae6e008ae9cf92c774a8301546a557658e71b2231227ed56730a74abe2f"
+    },
+    {
+      "sample_id": "Case4/Case4/9752005218c75e7b92eef70d204176a84fdc7f45a1758b6585ed1606215a3cde",
+      "case_id": "Case4",
+      "layout_id": "Case4/9752005218c75e7b92eef70d204176a84fdc7f45a1758b6585ed1606215a3cde",
+      "layout_sha256": "4e874dcf017159a96069a1b66245c92933aa8a029b4493722c52752da4b4ee7d",
+      "geometry": {
+        "names": [
+          "CPU1_0",
+          "CPU1_1",
+          "GPU_0",
+          "GPU_1",
+          "GPU_2",
+          "GPU_3",
+          "HBM_0",
+          "HBM_1",
+          "HBM_2",
+          "HBM_3",
+          "HBM_4"
+        ],
+        "board_mm": [
+          59.0,
+          59.0
+        ],
+        "sizes": [
+          [
+            0.2033898305084746,
+            0.2033898305084746
+          ],
+          [
+            0.2033898305084746,
+            0.2033898305084746
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.3050847457627119,
+            0.3050847457627119
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ],
+          [
+            0.13559322033898305,
+            0.2033898305084746
+          ]
+        ],
+        "positions": [
+          [
+            0.3049820172992147,
+            0.6376913847284555
+          ],
+          [
+            0.10159218679074011,
+            0.6376913847284555
+          ],
+          [
+            0.20334695499918565,
+            0.027521893203031826
+          ],
+          [
+            0.2032871020449774,
+            0.3326066389657437
+          ],
+          [
+            0.5084317007618975,
+            0.15829991373796076
+          ],
+          [
+            0.5083718478076893,
+            0.46338465950067265
+          ],
+          [
+            0.060641948085725934,
+            0.17261508872672138
+          ],
+          [
+            0.06769388170599436,
+            0.37600491923519597
+          ],
+          [
+            0.8135164465246094,
+            0.3072322102865838
+          ],
+          [
+            0.8135164465246094,
+            0.10384237977810923
+          ],
+          [
+            0.8134565935704012,
+            0.5106220407950584
+          ]
+        ]
+      },
+      "powers_watts": [
+        105.0,
+        105.0,
+        300.0,
+        300.0,
+        300.0,
+        300.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0
+      ],
+      "thermal_proxy_peak": 1.0368567834227862,
+      "proxy_version": "trajectory-spatial-proxy-v1",
+      "temperatures_kelvin": {
+        "CPU1_0": 515.37,
+        "CPU1_1": 506.42,
+        "GPU_0": 523.32,
+        "GPU_1": 533.01,
+        "GPU_2": 531.14,
+        "GPU_3": 528.29,
+        "HBM_0": 493.76,
+        "HBM_1": 497.16,
+        "HBM_2": 495.57,
+        "HBM_3": 493.17,
+        "HBM_4": 493.68
+      },
+      "peak_celsius": 259.86,
+      "config_sha256": "30b3790b15be2b1eb5660e1a97b5302ab835a91f5afa3e78088aed838c21e5c7",
+      "executable_sha256": "22440f9931bae8398461be7a522aa806e6181ed2571ab5c3f3c0b4b3d461a178",
+      "floorplan_sha256": "6d62492fd2b12e754b0e4bc85bd5b0f115ffac06f7de1f2af81c60c53a1de241",
+      "power_trace_sha256": "fd995260375bfd76519e14ec13452adecab82bb681bd94d6bd65f13353158913",
+      "steady_sha256": "18ed3f76f3ac6d59965494eae3a9074c7a483db8a615f42c400dcb73343eb81e",
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04-G",
+        "--",
+        "/mnt/f/GAME/2027-SRTP-面向2.5D系统集成的芯粒布局方法研究/4-开源源码/TAP-2.5D/util/hotspot",
+        "-c",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0007_0009/hotspot.config",
+        "-f",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0007_0009/layout.flp",
+        "-p",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0007_0009/power.ptrace",
+        "-steady_file",
+        "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/same-state-smoke/run_0007_0009/steady.k",
+        "-model_type",
+        "block"
+      ],
+      "run_directory": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\hotspot-case-calibration-ae7v1c2p\\same-state-smoke\\run_0007_0009",
+      "elapsed_seconds": 0.15847069999995256,
+      "created_utc": "2026-10-25T14:00:08.626615+00:00",
+      "model": "HotSpot block; dead space = zero-power silicon; chiplet peak only",
+      "effective_overrides": {
+        "model_type": "block"
+      },
+      "adapter_sha256": "56dc8005f4176bd60b2740e65a142b5954a59dfd06c147ba7b2fb9ba8a2c6081",
+      "source_problem": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case4\\problem.json",
+      "source_state": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke\\Case4\\states\\9752005218c75e7b92eef70d204176a84fdc7f45a1758b6585ed1606215a3cde.json",
+      "source_problem_sha256": "b304838aa5f5c88509d8d437bb899f5c020ddffe97b054dae005f182a21c5648",
+      "source_state_sha256": "ed83981924d46aec5260cb92d0cf755c0780e9650205f166211b941db1cd6025"
+    }
+  ],
+  "created_utc": "2026-10-25T14:00:08.631271+00:00",
+  "rejected": [
+    {
+      "case_id": "Case1",
+      "layout_id": "Case1/6c13757ae66941863129283fa47e849bca248aa235e238d25b7ebf72ffa9f0e7",
+      "reason": "illegal layout: overlapping chiplets"
+    },
+    {
+      "case_id": "Case1",
+      "layout_id": "Case1/79b0e54a9371aaecf62f41b82b2a9b133ae5d6b5b10db1b519a8d3d02a890ccf",
+      "reason": "illegal layout: overlapping chiplets"
+    },
+    {
+      "case_id": "Case1",
+      "layout_id": "Case1/8c795fed0b1772efe11f4a0577c02fe061276c00c95ec9a8f14dc20cefdf77a1",
+      "reason": "illegal layout: overlapping chiplets"
+    },
+    {
+      "case_id": "Case1",
+      "layout_id": "Case1/91042c978c9b86329b266dcbf26da082fd5be60ea321c2855a2372ae8c68b355",
+      "reason": "illegal layout: overlapping chiplets"
+    },
+    {
+      "case_id": "Case1",
+      "layout_id": "Case1/ac1158cf9e8cec812061e2c376846f8ca365553b9632b4edbb21f831dca20407",
+      "reason": "illegal layout: overlapping chiplets"
+    },
+    {
+      "case_id": "Case1",
+      "layout_id": "Case1/cfb539c0ba7fe4183d1626aa50b82a98e28a344ab3855392d7606b77db68e0c5",
+      "reason": "illegal layout: overlapping chiplets"
+    },
+    {
+      "case_id": "Case1",
+      "layout_id": "Case1/e3b52490311955842f63eb50d042269ded3926bca95da9f6e91b866e52fb7bff",
+      "reason": "illegal layout: overlapping chiplets"
+    },
+    {
+      "case_id": "Case4",
+      "layout_id": "Case4/00586a4cbe2beacf34b0af5562debb45f7b3476b011b21203c7772aa11014647",
+      "reason": "illegal layout: overlapping chiplets"
+    },
+    {
+      "case_id": "Case4",
+      "layout_id": "Case4/50f5a6ccd2605001b766882ced19571c59daa406eb062b57e0f857a1f5190dcc",
+      "reason": "illegal layout: overlapping chiplets"
+    }
+  ],
+  "selection": {
+    "method": "sorted paths, first N successful legal states per case",
+    "layouts_per_case": 5,
+    "included_cases": null,
+    "states_root": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\build\\same-state-smoke"
+  }
+}

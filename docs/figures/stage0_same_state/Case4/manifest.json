@@ -1,0 +1,350 @@
+{
+  "source": {
+    "case": "Case4",
+    "source_directory": "F:\\GAME\\2027-SRTP-面向2.5D系统集成的芯粒布局方法研究\\2-Benchmarks\\external\\ATPlace2.5D\\Case4",
+    "files_sha256": {
+      "Case4.blocks": "81703f39a1be836ff02287a2054c67dbe0bd401396499e7a80cee59346228748",
+      "Case4.nets": "01990708fe9c531714a51e93307f59e12a6d5a38e19f888dd3ebfee2a2a09dd3",
+      "Case4.pl": "288de8e0305291df25e409747f910000eae1c5767eb1374dd32f93f63e8d675a",
+      "Case4.power": "9f8b68435faf26cf759fb1dc2843fa8afdfef22d127c28a72b3b4ac5f09c20ee",
+      "Thermal-aware.json": "45faf9190432aa48aec21520310fcb69551f5c7622a695d507a9b1358ad0d9d0",
+      "WL-driven.json": "954d3b7b5c62ee715dbeda5e97f14838eaa935927b74b9ee8ee48818d89d374e"
+    },
+    "coordinate_unit": "um->normalized-axis",
+    "wirelength_unit": "mm",
+    "pin_offset_rule": "centre + percentage*dimension",
+    "board_um": [
+      59000.0,
+      59000.0
+    ],
+    "num_chiplets": 11,
+    "area_utilization": 0.5929330652111461,
+    "proven_infeasible_by_area": false,
+    "board_source": "MaskPlace2.5D Case4.intpsize; explicit alternative",
+    "num_nets": 7040,
+    "seed": 20261024,
+    "initialization": "seeded-bounded-scatter; public .pl zero placeholders",
+    "priority_source": "normalized incident pin count; ties preserved; no precedence",
+    "thermal_model": "uncalibrated Gaussian power-density spreading proxy",
+    "geometry_version": "case4-maskplace-59mm-alternative-v1",
+    "geometry_version_requested": "case4-59mm-alternative",
+    "geometry_origin": {
+      "board_mm": [
+        37.0,
+        37.0
+      ],
+      "board_source": "ATPlace_pub/reproduce.py CASE_INTERPOSER_SIZE; retained verbatim"
+    },
+    "physical_invariants_verified": true,
+    "geometry_provenance": {
+      "classification": "alternative, not official correction",
+      "source_path": "F:/GAME/2027-SRTP-面向2.5D系统集成的芯粒布局方法研究/4-开源源码/MaskPlace2.5D/cases/Case4/Case4.intpsize",
+      "source_sha256": "87397dc96a29ed206e446b76ac58d8a7ef95815e78d0a52c97509cbd9549e9cf",
+      "source_content": "59000.00000",
+      "source_unit": "um",
+      "interpretation": "width = height = float(first line)",
+      "interpretation_source": "MaskPlace2.5D/process_thermal.py:9-15",
+      "locally_verified_on": "2026-10-25",
+      "original_case4_board_mm": [
+        37.0,
+        37.0
+      ]
+    }
+  },
+  "problem_checksum": "6479a52aa77c8402670c84c0acffc8677c61bb624718b88f30d77c196bb43cf1",
+  "states": [
+    {
+      "checksum": "e3c7bc60f5218ae8d8ecf156bd02812213f4046b56cd83b4daa3149058f8a4cd",
+      "state_id": "4b1797dddfcac6417e67d5a6a0eaa28182cafbe0e82a07ba64121885aacd07f4",
+      "phase": "feasibility_recovery",
+      "origins": [
+        {
+          "kind": "raw_anchor",
+          "algorithm": "sa",
+          "step": 0
+        },
+        {
+          "kind": "raw_anchor",
+          "algorithm": "analytical",
+          "step": 0
+        },
+        {
+          "kind": "raw_anchor",
+          "algorithm": "rl",
+          "step": 0
+        }
+      ]
+    },
+    {
+      "checksum": "4f81f90134f07ae20f720cd9bd57cf030ae1de2bb73aa1794006af37df789b8b",
+      "state_id": "ddd20066807c84e942b27541da92594bcbd78b79393ccd1127baac1d9bfb64b7",
+      "phase": "feasibility_recovery",
+      "origins": [
+        {
+          "kind": "raw_anchor",
+          "algorithm": "sa",
+          "step": 32
+        }
+      ]
+    },
+    {
+      "checksum": "28b0b6807be56d3517fad38b96a8888ed37f720032b03ffaa2aa71ea29a87710",
+      "state_id": "e9e06496b27198a4d2de48054c84965bf0818854c011fea64fa2794abfa93aa5",
+      "phase": "feasibility_recovery",
+      "origins": [
+        {
+          "kind": "raw_anchor",
+          "algorithm": "sa",
+          "step": 64
+        }
+      ]
+    },
+    {
+      "checksum": "9bc3dc42f5f2058f2b239e28c05b7a4d415ef4f3e5298f71f0d46f429b000530",
+      "state_id": "9606800fd666c21983fc2842d9651684ab96f58ec995388425285520dac2284e",
+      "phase": "feasibility_recovery",
+      "origins": [
+        {
+          "kind": "raw_anchor",
+          "algorithm": "analytical",
+          "step": 32
+        }
+      ]
+    },
+    {
+      "checksum": "33865d7c3b5ed9ab271c2e4505db0e3a4125c4bcbb832f041d226e0b212f0728",
+      "state_id": "bddddf324347d82a13ea9d2606eee9c1c1b15334a70b1ebbe5314cee44934b18",
+      "phase": "feasibility_recovery",
+      "origins": [
+        {
+          "kind": "raw_anchor",
+          "algorithm": "analytical",
+          "step": 64
+        }
+      ]
+    },
+    {
+      "checksum": "baebf8a7b8144969ba9d1594c9a0803972035d50af24a597f60252296b748422",
+      "state_id": "59a4ee79677817bfb35683c985ee19c18517e89f9f34d334a1e20dbc64f0bf13",
+      "phase": "feasibility_recovery",
+      "origins": [
+        {
+          "kind": "raw_anchor",
+          "algorithm": "rl",
+          "step": 32
+        }
+      ]
+    },
+    {
+      "checksum": "e706f77e0de987211c6c46d4b7e6e0689fa990b678e7ba87fc15df8db572a307",
+      "state_id": "81d71683f3af0a3be638c99dcb7f4f73a8e785eb8684a54c250e7be4b7da3170",
+      "phase": "feasibility_recovery",
+      "origins": [
+        {
+          "kind": "raw_anchor",
+          "algorithm": "rl",
+          "step": 64
+        }
+      ]
+    },
+    {
+      "checksum": "0ea99a557574d322bb9656531811a6977cb1d5f99134314b50458dcfbb13b010",
+      "state_id": "ea5e0e445aaedb5f52a95239a1b6d9e51c996c9bf7e380b541b10b274bc97779",
+      "phase": "legal_optimization",
+      "origins": [
+        {
+          "kind": "legal_companion",
+          "raw_checksum": "e3c7bc60f5218ae8d8ecf156bd02812213f4046b56cd83b4daa3149058f8a4cd",
+          "status": "legalized",
+          "method": "maxrects-nearest-area",
+          "wall_seconds": 0.0010698999999476655,
+          "geometry_checks": 2
+        }
+      ]
+    },
+    {
+      "checksum": "cfa6fc623a91a2376619828cfb0f124a203aceb2d1dbd8c1759149e69733e62a",
+      "state_id": "572b97d61d287581bac72aeaf5fed514c194a6a00030b513bc76e6d960d30020",
+      "phase": "legal_optimization",
+      "origins": [
+        {
+          "kind": "legal_companion",
+          "raw_checksum": "4f81f90134f07ae20f720cd9bd57cf030ae1de2bb73aa1794006af37df789b8b",
+          "status": "legalized",
+          "method": "maxrects-nearest-area",
+          "wall_seconds": 0.0009646999999404215,
+          "geometry_checks": 2
+        }
+      ]
+    },
+    {
+      "checksum": "ac66975189635d052cfde49c9be2b79fde92374121c8746f39d3aad12e7f1277",
+      "state_id": "8b46db3f85c5a10302c60d86eaab095698428deb1da030e44fd1758c2e2a851c",
+      "phase": "legal_optimization",
+      "origins": [
+        {
+          "kind": "legal_companion",
+          "raw_checksum": "28b0b6807be56d3517fad38b96a8888ed37f720032b03ffaa2aa71ea29a87710",
+          "status": "legalized",
+          "method": "maxrects-nearest-area",
+          "wall_seconds": 0.0010337000001072738,
+          "geometry_checks": 2
+        }
+      ]
+    },
+    {
+      "checksum": "cf5123ce38142b4fabd0a0b612e848d2c67e528f5d73ae506321db26c54ab042",
+      "state_id": "85464e016115a3dfc73bb4546aacb09a8ea46fe7a82c674a1dbc1323b45c73b7",
+      "phase": "legal_optimization",
+      "origins": [
+        {
+          "kind": "legal_companion",
+          "raw_checksum": "9bc3dc42f5f2058f2b239e28c05b7a4d415ef4f3e5298f71f0d46f429b000530",
+          "status": "legalized",
+          "method": "maxrects-nearest-area",
+          "wall_seconds": 0.0009559999998600688,
+          "geometry_checks": 2
+        }
+      ]
+    },
+    {
+      "checksum": "e1f452cdd6de912973e92473969cc62db85755535c315580de3c733524fa5890",
+      "state_id": "905e63a072b76eb7971837cdd5f6af23cd3c0e5be508c6a7616e85e7b9b549c7",
+      "phase": "legal_optimization",
+      "origins": [
+        {
+          "kind": "legal_companion",
+          "raw_checksum": "33865d7c3b5ed9ab271c2e4505db0e3a4125c4bcbb832f041d226e0b212f0728",
+          "status": "legalized",
+          "method": "maxrects-nearest-area",
+          "wall_seconds": 0.0009095000000343134,
+          "geometry_checks": 2
+        }
+      ]
+    },
+    {
+      "checksum": "98d99339ea338f7734b5c23f1078f465e12e2e805f2cd228a418978744e64d64",
+      "state_id": "7af745699d10b7f01c41186bf7745729c07435f3f41d70a9f41f77d22a1d5ef2",
+      "phase": "legal_optimization",
+      "origins": [
+        {
+          "kind": "legal_companion",
+          "raw_checksum": "baebf8a7b8144969ba9d1594c9a0803972035d50af24a597f60252296b748422",
+          "status": "legalized",
+          "method": "maxrects-nearest-area",
+          "wall_seconds": 0.0009393999998792424,
+          "geometry_checks": 2
+        }
+      ]
+    },
+    {
+      "checksum": "193386d718a11e14275468d06f4302444fe102c02381323eb13ab2c5b3448760",
+      "state_id": "581b33514620102f8157dd3768ab3b574794b71830c222c09468e95ca259562d",
+      "phase": "legal_optimization",
+      "origins": [
+        {
+          "kind": "legal_companion",
+          "raw_checksum": "e706f77e0de987211c6c46d4b7e6e0689fa990b678e7ba87fc15df8db572a307",
+          "status": "legalized",
+          "method": "maxrects-nearest-area",
+          "wall_seconds": 0.0008907000001272536,
+          "geometry_checks": 2
+        }
+      ]
+    }
+  ],
+  "preparation_costs": [
+    {
+      "algorithm": "sa",
+      "calls": 65,
+      "gradient_calls": 0,
+      "wall_seconds": 0.013295799999923474
+    },
+    {
+      "algorithm": "analytical",
+      "calls": 65,
+      "gradient_calls": 64,
+      "wall_seconds": 0.0445404999998118
+    },
+    {
+      "algorithm": "rl",
+      "calls": 65,
+      "gradient_calls": 0,
+      "wall_seconds": 0.016763400000172624
+    },
+    {
+      "kind": "legal_companion",
+      "raw_checksum": "e3c7bc60f5218ae8d8ecf156bd02812213f4046b56cd83b4daa3149058f8a4cd",
+      "status": "legalized",
+      "method": "maxrects-nearest-area",
+      "wall_seconds": 0.0010698999999476655,
+      "geometry_checks": 2
+    },
+    {
+      "kind": "legal_companion",
+      "raw_checksum": "4f81f90134f07ae20f720cd9bd57cf030ae1de2bb73aa1794006af37df789b8b",
+      "status": "legalized",
+      "method": "maxrects-nearest-area",
+      "wall_seconds": 0.0009646999999404215,
+      "geometry_checks": 2
+    },
+    {
+      "kind": "legal_companion",
+      "raw_checksum": "28b0b6807be56d3517fad38b96a8888ed37f720032b03ffaa2aa71ea29a87710",
+      "status": "legalized",
+      "method": "maxrects-nearest-area",
+      "wall_seconds": 0.0010337000001072738,
+      "geometry_checks": 2
+    },
+    {
+      "kind": "legal_companion",
+      "raw_checksum": "9bc3dc42f5f2058f2b239e28c05b7a4d415ef4f3e5298f71f0d46f429b000530",
+      "status": "legalized",
+      "method": "maxrects-nearest-area",
+      "wall_seconds": 0.0009559999998600688,
+      "geometry_checks": 2
+    },
+    {
+      "kind": "legal_companion",
+      "raw_checksum": "33865d7c3b5ed9ab271c2e4505db0e3a4125c4bcbb832f041d226e0b212f0728",
+      "status": "legalized",
+      "method": "maxrects-nearest-area",
+      "wall_seconds": 0.0009095000000343134,
+      "geometry_checks": 2
+    },
+    {
+      "kind": "legal_companion",
+      "raw_checksum": "baebf8a7b8144969ba9d1594c9a0803972035d50af24a597f60252296b748422",
+      "status": "legalized",
+      "method": "maxrects-nearest-area",
+      "wall_seconds": 0.0009393999998792424,
+      "geometry_checks": 2
+    },
+    {
+      "kind": "legal_companion",
+      "raw_checksum": "e706f77e0de987211c6c46d4b7e6e0689fa990b678e7ba87fc15df8db572a307",
+      "status": "legalized",
+      "method": "maxrects-nearest-area",
+      "wall_seconds": 0.0008907000001272536,
+      "geometry_checks": 2
+    }
+  ],
+  "records": 252,
+  "seeds": [
+    20261025,
+    20261026,
+    20261027
+  ],
+  "evaluation_budget_per_action": 65,
+  "source_algorithms": [
+    "sa",
+    "analytical",
+    "rl"
+  ],
+  "warmup_steps": 64,
+  "algorithm_budget_includes_initial_call": true,
+  "postprocess_evaluations_per_action": 1,
+  "thermal_label": "uncalibrated spatial proxy; HotSpot calibration separate",
+  "equal_budget": "objective evaluations, not equal time or gradient computation",
+  "status": "complete"
+}

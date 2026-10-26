@@ -1,0 +1,147 @@
+{
+  "sample_id": "Case3/Case3/7ad8bc4ab2e2d28ba102d6e2f9049d35363a83603029465e2c61a44c8ac215c7",
+  "case_id": "Case3",
+  "layout_id": "Case3/7ad8bc4ab2e2d28ba102d6e2f9049d35363a83603029465e2c61a44c8ac215c7",
+  "layout_sha256": "dee71c677a4992996b235975103146991a19360f4e04642bb2c8d44b4c81f258",
+  "geometry": {
+    "names": [
+      "CPU2_0",
+      "CPU2_1",
+      "CPU2_2",
+      "CPU2_3",
+      "DRAM_0",
+      "DRAM_1",
+      "DRAM_2",
+      "DRAM_3"
+    ],
+    "board_mm": [
+      39.0,
+      39.0
+    ],
+    "sizes": [
+      [
+        0.20512820512820512,
+        0.23076923076923078
+      ],
+      [
+        0.20512820512820512,
+        0.23076923076923078
+      ],
+      [
+        0.20512820512820512,
+        0.23076923076923078
+      ],
+      [
+        0.20512820512820512,
+        0.23076923076923078
+      ],
+      [
+        0.23076923076923078,
+        0.23076923076923078
+      ],
+      [
+        0.23076923076923078,
+        0.23076923076923078
+      ],
+      [
+        0.23076923076923078,
+        0.23076923076923078
+      ],
+      [
+        0.23076923076923078,
+        0.23076923076923078
+      ]
+    ],
+    "positions": [
+      [
+        0.5364242051183727,
+        0.3376802102520737
+      ],
+      [
+        0.21988301449996384,
+        0.586769432093597
+      ],
+      [
+        0.5338845425150682,
+        0.02552854910716505
+      ],
+      [
+        0.7415524102465778,
+        0.20522430011557413
+      ],
+      [
+        0.28453116675195406,
+        0.35600020132436627
+      ],
+      [
+        0.7415524102465778,
+        0.4359935308848049
+      ],
+      [
+        0.053761935982723275,
+        0.3076785334279593
+      ],
+      [
+        0.42501121962816896,
+        0.586769432093597
+      ]
+    ]
+  },
+  "powers_watts": [
+    150.0,
+    150.0,
+    150.0,
+    150.0,
+    20.0,
+    20.0,
+    20.0,
+    20.0
+  ],
+  "thermal_proxy_peak": 2.2685112972613437,
+  "proxy_version": "trajectory-spatial-proxy-v1",
+  "temperatures_kelvin": {
+    "CPU2_0": 441.12,
+    "CPU2_1": 432.6,
+    "CPU2_2": 437.68,
+    "CPU2_3": 436.91,
+    "DRAM_0": 414.64,
+    "DRAM_1": 412.55,
+    "DRAM_2": 404.49,
+    "DRAM_3": 412.75
+  },
+  "peak_celsius": 167.97000000000003,
+  "config_sha256": "30b3790b15be2b1eb5660e1a97b5302ab835a91f5afa3e78088aed838c21e5c7",
+  "executable_sha256": "22440f9931bae8398461be7a522aa806e6181ed2571ab5c3f3c0b4b3d461a178",
+  "floorplan_sha256": "62013d3166844cc225ca79cf256cfc0c508ef2e14f1adf84599038daf9d1239a",
+  "power_trace_sha256": "68ff182b897101fe2a1c3a6f73792e560842164d93c043c650ad05f9998a66e9",
+  "steady_sha256": "52b5ec0a03fce518e89d41ea0d40beb8c6400d8f99553ccb6340edf2156b15df",
+  "command": [
+    "wsl",
+    "-d",
+    "Ubuntu-24.04-G",
+    "--",
+    "/mnt/f/GAME/2027-SRTP-面向2.5D系统集成的芯粒布局方法研究/4-开源源码/TAP-2.5D/util/hotspot",
+    "-c",
+    "/mnt/f/GAME/Chiplet-Layout-2.5D/.worktrees/stage0-visualization/docs/figures/stage0_hotspot_calibration/run_0008_0018/hotspot.config",
+    "-f",
+    "/mnt/f/GAME/Chiplet-Layout-2.5D/.worktrees/stage0-visualization/docs/figures/stage0_hotspot_calibration/run_0008_0018/layout.flp",
+    "-p",
+    "/mnt/f/GAME/Chiplet-Layout-2.5D/.worktrees/stage0-visualization/docs/figures/stage0_hotspot_calibration/run_0008_0018/power.ptrace",
+    "-steady_file",
+    "/mnt/f/GAME/Chiplet-Layout-2.5D/.worktrees/stage0-visualization/docs/figures/stage0_hotspot_calibration/run_0008_0018/steady.k",
+    "-model_type",
+    "block"
+  ],
+  "run_directory": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\docs\\figures\\stage0_hotspot_calibration\\run_0008_0018",
+  "elapsed_seconds": 0.21120220000011614,
+  "created_utc": "2026-10-25T14:04:13.348536+00:00",
+  "model": "HotSpot block; dead space = zero-power silicon; chiplet peak only",
+  "effective_overrides": {
+    "model_type": "block"
+  },
+  "adapter_sha256": "72375acf753517a9c9654eacb8527272b011910693a10e37307624701956e8b4",
+  "source_problem": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\docs\\figures\\stage0_same_state\\Case3\\problem.json",
+  "source_state": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage0-visualization\\docs\\figures\\stage0_same_state\\Case3\\states\\7ad8bc4ab2e2d28ba102d6e2f9049d35363a83603029465e2c61a44c8ac215c7.json",
+  "source_problem_sha256": "5123876fd1355c9aeca5b8394e76bd1d1038d5de289444bc92a36aa8c52faa21",
+  "source_state_sha256": "2b40d2c89d225a18b4546a0150e6822ad79bdee3b3872380f5ba1801bc16ecf4"
+}

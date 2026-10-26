@@ -1,0 +1,68 @@
+{
+  "positions": [
+    [
+      0.0,
+      0.42857142857142855
+    ],
+    [
+      0.0,
+      0.0
+    ],
+    [
+      0.42857142857142855,
+      0.0
+    ],
+    [
+      0.0,
+      0.7142857142857142
+    ],
+    [
+      0.19047619047619047,
+      0.7142857142857142
+    ],
+    [
+      0.2857142857142857,
+      0.42857142857142855
+    ]
+  ],
+  "checksum": "7415bbd682ec442610c8d53fa2ccb1049d665346276066cf0ab9bf8b95512744",
+  "metadata": {
+    "case": "Case1",
+    "geometry_version": "original",
+    "origins": [
+      {
+        "kind": "legal_companion",
+        "raw_checksum": "6c13757ae66941863129283fa47e849bca248aa235e238d25b7ebf72ffa9f0e7",
+        "status": "legalized",
+        "method": "maxrects-short-side-area",
+        "wall_seconds": 0.008864199999834455,
+        "geometry_checks": 2
+      },
+      {
+        "kind": "legal_companion",
+        "raw_checksum": "48e039a3e100cc4311f633b9769974e7b500558551144cb3f1767b2e0b67b349",
+        "status": "legalized",
+        "method": "maxrects-short-side-area",
+        "wall_seconds": 0.0006164999999782594,
+        "geometry_checks": 2
+      },
+      {
+        "kind": "legal_companion",
+        "raw_checksum": "dd23c9351eab4d9a2b5842c173a161e004eb003726789ff8259c9fcdfafc6281",
+        "status": "legalized",
+        "method": "maxrects-short-side-area",
+        "wall_seconds": 0.0005789000001641398,
+        "geometry_checks": 2
+      }
+    ],
+    "state_file": "states/7415bbd682ec442610c8d53fa2ccb1049d665346276066cf0ab9bf8b95512744.json",
+    "case_split_group": "Case1",
+    "source_problem": "problem.json"
+  },
+  "map_shape": [
+    3,
+    256,
+    256
+  ],
+  "map_reconstruction": "TracedProblem.maps(positions, grid_size=256)"
+}

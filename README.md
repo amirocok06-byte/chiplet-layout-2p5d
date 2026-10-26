@@ -1,5 +1,12 @@
 # 面向2.5D系统集成的芯粒布局方法
 
+2026-10-25 新增：[同状态分叉、公共合法化与分阶段收益实验](docs/same_state_experiment.md)。
+实现分支为 `codex/stage0-visualization`，沿用 core 的 paired 记录并引入 baselines 的统计模块；
+从同一中间布局运行六个真实参数配置，生成 CNN/Bandit 可用的向量收益标签。
+结果入口为 [stage0_same_state](docs/figures/stage0_same_state/README.md)，
+数据使用结论见 [标签可识别性与合法化对照](docs/figures/stage0_same_state/EXPERIMENT_FINDINGS.md)，
+几何版本与 HotSpot 状态分别见 [几何说明](docs/geometry_legalization.md)、[热校准说明](docs/hotspot_calibration.md)。
+
 **Chiplet Layout for 2.5D System Integration**
 
 目前，模拟退火（Simulated Annealing, SA）、解析式布局（Analytical Placement）和强化学习兼容布局（RL-compatible Placement）三类方法已经具备足够成熟的研究与工程基础。本项目将这三类方法放入统一的 2.5D 芯粒布局实验协议中，在相同输入、物理评估器、预算、随机种子和结果记录规范下进行公平比较，并为后续 CNN 状态编码与 Contextual Bandit 方法提供可复现的数据接口。
@@ -15,7 +22,7 @@ Bookshelf case
   -> JSONL samples + manifest
 ```
 
-这里的 RL-compatible worker 是统一接口下的本地基线和适配边界，不宣称复现外部项目中未公开或未锁定版本的强化学习实现。真实路由、HotSpot、CPLEX、CNN 和 Contextual Bandit 训练属于后续阶段。
+这里的 RL-compatible worker 是保留的 smoke 接口。连续轨迹另有真正更新策略权重的 NumPy REINFORCE，本项目不宣称外部算法复现。已接通真实 HotSpot 并进行留出校准；当前 block 参考模型与代理的误差尚未达可用标准。真实路由、完整分层热模型校准、CPLEX、CNN 和 Contextual Bandit 训练仍待实现。
 
 ## English Overview
 
@@ -32,7 +39,7 @@ Bookshelf case
   -> JSONL samples + manifest
 ```
 
-The RL-compatible worker is a local baseline and protocol boundary; it is not presented as a reproduction of an external reinforcement-learning implementation whose source, checkpoint, or dependency versions are not fully available. Routed wirelength, HotSpot, CPLEX, CNN training, and contextual-bandit training are reserved for later phases.
+The RL-compatible worker remains a smoke interface; continuous trajectories use genuine NumPy REINFORCE updates without claiming external-paper reproduction. Real HotSpot calls and held-out calibration are implemented, but the block reference model does not yet validate the spatial proxy. Routed wirelength, layered-package validation, CPLEX, CNN training and contextual-bandit training remain future work.
 
 ## 目录 / Repository Layout
 

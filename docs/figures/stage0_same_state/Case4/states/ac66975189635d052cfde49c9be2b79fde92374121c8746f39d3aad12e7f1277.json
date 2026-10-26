@@ -1,0 +1,72 @@
+{
+  "positions": [
+    [
+      0.15650423565785415,
+      0.6101694915254238
+    ],
+    [
+      0.35989406616632874,
+      0.7744226215504874
+    ],
+    [
+      0.10382070612898645,
+      0.0
+    ],
+    [
+      0.40890545189169836,
+      0.1642531300250636
+    ],
+    [
+      0.046467155879053514,
+      0.3050847457627119
+    ],
+    [
+      0.35989406616632874,
+      0.46933787578777547
+    ],
+    [
+      0.0209110153188711,
+      0.6101694915254238
+    ],
+    [
+      0.6649788119290406,
+      0.46933787578777547
+    ],
+    [
+      0.7139901976544103,
+      0.13180105141592857
+    ],
+    [
+      0.8005720322680236,
+      0.33519088192440316
+    ],
+    [
+      0.8495834179933933,
+      0.03544979389111604
+    ]
+  ],
+  "checksum": "ac66975189635d052cfde49c9be2b79fde92374121c8746f39d3aad12e7f1277",
+  "metadata": {
+    "case": "Case4",
+    "geometry_version": "case4-maskplace-59mm-alternative-v1",
+    "origins": [
+      {
+        "kind": "legal_companion",
+        "raw_checksum": "28b0b6807be56d3517fad38b96a8888ed37f720032b03ffaa2aa71ea29a87710",
+        "status": "legalized",
+        "method": "maxrects-nearest-area",
+        "wall_seconds": 0.0010337000001072738,
+        "geometry_checks": 2
+      }
+    ],
+    "state_file": "states/ac66975189635d052cfde49c9be2b79fde92374121c8746f39d3aad12e7f1277.json",
+    "case_split_group": "Case4",
+    "source_problem": "problem.json"
+  },
+  "map_shape": [
+    3,
+    256,
+    256
+  ],
+  "map_reconstruction": "TracedProblem.maps(positions, grid_size=256)"
+}

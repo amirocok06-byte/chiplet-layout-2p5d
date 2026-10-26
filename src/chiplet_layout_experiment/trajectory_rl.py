@@ -8,10 +8,13 @@ evaluator's verdict, including when the initial or final layout overlaps.
 """
 from __future__ import annotations
 
+from collections.abc import Mapping
 import hashlib
 from typing import Any, Callable
 
 import numpy as np
+
+from .trajectory_optimizers import _numeric_config
 
 
 _DIRECTIONS = np.array([
@@ -52,6 +55,7 @@ def run_policy_gradient(
     steps: int,
     seed: int,
     on_step: Callable[[int, np.ndarray, dict[str, Any]], None] | None,
+    config: Mapping[str, float] | None = None,
 ) -> dict[str, Any]:
     """Minimize the evaluator objective with online, baseline-centred REINFORCE.
 
@@ -67,10 +71,18 @@ def run_policy_gradient(
     return value separately owns current and best positions/metrics and hashes
     of the initial/final weights. Exactly ``steps + 1`` evaluations are made;
     no gradients, maps, powers or additional problem attributes are required.
+
+    ``config`` overrides learning_rate=.08, entropy_coefficient=.01 and
+    displacement=.05 (the initial adaptive move radius). Values must be
+    finite, learning rate positive, entropy coefficient nonnegative, and
+    normalized displacement in (0, 1]. Adaptive bounds remain [.001, .15].
     """
     if isinstance(steps, (bool, np.bool_)) or not isinstance(steps, (int, np.integer)) or steps < 0:
         raise ValueError("steps must be a nonnegative integer")
     steps = int(steps)
+    parameters = _numeric_config(config, {
+        "learning_rate": .08, "entropy_coefficient": .01, "displacement": .05,
+    }, unit_interval=("displacement",), nonnegative=("entropy_coefficient",))
     n = int(problem.n)
     sizes = np.array(problem.sizes, dtype=float, copy=True)
     initial = np.array(problem.initial_positions, dtype=float, copy=True)
@@ -88,8 +100,9 @@ def run_policy_gradient(
     rng = np.random.default_rng(seed)
     weights = np.zeros((8 * n, len(_features(positions, sizes))))
     initial_weight_hash = _weight_hash(weights)
-    displacements = np.full(n, .05)
-    learning_rate, entropy_coefficient = .08, .01
+    displacements = np.full(n, parameters["displacement"])
+    learning_rate = parameters["learning_rate"]
+    entropy_coefficient = parameters["entropy_coefficient"]
     baseline = 0.
     reward_second_moment = max(.05 * abs(float(metrics["objective"])), 1e-3) ** 2
     accepted_moves, best_step = 0, 0
@@ -116,7 +129,7 @@ def run_policy_gradient(
         "entropy": float(np.log(8 * n)), "reward": 0., "baseline_before": 0.,
         "advantage": 0., "update_norm": 0., "accepted": False,
         "action_index": None, "chiplet_index": None, "direction_index": None,
-        "displacement": .05, "proposal_objective": None,
+        "displacement": parameters["displacement"], "proposal_objective": None,
         "action_probability": None, "action_probability_after_update": None,
     })
 

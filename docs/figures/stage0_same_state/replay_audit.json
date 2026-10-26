@@ -1,0 +1,15 @@
+{
+  "pass": true,
+  "coordinate_replayed_records": 2322,
+  "states": 129,
+  "checks": [
+    "geometry/problem identity",
+    "exact initial layout",
+    "full action/seed grid",
+    "raw and returned metric replay",
+    "delta decomposition",
+    "evaluation budget",
+    "legal phase separation",
+    "output checksum"
+  ]
+}

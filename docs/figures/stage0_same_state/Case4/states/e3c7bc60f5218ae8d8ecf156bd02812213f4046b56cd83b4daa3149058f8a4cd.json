@@ -1,0 +1,79 @@
+{
+  "positions": [
+    [
+      0.3104018498337781,
+      0.20847999343982784
+    ],
+    [
+      0.1497213647328897,
+      0.28132806478107286
+    ],
+    [
+      0.20334695499918565,
+      0.027521893203031826
+    ],
+    [
+      0.23864244110430477,
+      0.13084268509133057
+    ],
+    [
+      0.10684163000075872,
+      0.15829991373796076
+    ],
+    [
+      0.30202622248590594,
+      0.158598030890507
+    ],
+    [
+      0.060641948085725934,
+      0.17261508872672138
+    ],
+    [
+      0.2670924943760431,
+      0.2942692426874786
+    ],
+    [
+      0.3744926911996275,
+      0.25723221028658383
+    ],
+    [
+      0.3286543414553911,
+      0.12866589287995803
+    ],
+    [
+      0.40570274335160306,
+      0.05032205994016969
+    ]
+  ],
+  "checksum": "e3c7bc60f5218ae8d8ecf156bd02812213f4046b56cd83b4daa3149058f8a4cd",
+  "metadata": {
+    "case": "Case4",
+    "geometry_version": "case4-maskplace-59mm-alternative-v1",
+    "origins": [
+      {
+        "kind": "raw_anchor",
+        "algorithm": "sa",
+        "step": 0
+      },
+      {
+        "kind": "raw_anchor",
+        "algorithm": "analytical",
+        "step": 0
+      },
+      {
+        "kind": "raw_anchor",
+        "algorithm": "rl",
+        "step": 0
+      }
+    ],
+    "state_file": "states/e3c7bc60f5218ae8d8ecf156bd02812213f4046b56cd83b4daa3149058f8a4cd.json",
+    "case_split_group": "Case4",
+    "source_problem": "problem.json"
+  },
+  "map_shape": [
+    3,
+    256,
+    256
+  ],
+  "map_reconstruction": "TracedProblem.maps(positions, grid_size=256)"
+}

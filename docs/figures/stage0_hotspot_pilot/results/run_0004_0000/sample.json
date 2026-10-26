@@ -1,0 +1,147 @@
+{
+  "sample_id": "Case3/Case3/seed42",
+  "case_id": "Case3",
+  "layout_id": "Case3/seed42",
+  "layout_sha256": "4930fbbe26a559bb985153a6192106700d4a3382e5311839564fdcc83a476c1e",
+  "geometry": {
+    "names": [
+      "CPU2_0",
+      "CPU2_1",
+      "CPU2_2",
+      "CPU2_3",
+      "DRAM_0",
+      "DRAM_1",
+      "DRAM_2",
+      "DRAM_3"
+    ],
+    "board_mm": [
+      39.0,
+      39.0
+    ],
+    "sizes": [
+      [
+        0.20512820512820512,
+        0.23076923076923078
+      ],
+      [
+        0.20512820512820512,
+        0.23076923076923078
+      ],
+      [
+        0.20512820512820512,
+        0.23076923076923078
+      ],
+      [
+        0.20512820512820512,
+        0.23076923076923078
+      ],
+      [
+        0.23076923076923078,
+        0.23076923076923078
+      ],
+      [
+        0.23076923076923078,
+        0.23076923076923078
+      ],
+      [
+        0.23076923076923078,
+        0.23076923076923078
+      ],
+      [
+        0.23076923076923078,
+        0.23076923076923078
+      ]
+    ],
+    "positions": [
+      [
+        0.5934198398643943,
+        0.3423004582898823
+      ],
+      [
+        0.75670632446871,
+        0.5730696890591132
+      ],
+      [
+        0.09003965780204337,
+        0.7138923972869847
+      ],
+      [
+        0.5886940533907625,
+        0.11153122752065153
+      ],
+      [
+        0.12715559185230096,
+        0.35026718777385407
+      ],
+      [
+        0.2951678629302485,
+        0.6800680692028781
+      ],
+      [
+        0.5259370936994793,
+        0.6080657322644207
+      ],
+      [
+        0.35792482262153175,
+        0.19578065354330704
+      ]
+    ]
+  },
+  "powers_watts": [
+    150.0,
+    150.0,
+    150.0,
+    150.0,
+    20.0,
+    20.0,
+    20.0,
+    20.0
+  ],
+  "thermal_proxy_peak": 2.3257943421783236,
+  "proxy_version": "trajectory-spatial-proxy-v1",
+  "temperatures_kelvin": {
+    "CPU2_0": 441.62,
+    "CPU2_1": 436.56,
+    "CPU2_2": 425.49,
+    "CPU2_3": 437.58,
+    "DRAM_0": 405.17,
+    "DRAM_1": 409.16,
+    "DRAM_2": 415.54,
+    "DRAM_3": 412.23
+  },
+  "peak_celsius": 168.47000000000003,
+  "config_sha256": "30b3790b15be2b1eb5660e1a97b5302ab835a91f5afa3e78088aed838c21e5c7",
+  "executable_sha256": "22440f9931bae8398461be7a522aa806e6181ed2571ab5c3f3c0b4b3d461a178",
+  "floorplan_sha256": "e3809e744a1236959270d8a2e213c947dffbd1eac76678b5f027aeafbe63e243",
+  "power_trace_sha256": "1000e759fd4b01b33faa06b8313b9590d108af706bdde777a769dc64e8e53cc3",
+  "steady_sha256": "4b4f632213f3a7e14c8e0ad5a352d8e61966c8e39b76e9baa5b6b15d3482e3ce",
+  "command": [
+    "wsl",
+    "-d",
+    "Ubuntu-24.04-G",
+    "--",
+    "/mnt/f/GAME/2027-SRTP-面向2.5D系统集成的芯粒布局方法研究/4-开源源码/TAP-2.5D/util/hotspot",
+    "-c",
+    "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/results/run_0004_0000/hotspot.config",
+    "-f",
+    "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/results/run_0004_0000/layout.flp",
+    "-p",
+    "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/results/run_0004_0000/power.ptrace",
+    "-steady_file",
+    "/mnt/c/Users/Lenovo/AppData/Local/Temp/hotspot-case-calibration-ae7v1c2p/results/run_0004_0000/steady.k",
+    "-model_type",
+    "block"
+  ],
+  "run_directory": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\hotspot-case-calibration-ae7v1c2p\\results\\run_0004_0000",
+  "elapsed_seconds": 0.20796119999999974,
+  "created_utc": "2026-10-25T13:59:35.207012+00:00",
+  "model": "HotSpot block; dead space = zero-power silicon; chiplet peak only",
+  "effective_overrides": {
+    "model_type": "block"
+  },
+  "adapter_sha256": "56dc8005f4176bd60b2740e65a142b5954a59dfd06c147ba7b2fb9ba8a2c6081",
+  "source_problem": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\hotspot-case-calibration-ae7v1c2p\\states\\Case3\\problem.json",
+  "source_state": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\hotspot-case-calibration-ae7v1c2p\\states\\Case3\\states\\seed42.json",
+  "source_problem_sha256": "3cfc8cd1d057f97a612089cf224349304f39025bc5e48c2690d53ddc6e63e423",
+  "source_state_sha256": "5c2f6968b97d11220cdee3d9bfc5f262a71ebaee105878dcaf241a5c63dd14a3"
+}

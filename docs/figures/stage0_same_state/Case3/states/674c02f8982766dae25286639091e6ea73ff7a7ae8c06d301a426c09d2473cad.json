@@ -1,0 +1,60 @@
+{
+  "positions": [
+    [
+      0.516310949797643,
+      0.3034426251864995
+    ],
+    [
+      0.28084977746470036,
+      0.6088945307910804
+    ],
+    [
+      0.5019184624743733,
+      0.06574055461452945
+    ],
+    [
+      0.7214391549258481,
+      0.14806817095303293
+    ],
+    [
+      0.2552087518236747,
+      0.3781253000218496
+    ],
+    [
+      0.7214391549258482,
+      0.3788374017222637
+    ],
+    [
+      0.024439521054443913,
+      0.3133627764577403
+    ],
+    [
+      0.4859779825929055,
+      0.5342118559557303
+    ]
+  ],
+  "checksum": "674c02f8982766dae25286639091e6ea73ff7a7ae8c06d301a426c09d2473cad",
+  "metadata": {
+    "case": "Case3",
+    "geometry_version": "original",
+    "origins": [
+      {
+        "kind": "legal_companion",
+        "raw_checksum": "6e402d1e0488c7be7e592786951fd3d9e0e6ffb6e09d44d39713729ff5eae696",
+        "status": "legalized",
+        "method": "maxrects-nearest-area",
+        "wall_seconds": 0.000985099999979866,
+        "geometry_checks": 2
+      }
+    ],
+    "state_file": "states/674c02f8982766dae25286639091e6ea73ff7a7ae8c06d301a426c09d2473cad.json",
+    "case_split_group": "Case3",
+    "source_problem": "problem.json"
+  },
+  "map_shape": [
+    3,
+    256,
+    256
+  ],
+  "map_reconstruction": "TracedProblem.maps(positions, grid_size=256)"
+}

@@ -1,0 +1,49 @@
+{
+  "positions": [
+    [
+      0.5880748316343045,
+      0.49402050463055847
+    ],
+    [
+      0.16016035642901577,
+      0.12865019172660816
+    ],
+    [
+      0.6731042988028259,
+      0.0
+    ],
+    [
+      0.3931170020680397,
+      0.05510288226839073
+    ],
+    [
+      0.0,
+      0.41678104897191615
+    ],
+    [
+      0.671875,
+      0.16650269320290345
+    ]
+  ],
+  "checksum": "b6d4f862b37e0defdb2361649898e037b81761f246f2a4370189366e021235d7",
+  "metadata": {
+    "case": "Case2",
+    "geometry_version": "original",
+    "origins": [
+      {
+        "kind": "raw_anchor",
+        "algorithm": "rl",
+        "step": 64
+      }
+    ],
+    "state_file": "states/b6d4f862b37e0defdb2361649898e037b81761f246f2a4370189366e021235d7.json",
+    "case_split_group": "Case2",
+    "source_problem": "problem.json"
+  },
+  "map_shape": [
+    3,
+    256,
+    256
+  ],
+  "map_reconstruction": "TracedProblem.maps(positions, grid_size=256)"
+}

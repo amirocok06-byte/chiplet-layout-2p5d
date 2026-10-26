@@ -7,8 +7,10 @@ best-so-far positions are reported separately and never replace recorded frames.
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from copy import deepcopy
 import math
+from numbers import Real
 import operator
 from typing import Any, Callable, Protocol
 
@@ -28,6 +30,36 @@ class _Problem(Protocol):
 
 
 _Callback = Callable[[int, np.ndarray, dict], Any]
+
+
+def _numeric_config(config: Mapping[str, float] | None, defaults: dict[str, float],
+                    *, unit_interval: tuple[str, ...] = (),
+                    nonnegative: tuple[str, ...] = ()) -> dict[str, float]:
+    """Copy and validate numeric overrides before any problem evaluation."""
+    if config is None:
+        return defaults.copy()
+    if not isinstance(config, Mapping):
+        raise TypeError("config must be a mapping of numeric parameters")
+    unknown = config.keys() - defaults.keys()
+    if unknown:
+        raise ValueError(f"unknown config parameters: {', '.join(sorted(map(str, unknown)))}")
+    values = defaults.copy()
+    for name, value in config.items():
+        if isinstance(value, (bool, np.bool_)) or not isinstance(value, Real):
+            raise TypeError(f"{name} must be a finite real number")
+        try:
+            value = float(value)
+        except OverflowError as exc:
+            raise ValueError(f"{name} must be finite") from exc
+        if not math.isfinite(value):
+            raise ValueError(f"{name} must be finite")
+        if value < 0 or (value == 0 and name not in nonnegative):
+            bound = "nonnegative" if name in nonnegative else "positive"
+            raise ValueError(f"{name} must be {bound}")
+        if name in unit_interval and value > 1:
+            raise ValueError(f"{name} must lie in (0, 1]")
+        values[name] = value
+    return values
 
 
 def _nonnegative_integer(value: int, name: str) -> int:
@@ -105,30 +137,39 @@ def _summary(method: str, steps: int, seed: int, current: np.ndarray,
     }
 
 
-def run_sa(problem: _Problem, *, steps: int, seed: int, on_step: _Callback) -> dict:
+def run_sa(problem: _Problem, *, steps: int, seed: int, on_step: _Callback,
+           config: Mapping[str, float] | None = None) -> dict:
     """Run single-chiplet Metropolis SA with geometric cooling and move decay.
 
     There are exactly ``steps + 1`` evaluations and no gradient calls. The
     initial temperature is 5% of the initial objective scale (at least one),
     cooling by 1e-3; the normalized proposal radius shrinks from .12 to .006.
     Every callback includes current ``metrics`` and both operation counters.
+
+    ``config`` overrides temperature_factor=.05, cooling_ratio=.001,
+    radius=.12 and radius_decay=.05. Values must be finite and positive;
+    ratios and the normalized radius must be at most one.
     """
     steps = _nonnegative_integer(steps, "steps")
     seed = _nonnegative_integer(seed, "seed")
+    parameters = _numeric_config(config, {
+        "temperature_factor": .05, "cooling_ratio": .001,
+        "radius": .12, "radius_decay": .05,
+    }, unit_interval=("cooling_ratio", "radius", "radius_decay"))
     rng = np.random.default_rng(seed)
     current = _project(problem, problem.initial_positions)
     initial_metrics = current_metrics = _evaluate(problem, current)
     best, best_metrics, best_step = current.copy(), current_metrics, 0
-    initial_temperature = 0.05 * max(1.0, abs(current_metrics["objective"]))
+    initial_temperature = parameters["temperature_factor"] * max(1.0, abs(current_metrics["objective"]))
     accepted_moves = 0
     _emit(on_step, 0, current, current_metrics, 0,
-          temperature=initial_temperature, proposal_radius=0.12,
+          temperature=initial_temperature, proposal_radius=parameters["radius"],
           accepted=False, move="initial", best_objective=best_metrics["objective"])
 
     for step in range(1, steps + 1):
         progress = (step - 1) / max(steps - 1, 1)
-        temperature = initial_temperature * 0.001 ** progress
-        radius = 0.12 * 0.05 ** progress
+        temperature = initial_temperature * parameters["cooling_ratio"] ** progress
+        radius = parameters["radius"] * parameters["radius_decay"] ** progress
         candidate = current.copy()
         if problem.n:
             selected = int(rng.integers(problem.n))
@@ -157,7 +198,7 @@ def run_sa(problem: _Problem, *, steps: int, seed: int, on_step: _Callback) -> d
 
 
 def run_analytical(problem: _Problem, *, steps: int, seed: int,
-                   on_step: _Callback) -> dict:
+                   on_step: _Callback, config: Mapping[str, float] | None = None) -> dict:
     """Run deterministic projected gradient descent with smooth continuation.
 
     Learning rate decays geometrically from .04 to .004; smoothing decays from
@@ -166,20 +207,29 @@ def run_analytical(problem: _Problem, *, steps: int, seed: int,
     One gradient and one proposal evaluation are used per iteration, with no
     line search, hidden legalization, restarts, or best-iterate substitution.
     ``seed`` is recorded for the shared API; this baseline needs no randomness.
+
+    ``config`` overrides learning_rate=.04, learning_rate_decay=.1,
+    smoothing=.04 and smoothing_decay=.125. Values must be finite and
+    positive, with decay ratios at most one.
     """
     steps = _nonnegative_integer(steps, "steps")
     seed = _nonnegative_integer(seed, "seed")
+    parameters = _numeric_config(config, {
+        "learning_rate": .04, "learning_rate_decay": .1,
+        "smoothing": .04, "smoothing_decay": .125,
+    }, unit_interval=("learning_rate_decay", "smoothing_decay"))
     current = _project(problem, problem.initial_positions)
     initial_metrics = current_metrics = _evaluate(problem, current)
     best, best_metrics, best_step = current.copy(), current_metrics, 0
     _emit(on_step, 0, current, current_metrics, 0,
-          learning_rate=0.04, smoothing=0.04, gradient_scale=1.0,
+          learning_rate=parameters["learning_rate"], smoothing=parameters["smoothing"],
+          gradient_scale=1.0,
           accepted=False, move="initial", best_objective=best_metrics["objective"])
 
     for step in range(1, steps + 1):
         progress = (step - 1) / max(steps - 1, 1)
-        learning_rate = 0.04 * 0.1 ** progress
-        smoothing = 0.04 * 0.125 ** progress
+        learning_rate = parameters["learning_rate"] * parameters["learning_rate_decay"] ** progress
+        smoothing = parameters["smoothing"] * parameters["smoothing_decay"] ** progress
         gradient = np.array(problem.gradient(current.copy(), smoothing=smoothing),
                             dtype=float, copy=True)
         if gradient.shape != current.shape or not np.isfinite(gradient).all():

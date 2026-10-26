@@ -1,0 +1,235 @@
+{
+  "source": {
+    "case": "Case2",
+    "source_directory": "F:\\GAME\\2027-SRTP-面向2.5D系统集成的芯粒布局方法研究\\2-Benchmarks\\external\\ATPlace2.5D\\Case2",
+    "files_sha256": {
+      "Case2.blocks": "9b88c7e2569528911bf69069455d5fc2d6639cd5ceeb2871716d850498ff18d4",
+      "Case2.nets": "01a54f7154325949365cd2af3c068414ab76c5178261d1719579204902fee49e",
+      "Case2.pl": "6c55aa4efb920397f48c1d08b40203901cfec308f9a9df7bc4359356ad9bc1bb",
+      "Case2.power": "cd74d10a9a117ac716211dea2298c30869ef59fc6884b3a43a82f45bf9ba3507",
+      "Thermal-aware.json": "f2e87fd37c0360bd660f73d4188a8021168b0e211dcf9a7ca7a26f24a3aaacc7",
+      "WL-driven.json": "8b87a9804394ee6b7213c417f7425a59d81e0b9ab56fec12c948d9da11d8acff"
+    },
+    "coordinate_unit": "um->normalized-axis",
+    "wirelength_unit": "mm",
+    "pin_offset_rule": "centre + percentage*dimension",
+    "board_um": [
+      32000.0,
+      32000.0
+    ],
+    "num_chiplets": 6,
+    "area_utilization": 0.98369140625,
+    "proven_infeasible_by_area": false,
+    "board_source": "ATPlace_pub/reproduce.py CASE_INTERPOSER_SIZE; retained verbatim",
+    "num_nets": 3520,
+    "seed": 20261024,
+    "initialization": "seeded-bounded-scatter; public .pl zero placeholders",
+    "priority_source": "normalized incident pin count; ties preserved; no precedence",
+    "thermal_model": "uncalibrated Gaussian power-density spreading proxy",
+    "geometry_version": "original",
+    "geometry_version_requested": "original",
+    "geometry_origin": {
+      "board_mm": [
+        32.0,
+        32.0
+      ],
+      "board_source": "ATPlace_pub/reproduce.py CASE_INTERPOSER_SIZE; retained verbatim"
+    },
+    "physical_invariants_verified": true,
+    "geometry_provenance": {
+      "classification": "original loaded geometry",
+      "board_source": "ATPlace_pub/reproduce.py CASE_INTERPOSER_SIZE; retained verbatim"
+    }
+  },
+  "problem_checksum": "ba3b5f018dab03377c10d7332ae2022038c1998b807cb3af93b2370f50c00925",
+  "states": [
+    {
+      "checksum": "920b1c0a02dfd8cb0142e52da97163f25a0087a6a94a00cb950dcd43803987a8",
+      "state_id": "d8d85225cd76e1e436de740e27c0f97881dc8ec1cdb4d59bbe2e36b8b493ba96",
+      "phase": "feasibility_recovery",
+      "origins": [
+        {
+          "kind": "raw_anchor",
+          "algorithm": "sa",
+          "step": 0
+        },
+        {
+          "kind": "raw_anchor",
+          "algorithm": "analytical",
+          "step": 0
+        },
+        {
+          "kind": "raw_anchor",
+          "algorithm": "rl",
+          "step": 0
+        }
+      ]
+    },
+    {
+      "checksum": "c1003fa4c8508ef27a724581bbbb6744706415f5119aa2b80349e60e749887ed",
+      "state_id": "6d1e04e82d35e6cf734d2e7561bf4221fc4310cbffcd5a6052da84646fe941b9",
+      "phase": "feasibility_recovery",
+      "origins": [
+        {
+          "kind": "raw_anchor",
+          "algorithm": "sa",
+          "step": 32
+        }
+      ]
+    },
+    {
+      "checksum": "bd8f0f19bfb84717961786c4bf2dc22c0866c1bec187009b09d4451f2fcc0ea1",
+      "state_id": "114a48fa467affde9141e8dd5d0ba58942bbc6c5c4436c460ca21aef77a091cd",
+      "phase": "feasibility_recovery",
+      "origins": [
+        {
+          "kind": "raw_anchor",
+          "algorithm": "sa",
+          "step": 64
+        }
+      ]
+    },
+    {
+      "checksum": "a27d013cd16ab3ef8cb7b6ff6aaf213b692e94ef3b42c97b3faf40d017f63249",
+      "state_id": "fd20427a00c2462cfec2ee292af3b06e38c70fdfb98ff34cf24cac8819cdfd46",
+      "phase": "feasibility_recovery",
+      "origins": [
+        {
+          "kind": "raw_anchor",
+          "algorithm": "analytical",
+          "step": 32
+        }
+      ]
+    },
+    {
+      "checksum": "417819ebcf6dddf78fd9e44e8c8eba98268e50a6b861b9f5ed96587b917553aa",
+      "state_id": "0906dfda84203595f66c225f909636f8029f0df034a28f515caa79c4798e797b",
+      "phase": "feasibility_recovery",
+      "origins": [
+        {
+          "kind": "raw_anchor",
+          "algorithm": "analytical",
+          "step": 64
+        }
+      ]
+    },
+    {
+      "checksum": "5f0bef79f710c60130b3a47decfb613e9b200600fbe3267443c099b948f3d66f",
+      "state_id": "a63ab926c6a8cec96c37593236abb16534f72f162291dca1cc77b12c3c245918",
+      "phase": "feasibility_recovery",
+      "origins": [
+        {
+          "kind": "raw_anchor",
+          "algorithm": "rl",
+          "step": 32
+        }
+      ]
+    },
+    {
+      "checksum": "b6d4f862b37e0defdb2361649898e037b81761f246f2a4370189366e021235d7",
+      "state_id": "966f63c8e67b55762e2db327a5786621dcbc4a6bfa84640f370e7493afd50bb8",
+      "phase": "feasibility_recovery",
+      "origins": [
+        {
+          "kind": "raw_anchor",
+          "algorithm": "rl",
+          "step": 64
+        }
+      ]
+    }
+  ],
+  "preparation_costs": [
+    {
+      "algorithm": "sa",
+      "calls": 65,
+      "gradient_calls": 0,
+      "wall_seconds": 0.009136599999919781
+    },
+    {
+      "algorithm": "analytical",
+      "calls": 65,
+      "gradient_calls": 64,
+      "wall_seconds": 0.024785400000155278
+    },
+    {
+      "algorithm": "rl",
+      "calls": 65,
+      "gradient_calls": 0,
+      "wall_seconds": 0.01171980000003714
+    },
+    {
+      "kind": "legal_companion",
+      "raw_checksum": "920b1c0a02dfd8cb0142e52da97163f25a0087a6a94a00cb950dcd43803987a8",
+      "status": "search_exhausted",
+      "method": "bounded_packing",
+      "wall_seconds": 0.0012173000000075263,
+      "geometry_checks": 1
+    },
+    {
+      "kind": "legal_companion",
+      "raw_checksum": "c1003fa4c8508ef27a724581bbbb6744706415f5119aa2b80349e60e749887ed",
+      "status": "search_exhausted",
+      "method": "bounded_packing",
+      "wall_seconds": 0.0010336999998799001,
+      "geometry_checks": 1
+    },
+    {
+      "kind": "legal_companion",
+      "raw_checksum": "bd8f0f19bfb84717961786c4bf2dc22c0866c1bec187009b09d4451f2fcc0ea1",
+      "status": "search_exhausted",
+      "method": "bounded_packing",
+      "wall_seconds": 0.001202599999942322,
+      "geometry_checks": 1
+    },
+    {
+      "kind": "legal_companion",
+      "raw_checksum": "a27d013cd16ab3ef8cb7b6ff6aaf213b692e94ef3b42c97b3faf40d017f63249",
+      "status": "search_exhausted",
+      "method": "bounded_packing",
+      "wall_seconds": 0.0009986000000026252,
+      "geometry_checks": 1
+    },
+    {
+      "kind": "legal_companion",
+      "raw_checksum": "417819ebcf6dddf78fd9e44e8c8eba98268e50a6b861b9f5ed96587b917553aa",
+      "status": "search_exhausted",
+      "method": "bounded_packing",
+      "wall_seconds": 0.0009753000001637702,
+      "geometry_checks": 1
+    },
+    {
+      "kind": "legal_companion",
+      "raw_checksum": "5f0bef79f710c60130b3a47decfb613e9b200600fbe3267443c099b948f3d66f",
+      "status": "search_exhausted",
+      "method": "bounded_packing",
+      "wall_seconds": 0.0009695999999621563,
+      "geometry_checks": 1
+    },
+    {
+      "kind": "legal_companion",
+      "raw_checksum": "b6d4f862b37e0defdb2361649898e037b81761f246f2a4370189366e021235d7",
+      "status": "search_exhausted",
+      "method": "bounded_packing",
+      "wall_seconds": 0.0009660999999141495,
+      "geometry_checks": 1
+    }
+  ],
+  "records": 126,
+  "seeds": [
+    20261025,
+    20261026,
+    20261027
+  ],
+  "evaluation_budget_per_action": 65,
+  "source_algorithms": [
+    "sa",
+    "analytical",
+    "rl"
+  ],
+  "warmup_steps": 64,
+  "algorithm_budget_includes_initial_call": true,
+  "postprocess_evaluations_per_action": 1,
+  "thermal_label": "uncalibrated spatial proxy; HotSpot calibration separate",
+  "equal_budget": "objective evaluations, not equal time or gradient computation",
+  "status": "complete"
+}

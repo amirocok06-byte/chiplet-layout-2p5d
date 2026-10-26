@@ -1,3 +1,15 @@
 # Matplotlib-generated SVG path data are reviewed through their source and
 # rendered artifacts, rather than thousands of generated coordinate lines.
 docs/figures/**/*.svg -diff
+
+# Simulator and sampled evidence contain byte-level SHA-256 provenance.
+# Preserve their recorded bytes on Windows and Linux checkouts.
+configs/hotspot_stage0_block.config -text whitespace=cr-at-eol
+docs/figures/stage0_hotspot_calibration/** -text whitespace=cr-at-eol
+docs/figures/stage0_hotspot_pilot/** -text whitespace=cr-at-eol
+docs/figures/stage0_same_state/** -text whitespace=cr-at-eol
+# Upstream simulator configs have significant recorded bytes, including
+# their original trailing spaces; do not rewrite hashed physical inputs.
+configs/hotspot_stage0_block.config -whitespace
+docs/figures/stage0_hotspot_calibration/**/*.config -whitespace
+docs/figures/stage0_hotspot_pilot/**/*.config -whitespace

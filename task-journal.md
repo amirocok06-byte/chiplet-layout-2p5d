@@ -1,5 +1,18 @@
  # Task Journal / 任务日志
 
+## 本次记录（2026-10-25，同状态分叉与物理评估）
+
+- 在 `codex/stage0-visualization` 上继续实现；审计并保留 `codex/stage0-core` 的 paired sampling 接口，从 `codex/stage0-baselines` 引入 stage0_summary 模块与测试。
+- Case4 原 37×37 mm 保留为不可行诊断；另立有本地来源 hash 的 `case4-maskplace-59mm-alternative-v1`，保持芯粒、功率和引脚物理值不变。它是不同几何问题，不冒称论文原始输入修正。
+- 增加所有连续优化器共用的合法化接口，固定上限的确定性 MaxRects/shelf 搜索；保留合法输入，失败与面积证明分开，不把启发式失败称为不可行证明。
+- 增加六个真实数值配置、同状态分叉、硬评价预算、原始与后处理收益分解；恢复可行性与合法到合法优化分别统计。
+- HotSpot 真实 subprocess 适配、可追溯输入/输出与分组留出校准单独实现；实际 simulator 可用性和校准误差须以生成结果和热校准文档为准。
+- 每条记录保存坐标、checksum、调用数、梯度/训练次数、合法率及成本；新增独立 replay audit 从坐标重算指标并核验 action×seed 完整网格。
+- 本轮继续本地→测试→diff→commit→push→远端核验；部署后检查 README、数据协议、结果入口与主仓库入口。主工作树原有 PDF 删除状态继续保留。
+- 实际采集 129 状态/2,322 标签，预算与坐标回放通过；另加 129 次 legalizer-only 控制评价。恢复任务 61/68 状态的后处理奖励打平，禁止生成伪唯一 winner；61 个合法优化状态均有数值动作均值差异，不等同显著性。
+- 正式集合实际完成 27 次 HotSpot block 运行，Case8/Case10 留出 MAE=58.9105 °C，代理不升级为温度；原始输入输出、固定 config、split 和早期 19 次模拟证据永久入库。
+- 全量验证：636 passed、7 skipped；热物理完整分层 package 校准和 CNN/Bandit 策略训练仍未完成。
+
 ## 长期同步规定
 
 1. 每次源码、配置、测试、文档、图表或 PDF 修改，都必须同步更新本地目录 `F:/GAME/Chiplet-Layout-2.5D` 与 GitHub 仓库 `amirocok06-byte/chiplet-layout-2p5d`。
