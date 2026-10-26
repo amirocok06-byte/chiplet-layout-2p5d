@@ -67,7 +67,11 @@ def _resolve_order(
 ) -> tuple[str, ...]:
     if order is None:
         metadata_order = layout.metadata.get("chiplet_order")
-        order = metadata_order or tuple(chiplet.name for chiplet in layout.chiplets)
+        if not metadata_order:
+            raise ValueError(
+                "priority/precedence order must be provided explicitly or in layout metadata"
+            )
+        order = metadata_order
 
     resolved = tuple(order)
     names = {chiplet.name for chiplet in layout.chiplets}
@@ -96,6 +100,9 @@ def rasterize_layout(
         raise ValueError("grid_size must be a positive integer")
 
     maps = np.zeros((3, grid_size, grid_size), dtype=np.float32)
+    # Rank zero is a valid priority value.  Keep it distinct from whitespace so
+    # the lowest-priority chiplet is visible to both plots and learned models.
+    maps[0].fill(-1.0)
     resolved_order = _resolve_order(layout, order)
     rank_denominator = max(len(resolved_order) - 1, 1)
     rank_by_name = {

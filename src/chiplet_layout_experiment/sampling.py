@@ -24,6 +24,8 @@ class SampleRecord:
     metrics: Mapping[str, Any]
     evaluator_version: str | None
     runtime_seconds: float
+    input_metrics: Mapping[str, Any] = field(default_factory=dict)
+    delta_metrics: Mapping[str, Any] = field(default_factory=dict)
     metadata: Mapping[str, Any] = field(default_factory=dict)
     failure_reason: str | None = None
 
@@ -40,9 +42,30 @@ class SampleRecord:
             "metrics": dict(self.metrics),
             "evaluator_version": self.evaluator_version,
             "runtime_seconds": self.runtime_seconds,
+            "input_metrics": dict(self.input_metrics),
+            "delta_metrics": dict(self.delta_metrics),
             "metadata": dict(self.metadata),
             "failure_reason": self.failure_reason,
         }
+
+
+def _evaluation_metrics(evaluation: Any) -> dict[str, Any]:
+    return {
+        "valid": evaluation.valid,
+        "hpwl": evaluation.hpwl,
+        "peak_temperature": evaluation.peak_temperature,
+        "mean_temperature": evaluation.mean_temperature,
+        "evaluator_calls": evaluation.evaluator_calls,
+    }
+
+
+def _delta_metrics(input_metrics: Mapping[str, Any], output_metrics: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "hpwl": output_metrics["hpwl"] - input_metrics["hpwl"],
+        "peak_temperature": output_metrics["peak_temperature"] - input_metrics["peak_temperature"],
+        "mean_temperature": output_metrics["mean_temperature"] - input_metrics["mean_temperature"],
+        "validity_changed": output_metrics["valid"] != input_metrics["valid"],
+    }
 
 
 def sample_arms(
@@ -57,6 +80,8 @@ def sample_arms(
     if not seeds:
         raise ValueError("seeds must not be empty")
     input_checksum = layout.checksum()
+    baseline_evaluation = evaluator.evaluate(layout)
+    input_metrics = _evaluation_metrics(baseline_evaluation)
     records: list[SampleRecord] = []
     for arm in arms:
         worker = workers.get(arm.worker_id)
@@ -73,14 +98,10 @@ def sample_arms(
             evaluation = result.evaluation
             metrics = {}
             evaluator_version = None
+            delta_metrics = {}
             if evaluation is not None:
-                metrics = {
-                    "valid": evaluation.valid,
-                    "hpwl": evaluation.hpwl,
-                    "peak_temperature": evaluation.peak_temperature,
-                    "mean_temperature": evaluation.mean_temperature,
-                    "evaluator_calls": evaluation.evaluator_calls,
-                }
+                metrics = _evaluation_metrics(evaluation)
+                delta_metrics = _delta_metrics(input_metrics, metrics)
                 evaluator_version = evaluation.evaluator_version
             records.append(
                 SampleRecord(
@@ -95,7 +116,14 @@ def sample_arms(
                     metrics=metrics,
                     evaluator_version=evaluator_version,
                     runtime_seconds=result.runtime_seconds,
-                    metadata=result.metadata,
+                    input_metrics=input_metrics,
+                    delta_metrics=delta_metrics,
+                    metadata={
+                        **dict(result.metadata),
+                        "baseline_evaluator_calls": baseline_evaluation.evaluator_calls,
+                        "total_evaluator_calls": baseline_evaluation.evaluator_calls
+                        + (evaluation.evaluator_calls if evaluation is not None else 0),
+                    },
                     failure_reason=result.unavailable_reason,
                 )
             )

@@ -9,6 +9,7 @@ def test_default_arm_catalog_is_finite_and_hashable():
     assert 1 < len(arms) <= 12
     assert len({arm.arm_id for arm in arms}) == len(arms)
     assert all(arm.budget > 0 for arm in arms)
+    assert {arm.budget for arm in arms} == {1}
     assert all(len(arm.config_hash) == 64 for arm in arms)
 
 
