@@ -6,6 +6,7 @@
 \usepackage{enumitem}
 \usepackage{xcolor}
 \usepackage{hyperref}
+\usepackage{xurl}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
 \usepackage{tcolorbox}
@@ -20,6 +21,8 @@
 \setlist{nosep,leftmargin=2em}
 \setlist[itemize]{label=\textbullet}
 \setlength{\parindent}{2em}
+\setlength{\emergencystretch}{5em}
+\setlength{\tabcolsep}{5pt}
 \renewcommand{\arraystretch}{1.25}
 \pagestyle{fancy}
 \fancyhf{}
@@ -55,7 +58,7 @@
 \vfill
 \begin{flushleft}
 \textbf{文档定位：}正式实验前的实验设计、接口定义、消融方案和开源实现清单。\\
-\textbf{当前方法版本：}第一版采用 2D CNN + 有限配置库 + Contextual Bandit；后续按需扩展到 CNN+GRU、ConvLSTM 和低分辨率局部注意力。\\
+\textbf{当前方法版本：}当前已实现 fourmap v2 状态投影；拟采用四通道 2D CNN + 有限配置库 + Contextual Bandit（CNN 尚未训练）；后续按需扩展到 CNN+GRU、ConvLSTM 和低分辨率局部注意力。\\
 \textbf{重要边界：}本文档中的性能结论均为待验证的实验假设，不将已有项目的报告数值当作本项目结果。
 \end{flushleft}
 \vspace{0.8cm}
@@ -84,7 +87,7 @@
 本项目相对于“固定使用一个算法”或“把多个算法首尾连接”的具体增量应写成以下三点。
 
 \begin{enumerate}
-    \item \textbf{状态条件化的算法选择：}将当前布局编码为包含线长、热、占用和合法性信息的空间状态张量，Contextual Bandit 根据该状态选择 \((\text{algorithm},\text{configuration},\text{budget})\) 宏动作。
+    \item \textbf{状态条件化的算法选择：}将当前布局编码为包含连接优先级、热代理、HPWL 和合法性诊断信息的空间状态张量，Contextual Bandit 根据该状态选择 \((\text{algorithm},\text{configuration},\text{budget})\) 宏动作。
     \item \textbf{统一接口下的可替换布局算子：}SA、解析法和 RL worker 均接收同一种布局状态、输出同一种候选布局，并由同一个 evaluator 返回可比指标；它们是可竞争的动作，不是预先规定的阶段链路。
     \item \textbf{把“算法偏好”变成可测量的状态转移：}除了记录最终结果，还记录算法作用前后的状态差分、空间影响图和资源成本，从而回答“某算法在何种布局结构上有效、改善了哪个指标、代价是什么”。
 \end{enumerate}
@@ -100,12 +103,15 @@
 每个决策时刻 \(t\) 的流程定义为：
 
 \begin{equation}
-X_t \xrightarrow{\text{CNN encoder}} z_t
+\begin{aligned}
+X_t &\xrightarrow{\text{CNN encoder}} z_t
 \xrightarrow{\text{Contextual Bandit}} a_t=(k_t,c_t,H_t,M_t)
-\xrightarrow{\text{worker }k_t}
+\\[-0.2em]
+&\xrightarrow{\text{worker }k_t}
 Y_{t+1}
 \xrightarrow{\text{Physics Evaluator}}
-(X_{t+1},m_{t+1},r_t),
+(X_{t+1},m_{t+1},r_t).
+\end{aligned}
 \end{equation}
 
 其中 \(X_t\) 是当前布局状态，\(k_t\) 是算法类别，\(c_t\) 是算法配置，\(H_t\) 是本次宏动作的预算，\(Y_{t+1}\) 是候选布局，\(m_{t+1}\) 是合法性和物理指标，\(r_t\) 是控制器根据目标函数计算的奖励。只有当候选布局满足硬合法性约束或经过确定性修复后，才允许进入下一次决策。
@@ -139,38 +145,28 @@ a_t=(k_t,c_t,H_t,M_t),
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=lightorange,colframe=orange!70!black,title=与原多阶段 Agent 方案的关系]
-原方案中的 order、thermal、geometry 不再作为三个固定顺序的 agent。它们被改写为 \textbf{可学习的诊断通道/动作约束}：order 结构、热热点和几何拥挤分别进入状态张量与 wiremask；最终实际执行的是一个算法 worker。若实验发现某类状态稳定需要先做热修复，再可把“热修复宏动作”加入动作库，但这个顺序应由对照实验支持，而不是在系统结构中预先假定。
+原方案中的 order、thermal、geometry 不再作为三个固定顺序的 agent。它们被改写为 \textbf{可学习的诊断通道/动作约束}：连接优先级、热代理热点和几何冲突分别进入状态张量与 wiremask；最终实际执行的是一个算法 worker。若实验发现某类状态稳定需要先做热修复，再可把“热修复宏动作”加入动作库，但这个顺序应由对照实验支持，而不是在系统结构中预先假定。
 \end{tcolorbox}
 
 \subsection{统一状态表示}
 
-对于给定的 chiplet 集合和芯片边界，将布局栅格化为 \(H\times W\)，第一版可取 \(256\times256\)。输入不是单张图，而是多通道张量：
-
+对于给定的 chiplet 集合和板边界，将布局栅格化为 $H\times W$，默认 $256\times256$。当前 fourmap v2 的唯一基础输入为
 \begin{equation}
-X_t=[M_{\rm occ},M_{\rm power},M_{\rm conn},M_{\rm thermal},M_{\rm wire},M_{\rm legal},M_{\rm order},\,v_t].
+X_t=[M_{\rm priority},M_{\rm thermal\_proxy},M_{\rm hpwl},M_{\rm legality}]
+\in\mathbb{R}^{4\times H\times W}.
 \end{equation}
-
-\begin{itemize}
-    \item \(M_{\rm occ}\)：芯粒占用、边界和重叠信息；
-    \item \(M_{\rm power}\)：功耗投影或功耗密度；
-    \item \(M_{\rm conn}\)：与网络连接或邻近连接需求相关的空间投影；
-    \item \(M_{\rm thermal}\)：当前热图或快速热模型输出；
-    \item \(M_{\rm wire}\)：线长敏感区域或连接拥挤度；
-    \item \(M_{\rm legal}\)：动作可行域；
-    \item \(M_{\rm order}\)：芯粒顺序/优先级投影；
-    \item \(v_t\)：全局标量，如总 HPWL、峰值温度、重叠面积、利用率、剩余 evaluator 预算和历史动作。
-\end{itemize}
+全局标量 $v_t$（精确合法性、重叠、越界、HPWL、热代理、预算和最近动作）单独融合，不计为空间通道。占用、功耗、连接图和 wiremask 可作为诊断或后续扩展，均不隐式加入当前四通道。历史三联图保留原版本；新投影不覆盖旧图、评估器或已记录奖励。具体定义见后文。
 
 \paragraph{wiremask 的位置。} 本设计中 wiremask 不是额外的“第四个优化阶段”，也不是只在最后筛选区域。它有两个作用：
 
 \begin{enumerate}
-    \item 作为 CNN 的结构化输入，使 Bandit 看到“当前最需要被改变的空间区域”；
+    \item 作为由四通道导出的可选门控，使 Bandit 看到“当前最需要被改变的空间区域”；
     \item 作为 worker 的动作约束，将候选移动、局部搜索或 RL 动作限制在允许区域/允许方向内，减少无效探索。
 \end{enumerate}
 
 第一版不要求 wiremask 具有端到端可学习的生成器。建议先用确定性规则生成 baseline mask，再把 mask 的阈值、膨胀半径和指标权重加入配置库，作为可控消融因素。
 
-建议同时记录 hard mask、soft mask 和 mask version。hard mask 用于限制候选移动区域、方向和移动半径；soft mask 作为 CNN/注意力输入的连续权重；mask version 用于保证不同实验不会隐式使用不同的候选区域。只有在确定性 mask 的离线结果证明有收益后，才让诊断头预测软 mask。
+建议同时记录 hard mask、soft mask 和 mask version。hard mask 用于限制候选移动区域、方向和移动半径；soft mask 作为可选 CNN/注意力门控的连续权重；mask version 用于保证不同实验不会隐式使用不同的候选区域。只有在确定性 mask 的离线结果证明有收益后，才让诊断头预测软 mask。
 
 \section{分阶段实验设计}
 
@@ -269,7 +265,7 @@ z_t=f_\phi(X_t),\qquad
 推荐顺序：
 
 \begin{enumerate}
-    \item 先离线训练 CNN 回归器，预测固定预算 \(H\) 下的 \(\Delta\)HPWL、\(\Delta\)Tpeak、合法性和运行成本；
+    \item 先离线训练 CNN 回归器，预测固定预算 \(H\) 下的 \(\Delta\)HPWL、热代理变化、精确合法性和运行成本；有独立高保真标签时再预测 \(\Delta\)Tpeak；
     \item 再将 CNN 表征接入 LinUCB 或 linear Thompson Sampling；
     \item 最后做 online update，使用真实 evaluator 返回的 reward 修正预测。
 \end{enumerate}
@@ -284,7 +280,7 @@ r_t = -\lambda_w\Delta \widetilde{WL}_t
        -\lambda_C\widetilde{C}_t.
 \end{equation}
 
-其中 \(\Delta\) 表示相对当前状态的变化，\(\widetilde{C}_t\) 是归一化的运行时间或 evaluator 调用成本。所有 arm 使用相同的成本口径；否则 Bandit 可能只学会选择快而不一定有效的 worker。
+其中当前热项为 thermal proxy，有独立温度标签时才使用温度项，二者不混用。\(\Delta\) 表示相对当前状态的变化，\(\widetilde{C}_t\) 是归一化的运行时间或 evaluator 调用成本。所有 arm 使用相同的成本口径；否则 Bandit 可能只学会选择快而不一定有效的 worker。
 
 \paragraph{Bandit 的评价。} 第一版不只报告最终布局分数，还报告：
 
@@ -353,14 +349,9 @@ r_t = -\lambda_w\Delta \widetilde{WL}_t
 
 \subsection{状态输入与结构化 memory packet}
 
-状态输入扩展为
-\begin{equation}
-X_t=[M_{\rm occ},M_{\rm power},M_{\rm thermal},M_{\rm wire},
-M_{\rm legal},M_{\rm order},M_{\rm phase},\,v_t],
-\end{equation}
-其中 \(M_{\rm phase}\) 是当前阶段或历史动作的空间投影，\(v_t\) 包含 HPWL、峰值温度、重叠面积、利用率、剩余预算和最近动作。
+当前状态仍为 $X_t\in\mathbb{R}^{4\times H\times W}$，$v_t$ 和阶段信息保存在结构化旁路。后续可将最近 $L$ 步的四通道状态与动作组成历史窗口，比较 2D CNN + history、CNN+GRU 和 ConvLSTM；这些均为未来实验，不改变当前基础通道定义。
 
-内循环不使用自然语言 prompt 传递状态，而使用可序列化的结构化记忆：
+内循环不使用自然语言 prompt 传递状态，而使用可序列化的结构化记忆（以下为接口示例，非实验结果）：
 
 \begin{verbatim}
 {
@@ -370,9 +361,9 @@ M_{\rm legal},M_{\rm order},M_{\rm phase},\,v_t],
   "focus_metric": "hpwl",
   "mask_version": "wire-v2",
   "last_action": {"worker": "sa", "config": "sa-wire", "budget": 4},
-  "predicted_delta": {"hpwl": -2.1, "peak_temperature": 0.3},
-  "observed_delta": {"hpwl": -0.4, "peak_temperature": 0.1},
-  "uncertainty": 0.28,
+  "predicted_delta": {"hpwl": null, "thermal_proxy": null},
+  "observed_delta": {"hpwl": null, "thermal_proxy": null},
+  "uncertainty": null,
   "remaining_budget": 96
 }
 \end{verbatim}
@@ -381,12 +372,12 @@ GRU/ConvLSTM 读取该信息的张量化版本。若后续使用 LLM，它只承
 
 \subsection{wiremask 的定义与使用}
 
-wiremask 不是一个额外的优化阶段，而是同时承担结构化输入和动作约束两种职责：
+wiremask 由基础四通道导出，作为可选门控和动作约束：
 
 \begin{enumerate}
-    \item \textbf{输入通道：}由 HPWL 贡献、net bounding box、连接拥挤度、热图和合法性膨胀规则生成，告诉编码器哪些区域最值得关注；
+    \item \textbf{可选门控：}由 HPWL 贡献、net bounding box、连接拥挤度、热图和合法性膨胀规则生成，告诉编码器哪些区域最值得关注；
     \item \textbf{动作约束：}限制 SA 邻域、解析更新或 RL 动作的候选区域、方向、移动半径和可行域，减少无效 evaluator 调用；
-    \item \textbf{状态差分：}记录动作前后的 \(M_{\rm wire}\) 及其变化，用于训练转移头和评估 mask 是否真正改变了布局；
+    \item \textbf{状态差分：}记录动作前后的 HPWL 图、导出 mask 及其变化，用于训练转移头和评估 mask 是否真正改变了布局；
     \item \textbf{可控消融：}第一版使用确定性 mask，阈值、膨胀半径和通道权重进入有限配置库；只有在离线结果证明有收益后，才让诊断头预测软 mask。
 \end{enumerate}
 
@@ -456,7 +447,7 @@ evaluate(layout, fidelity, case_config) -> {
 \subsection{三个物理子评估器}
 
 \begin{enumerate}
-    \item \textbf{GeometryEvaluator：}检查边界、重叠、旋转、间距、禁止区域和栅格占用。它必须确定性执行，并在每次宏动作后调用。
+    \item \textbf{GeometryEvaluator：}以精确几何检查边界、重叠、旋转、间距和禁止区域；栅格仅供诊断。它是合法性的唯一裁判，必须确定性执行，并在每次宏动作后调用。
     \item \textbf{WirelengthEvaluator：}内环使用带 pin offset 和 net weight 的 HPWL 或快速中心距离近似；高保真阶段可调用 TAP-2.5D 的路由/MILP 接口。报告 HPWL 与 routed wirelength 两个不同字段。
     \item \textbf{ThermalEvaluator：}内环使用紧凑解析热模型或快速热模型；定期抽样和最终验证使用 HotSpot wrapper。快速模型只能提供低成本反馈，不能被表述为最终热真实性本身。
 \end{enumerate}
@@ -505,7 +496,7 @@ Exact & 几何合法性 + 路由线长 + HotSpot 热评价 & 验证集、最终�
 随机选择 arm & 多算法组合但无状态决策是否有效 \\
 全局指标 Bandit & 只有标量上下文时，空间状态是否必要 \\
 2D CNN + Bandit & 主方法：静态空间状态能否改善算法选择 \\
-2D CNN + wiremask & mask 作为输入和动作约束是否进一步改善选择与局部修复 \\
+2D CNN + wiremask & 派生 mask 作为门控和动作约束是否进一步改善选择与局部修复 \\
 CNN + GRU & 最近宏步的历史是否提升收益预测与在线选择 \\
 3D/ConvLSTM + Bandit & 状态流是否带来超过静态状态的增益 \\
 ConvLSTM/局部注意力 + flow critic & 动作条件的状态转移预测是否改善流程级质量--成本折中 \\
@@ -517,13 +508,19 @@ ConvLSTM/局部注意力 + flow critic & 动作条件的状态转移预测是否
 
 比较时固定：benchmark split、初始布局、芯粒尺寸和功耗、目标权重、evaluator fidelity、总预算、随机种子数和最终验证流程。若某算法需要预训练，应分别报告“包含训练成本的端到端结果”和“已训练 worker 的部署结果”，避免将训练资源隐藏在基线之外。
 
+\subsection{三对四通道与优先级消融协议}
+
+在同一 canonical 状态集合上重新投影，比较 v2 的前三通道与完整四通道，唯一输入差异为 legality；历史三联图仅作归档对照，避免旧 priority 覆盖规则混淆第四通道效应。优先级消融固定其余三通道，比较完整 $q_i$、删除 priority、仅保留占用（芯粒 0、背景 $-1$）以及状态内打乱芯粒 $q_i$ 的版本；打乱保留值的多重集与并列，使用固定种子。
+
+各组固定相同状态 ID、case holdout、全臂标签、奖励、evaluator fidelity、候选配置、随机种子集合和评价预算；同一 case 的全部中间状态及同源变体不得跨训练/测试集。归一化和调参只用训练/验证 case，匹配训练与调参预算，单列参数量与投影成本。当前 129 个状态不能当作 129 个独立 case。报告预测误差、并列集合式 top-$k$ 命中、regret、精确恢复合法率及同预算在线质量--成本，按留出 case 汇总配对差值与不确定性。61 个 recovery 并列不任意挑选赢家。四通道优于三通道及 degree priority 有效均为待检验假设，不填入模拟增益。
+
 \subsection{支持或否定核心假设的结果}
 
 核心假设是“布局状态能够预测不同算法的相对短期收益”。
 
 \begin{itemize}
     \item 若 2D CNN 相比全局指标 Bandit 在相同预算下提高 reward、降低 regret，支持空间上下文有用；
-    \item 若加入 wiremask 后选择准确率与最终指标均改善，支持 mask 作为结构化输入/约束，而不是装饰性模块；
+    \item 若加入 wiremask 后选择准确率与最终指标均改善，支持派生 mask 作为门控/约束，而不是装饰性模块；
     \item 若 3D/ConvLSTM 只提高预测精度，却不提高在线决策的最终结果或成本效率，则不能声称状态流学习带来系统收益；
     \item 若 Bandit 与最强固定算法无显著差异，应将结论限定为“能识别某些状态下的算法偏好”，而不是宣称普遍优于所有单一算法。
 \end{itemize}
@@ -549,7 +546,7 @@ ConvLSTM/局部注意力 + flow critic & 动作条件的状态转移预测是否
 强化学习 & \urlbreak{https://github.com/weiweihook/RLPlanner} & RL worker、快速热模型接口和 PPO 配置参考 & 输入格式与 Bookshelf 不同，需要 canonical adapter；README 中的加速/误差为作者报告，需在本项目上重新校准 \\
 热模型/布局掩码参考 & \urlbreak{https://github.com/xunk33333/MaskPlace2.5D} & 紧凑热模型、thermal data processing、mask 概念参考 & 核心 placement code 未公开，不能当作完整透明 placement worker \\
 综合布局参考 & \urlbreak{https://github.com/MicroSystemsDesignLab/STAMP2.5D} & 2.5D 布局/热约束相关实现和对照参考 & 先核对与本项目 benchmark、许可证和依赖的兼容性 \\
-热评估器 & TAP-2.5D 与 ATPlace\_pub 中的 HotSpot wrapper；HotSpot 官方源码需按所采用版本固定 & Fast/Medium/Exact thermal evaluator 的接口参考与最终验证 & 快速模型不能替代最终 HotSpot；记录版本、网格、边界条件和材料参数 \\
+热评估器 & TAP-2.5D 与 ATPlace\_pub 中的 HotSpot wrapper；HotSpot 官方源码需按所采用版本固定 & Fast/\allowbreak Medium/\allowbreak Exact thermal evaluator 的接口参考与最终验证 & 快速模型不能替代最终 HotSpot；记录版本、网格、边界条件和材料参数 \\
 \end{longtable}
 
 \subsection{状态表征与时序建模参考}
@@ -602,7 +599,7 @@ experiment/
     \item \textbf{MVP-0：}只实现 canonical IR、GeometryEvaluator、HPWL、固定热模型和三种 worker 的离线运行接口。
     \item \textbf{MVP-1：}建立有限 arm 配置库，跑全臂采样，得到每个 case 的宏观状态转移数据。
     \item \textbf{MVP-2：}训练 2D CNN，先做收益预测，再接 LinUCB/Thompson Sampling；与固定算法、随机选择和全局标量 Bandit 对比。
-    \item \textbf{MVP-3：}加入 wiremask 的输入与动作约束，验证它是否真正改变选择质量和局部修改效果。
+    \item \textbf{MVP-3：}加入 wiremask 的派生门控与动作约束，验证它是否真正改变选择质量和局部修改效果。
     \item \textbf{MVP-4：}只有当静态上下文存在明确不足时，采集连续状态快照，先训练 CNN+GRU，报告历史状态带来的增益。
     \item \textbf{MVP-5：}若 GRU 证明空间转移仍有额外信息，再训练小型 ConvLSTM 或低分辨率局部注意力，并加入动作条件 flow critic。
     \item \textbf{MVP-6：}最后加入连续超参数优化或分层 Bandit；不得用它替代第一版有限配置库的归因实验。
@@ -637,31 +634,85 @@ experiment/
 
 本项目的三类 Agent 定义为三种算法 Agent，而不是将 HPWL、thermal、order 三个指标分别包装成 Agent。\textbf{SA-Agent} 在 wiremask 和预算约束下执行局部交换、移动、旋转或扰动，并选择温度、降温率、邻域半径与接受准则；\textbf{Analytical-Agent} 执行解析式连续优化、合法化和局部修复，并选择步长、惩罚权重、平滑强度与迭代预算；\textbf{RL-Agent} 使用统一布局接口生成候选动作序列，并选择 rollout 长度、探索率、候选动作数和局部更新预算。
 
-三张图是三个共享观察通道：order、thermal 和 HPWL；PhysicsEvaluator 是唯一的物理裁判；Contextual Bandit/Coordinator 选择 $(agent, config, mask, macro\_budget)$。因此 Agent 的身份来自算法和可执行动作，图来自状态，评估器负责裁决，三者不会被混为一谈。
+四张图是共享观察通道：priority、thermal proxy、HPWL 和 legality；PhysicsEvaluator 是唯一的物理裁判；Contextual Bandit/Coordinator 选择 $(agent, config, mask, macro\_budget)$。因此 Agent 的身份来自算法和可执行动作，图来自状态，评估器负责裁决，三者不会被混为一谈。
 
-\section{HPWL 与 order 的形式化图表示}
+\section{四通道的形式化图表示（fourmap v2）}
 
-热图用温度场颜色表示。HPWL 不应将一个全局标量复制到每个像素，而应把每条网络的线长贡献投影回其引脚包围盒。对网格像素 $p$，网络 $n$ 的包围盒为 $B_n$，加权线长为 $L_n$，权重为 $w_n$，定义
+\paragraph{连接优先级。} 对芯粒 $i$，$d_i$ 是关联 pin 的出现次数（incident-pin count），不使用 net weight、唯一邻居数、时序关键度或计划放置顺序。定义
+\[
+q_i=\frac{d_i}{\max(\max_j d_j,1)},\qquad
+M_{\rm priority}(g)=
+\begin{cases}
+\max_{i:\,|g\cap R_i|>0}q_i,&\exists i:\ |g\cap R_i|>0,\\
+-1,&\text{背景}.
+\end{cases}
+\]
+同度保留并列，孤立芯粒为 0，与背景 $-1$ 区分。多个芯粒覆盖同一像素时取最大 $q_i$，与输入遍历顺序无关；不再使用最后写入覆盖。历史 order 名称仅用于读取旧图，不引入 precedence 或 rank 语义。
 
+\paragraph{热代理与 HPWL。} 新投影复用历史投影的 thermal proxy 与 HPWL 两通道。thermal proxy 是当前功耗/快速热模型的空间代理，不是摄氏温度。HPWL 将网络包围盒的线长贡献投影到网格，概念式为
+\[
+M_{\rm hpwl}(g)=\sum_n\frac{w_n\ell_n}{|B_n|}\mathbf{1}[g\in B_n],
+\]
+其中 $\ell_n$ 为未加权 HPWL，$w_n$ 只计一次；离散包围盒、退化包围盒与归一化遵循所记录的 projector 版本。精确 HPWL 标量由 evaluator 独立计算，不把栅格求和当作精确证明。绘图色标不改变训练输入。
+
+\paragraph{合法性诊断。} 设 $R_i$ 为芯粒矩形，$g$ 为板内像素单元，$N$ 为芯粒数。重叠项按精确两两交集面积累计：
+\[
+L_{\rm overlap}(g)=\frac{1}{\max(N-1,1)}
+\sum_{i<j}\frac{|g\cap R_i\cap R_j|}{|g|}.
+\]
+这保留 pair multiplicity：三重重叠累加三个 pair，不用交集并集，也不把同像素中的互不相交芯粒误算为重叠。
+
+板宽高为 $B_x,B_y$。令 $o_{i,s}$ 为芯粒越过边 $s$ 的距离除以该边法向轴板长，$c_{i,s}(g)$ 为芯粒沿边切向区间覆盖该像素切向区间的比例，$b_s(g)$ 表示该边最近的一像素边界带，则
+\[
+L_{\rm boundary}(g)=\frac1N\sum_i\sum_{s\in\{L,R,B,T\}}
+ o_{i,s}\,c_{i,s}(g)\,b_s(g),\qquad
+M_{\rm legality}=L_{\rm overlap}+L_{\rm boundary}.
+\]
+当前实现使用单位板坐标；切向区间完全落在板外时，将覆盖权重 1 投到切向中心裁剪后的最近边界像素，避免完全板外芯粒消失。各越界边分别累加，角点可接收多边贡献。两项均不截断，不保证落在 $[0,1]$。无冲突背景为 0。
+
+\textbf{精确 GeometryEvaluator 是唯一合法性裁判。} 单独保存 exact valid、overlap 与 boundary 标量及其容差；栅格不能证明合法性。数值容差附近非零 map 不必意味着 evaluator 判为非法，不能用 map 是否为零覆盖 exact verdict。
+
+\paragraph{当前证据与问题边界。} 当前已有 2322 条标签、129 个状态，其中 61 个 recovery 状态存在并列最优；报告集合式命中率与 regret，不将并列强制改为单标签。27 个 HotSpot 校准样本的留出 MAE 为 $58.91\,{}^\circ\mathrm{C}$，拟合为负斜率仿射关系；这不支持将当前 thermal proxy 当作摄氏温度或可靠温度校准。Case4 原始 37 板问题不可行，59 板替代版本是新问题，必须另列 case 身份，不能作为原问题已恢复合法的证据。以上属于既有阶段记录。当前四通道 API 与 129 个状态、150 个 checkpoint、190 幅图的同步更新属于表示和可视化实现；CNN 训练及选择收益尚无结果。
+
+\subsection{四通道的具体计算、单位与图例}
+
+图内显示名依次固定为 \code{Connectivity priority}、\code{Spatial thermal proxy}、\code{HPWL contribution (mm/pixel)}、\code{Overlap / boundary violation}，与下述计算语义一一对应。
+
+四通道数组按 priority、thermal proxy、HPWL、legality 排列。快照从左到右、状态流从上到下均采用这个顺序。网格原点为左下角，横轴对应 $x$、纵轴对应 $y$；$0$--$256$ 是原始像素坐标。叠加的 $16\times16$ 宏网格只帮助读图，每个宏格仍含 $16\times16$ 原始像素。PNG 采用 nearest 显示和 300 DPI，另导出 PDF/SVG，不用插值制造空间细节。
+
+\paragraph{Priority 的计算和表现。} $d_i$ 是 netlist 中芯粒 $i$ 的 pin 出现次数，同一芯粒出现在不同网络中会重复计数；当前不按 net weight 加权、不去重为邻居数。$q_i=d_i/\max(\max_j d_j,1)$，像素覆盖冲突取最大 $q_i$。色条固定在 $[0,1]$，16 级 viridis 由深紫、蓝绿到黄色表示低、中、高连接度；浅灰表示背景 $-1$，黑色矩形表示芯粒边界。断连芯粒为 $0$，与空白区分。同连接度保留同色，大片同色不能为了美观而人为打散。netlist 不变时 $q_i$ 不随迭代改变，只有颜色块的位置变化。网页提供逐芯粒的 $d_i,q_i$ 数值表。这是连接度启发式，不能解释为执行顺序、计划放置顺序或时序关键路径。
+
+\paragraph{热代理的计算和表现。} 令 $P_i$ 为芯粒功耗（W），$A_i$ 为物理面积（mm$^2$），$c_i$ 为单位板坐标的中心，$s_{ia}$ 为沿轴 $a$ 的归一化尺寸；当前实现为
 \begin{equation}
-M_{\mathrm{hpwl}}(p)=\sum_n \frac{w_nL_n}{|B_n|}\mathbf{1}[p\in B_n].
+\begin{aligned}
+\sigma_{ia}^2&=s_{ia}^2/12+0.08^2,\\
+M_T(g)&=\sum_i\frac{P_i}{A_i}
+\exp\!\left[-\frac12\sum_{a\in\{x,y\}}
+\frac{(u_{ga}-c_{ia})^2}{\sigma_{ia}^2}\right].
+\end{aligned}
 \end{equation}
+这是功率密度启发的高斯扩散场，缺少热阻、层叠材料与真实散热边界，不能换成摄氏温度。inferno 色图由黑紫低值到橙黄高值，使用 $\gamma=0.6$ 的 PowerNorm 增强低中值差异；色条保留原代理数值，标注 Spatial thermal proxy，不写 $^\circ$C/K。图在像素中心采样，标量峰值在芯粒中心采样，二者采样位置不同。正式 27 个 HotSpot block 样本的留出 MAE 为58.91$^\circ$C，当前校准不支持温降结论。
 
-在离散化误差可控时，$\sum_p M_{\mathrm{hpwl}}(p)$ 等于加权 HPWL。高值像素表示对当前线长贡献较大的空间区域；绘图应在 benchmark 内采用分位数或对数归一化，防止少数长网压扁颜色动态范围。
+\paragraph{HPWL 的计算和表现。} 引脚坐标包含芯粒半尺寸与真实 percentage offset。每条网络的 $L_n$ 按 mm 计算：最大和最小引脚 $x$ 之差，加最大和最小 $y$ 之差；令离散包围盒像素数为 $K_n$，每个覆盖像素累加 $w_nL_n/K_n$。退化包围盒至少分配一个像素。当前真实 Case 适配器为 two-pin nets，隐含 $w_n=1$。色条为 mm/pixel，magma 亮处表示更高线长贡献，浅灰处没有可显示贡献。SymLogNorm 的线性区固定为同 Case 共同最大值的1\%，其他区域对数压缩；仅在显示时屏蔽机器精度残差。它是引脚包围盒贡献场，不是实际导线路径、布线拥塞或物理梯度。
 
-order 至少保存两个互补通道：$M_{\mathrm{order\mbox{-}rank}}$ 在芯粒占据区域填充 $\operatorname{rank}(c_i)/(N-1)$，表示顺序位置；$M_{\mathrm{order\mbox{-}trans}}$ 对相邻顺序节点或 precedence edge 的中心连线绘制走廊，表示顺序关系经过的空间。若 order 来自 DAG，还要保存 precedence edge 或节点 token，不能仅依赖单一栅格图。当前 MVP 的 thermal 是功率密度代理，必须标注为 $thermal\_proxy$，最终验证应由 HotSpot 或等价热求解器完成。上述 map 是状态表示，不是物理梯度，也不替代 PhysicsEvaluator。
+\paragraph{Legality 的计算和表现。} 按前文公式先求精确矩形交集，再将交集面积按像素比例分配；三芯粒重叠保留三个 pair 的贡献。越界距离除以对应板长，乘切向覆盖比例后投影到一像素宽板边带，并除以 $N$。两项相加，非负但不截断到 $[0,1]$。快照用线性 Reds：$0$ 为白色，正值从浅红到深红；板内红块定位重叠，板边红带定位越界。色条为无量纲违反强度，不是合法概率，其总和不能当作精确重叠率。图题分别报告 overlap、boundary 和 valid；精确 evaluator 的几何与容差决定最终判决，map 为零不构成合法性证明。
+
+\paragraph{统一色阶与差分。} 每个 Case 的全部算法与五帧共用对应通道的范围，避免逐帧归一化掩盖变化。四通道差分都定义为 $\Delta M=M_{after}-M_{before}$，用以零为中心的 coolwarm 色图：蓝色减少、红色增加、白色近似不变。priority 的差分主要表示位置迁移；单处红蓝变化不能替代全局目标与成本。快照第四通道的红色表示绝对违反强度，差分图的红色表示违反增加，二者图题和色条分别标识。CNN 使用原始 float32 张量及训练阶段固定的归一化，不使用网页颜色作为物理输入。
 
 \section{一步、预算与算法影响的公平比较}
 
-定义一个 step 为：一个 Agent 在固定宏动作预算 $macro\_budget$ 内产生一个候选布局，该候选布局经过一次统一 PhysicsEvaluator，并记录前后状态、动作、资源和 reward。因此 SA 的一次邻域交换、解析法的一次梯度迭代和 RL 的一次 rollout 不能直接被当作等价 step。正式比较锁定资源向量 $(N_{eval},T_{wall},M_{RAM},M_{VRAM})$，分别对应真实 evaluator 调用次数、墙钟时间上限和峰值存储上限，同时报告质量、时间、内存、evaluator 次数及失败率。当前不同 worker 的不等内部预算仅适合 smoke test，不能作为最终公平比较。
+定义一个 step 为：一个 Agent 在固定宏动作预算 $macro\_budget$ 内优化并返回一个候选布局，记录前后状态、动作、资源和 reward。当前同状态实验固定每个动作65次目标评价（1次起始评价与64次候选评价），候选的接受或拒绝均占预算；共享 baseline、合法化及最终核验另计。SA 的一次邻域交换、解析法的一次梯度迭代和 RL 的一次 rollout 不直接当作等价宏 step。正式报告资源向量 $(N_{eval},T_{wall},M_{RAM},M_{VRAM})$，同时单列梯度与策略训练成本；当前证明的是等目标评价次数，不声称等时间或等总算力。历史不等预算的 smoke 记录不混入正式比较。
 
 \section{可审计图表与同步规范}
 
-仓库提供三个绘图程序：\code{scripts/plot\_snapshot\_maps.py} 输入 $[3,H,W]$ 输出 order/thermal/hpwl 三联图；\code{scripts/plot\_state\_flow.py} 输入 $[T,3,H,W]$，使用每个通道共享色标展示状态流；\code{scripts/plot\_algorithm\_effects.py} 输入 before $[3,H,W]$ 与 after $[K,3,H,W]$，绘制各 Agent 的 after-before。\code{map\_projector.py} 负责从 canonical layout 生成可测试的 map，图表必须附带 case、step、agent、config、seed、evaluator 版本和归一化方式。
+历史三联图与 $[3,H,W]$、$[T,3,H,W]$ 数据保留，不能改标签后当作新状态。
+当前独立的 \code{state\_projection.py} / \code{project\_state} 生成 $[4,H,W]$；新快照、状态流与效果差分分别按 $[4,H,W]$、$[T,4,H,W]$ 和 before/after 四通道记录。
+状态版本为 \code{connectivity-priority-}\allowbreak\code{thermal-hpwl-legality-v2}（fourmap v2），固定通道顺序 priority、thermal\_proxy、hpwl、legality。
+图表附带 case、step、agent、config、seed、evaluator、state version 和归一化方式。
 
-从本方案起，每次源码、配置、测试、文档或 PDF 修改，必须在本地仓库完成同步修改、测试和构建后提交并推送至 GitHub；部署完成后还要重新检查是否有相关文件、图表或 PDF 需要补充更新。该规定同时写入仓库根目录 \code{task-journal.md}、规划进度文件和 \code{CONTRIBUTING.md}。
+实现、状态数据与图表使用同一 state version 关联；历史记录保留其原有版本，保证表示变更可追溯。
 
-\section{实验方案 v1.0：短期冻结版}
+\section{实验方案：四通道更新后的短期冻结版}
 
 \subsection{冻结目标与核心主线}
 
@@ -685,7 +736,7 @@ CNN 或后续的 ConvLSTM/局部注意力负责状态表示、收益预测或状
     \item \textbf{RL-Agent：}使用统一布局接口生成候选动作序列，配置包括 rollout 长度、候选动作数、探索率和局部更新预算，重点处理具有重复拓扑分布、需要长程动作序列或已有策略先验的状态。
 \end{itemize}
 
-上层 Contextual Bandit/Coordinator 选择 $(agent, config, mask, macro\_budget)$；PhysicsEvaluator 是唯一裁判；order、thermal、HPWL 是共享观察通道。第一版先使用有限配置库，再研究连续超参数优化。
+上层 Contextual Bandit/Coordinator 选择 $(agent, config, mask, macro\_budget)$；PhysicsEvaluator 是唯一裁判；priority、thermal proxy、HPWL、legality 是四个共享观察通道。第一版先使用有限配置库，再研究连续超参数优化。
 
 \subsection{阶段偏好只作为可检验假设}
 
@@ -695,30 +746,9 @@ CNN 或后续的 ConvLSTM/局部注意力负责状态表示、收益预测或状
 \]
 不预先宣称“前期 analytical、中期 RL、后期 SA”为事实。
 
-\subsection{三张 map 的正式语义}
+\subsection{四张 map 的冻结语义}
 
-推荐输入为
-\[
-X_t=[M_{\mathrm{order}},M_{\mathrm{thermal}},M_{\mathrm{hpwl}},
-M_{\mathrm{occ}},M_{\mathrm{legal}},M_{\mathrm{wiremask}},v_t],
-\]
-其中 $v_t$ 包含全局指标、利用率、剩余预算、最近动作和阶段编码。
-
-\begin{itemize}
-    \item \textbf{Thermal：}优先使用 $M_{\mathrm{thermal}}(g)=T(g)-T_{\mathrm{ambient}}$，同时保存原始温度、归一化方式和 fidelity。快速模型必须标注为 \code{thermal\_proxy}，HotSpot 或等价求解器用于校准和最终验证；
-    \item \textbf{HPWL：}对网络 $n$ 的引脚包围盒 $B_n$、加权 HPWL $L_n$ 和权重 $w_n$，定义
-    \[
-    M_{\mathrm{hpwl}}(g)=\sum_n\frac{w_nL_n}{|B_n|}
-    \mathbf{1}[g\in B_n].
-    \]
-    该定义避免把全局标量复制到每个像素，高值区域表示对当前线长贡献较大的空间区域；
-    \item \textbf{Order：}共享图不表示左右方向，也不直接表示某个 worker 的运行时序列。若 benchmark 提供 precedence DAG $D=(V,E)$，先计算芯粒优先级或拓扑层级 $r_i$，再定义
-    \[
-    M_{\mathrm{order}}(g)=r_i/R_{\max},\quad
-    g\in\operatorname{footprint}(c_i).
-    \]
-    同时保存 precedence edges 或节点 token。运行时序列另存为 \code{placement\_sequence\_map}，只作为轨迹诊断；若 benchmark 没有自然顺序，则改名为 priority/criticality map，不人为制造 order。
-\end{itemize}
+基础输入固定为 $[M_{\rm priority},M_{\rm thermal\_proxy},M_{\rm hpwl},M_{\rm legality}]$，标量旁路为 $v_t$。priority 使用关联 pin 次数除以最大次数、并列保留、背景 $-1$、重叠像素取最大值；thermal proxy 不代表摄氏温度；HPWL 沿用历史投影；legality 使用前文的精确 pair-intersection coverage 加归一化边界投影，不截断。wiremask 为派生动作约束或可选门控，不是基础第五通道。历史三图保留原始语义与版本，不回写旧 evaluator 或 reward。
 
 \subsection{一步、轨迹、状态流与物理评估器}
 
@@ -737,7 +767,7 @@ PhysicsEvaluator 由 GeometryEvaluator、WirelengthEvaluator、ThermalEvaluator 
     A=\{(k,c)\mid k\in\{\mathrm{SA},\mathrm{Analytical},\mathrm{RL}\},c\in C_k\},
     \]
     在相同初始布局、seed、fidelity 和预算下进行全臂采样；
-    \item \textbf{E2：}训练轻量 2D CNN 预测各 arm 的短期收益，再接 LinUCB 或 Thompson Sampling；wiremask 同时作为输入通道和动作约束；
+    \item \textbf{E2：}训练轻量 2D CNN 预测各 arm 的短期收益，再接 LinUCB 或 Thompson Sampling；wiremask 可作为四通道派生门控和动作约束；
     \item \textbf{E3：}仅当 E2 显示静态状态不足时加入 CNN+GRU，验证历史是否提升在线选择；
     \item \textbf{E4：}仅当 E3 显示状态变化有额外信息时加入小型 ConvLSTM 或低分辨率局部注意力；
     \item \textbf{E5：}最后才加入连续超参数和动作条件 flow critic，并将搜索成本计入 reward。
@@ -745,16 +775,16 @@ PhysicsEvaluator 由 GeometryEvaluator、WirelengthEvaluator、ThermalEvaluator 
 
 \subsection{公平预算和关键消融}
 
-正式比较锁定 $(N_{eval},T_{wall},M_{RAM},M_{VRAM})$，并报告最终目标、HPWL、峰值温度、合法率、evaluator 次数、墙钟时间、峰值内存、失败率、regret 和 arm 命中率。若算法需要预训练，分别报告包含训练成本和已训练 worker 部署成本的结果。
+正式比较锁定 $(N_{eval},T_{wall},M_{RAM},M_{VRAM})$，并报告最终目标、HPWL、热代理与独立高保真峰值温度、合法率、evaluator 次数、墙钟时间、峰值内存、失败率、regret 和 arm 命中率。若算法需要预训练，分别报告包含训练成本和已训练 worker 部署成本的结果。
 
 主对照包括固定 SA、固定 analytical、固定 RL、随机 arm、全局标量 Bandit、2D CNN、2D CNN+wiremask、phase-conditioned Bandit，以及后续的 CNN+GRU 和 ConvLSTM/局部注意力。必须验证空间 map 是否比标量更有预测力、wiremask 是否真正减少无效动作、状态流是否改善在线结果，以及连续调参收益是否抵消搜索成本。注意力权重只作可视化线索，不能直接作为物理因果解释。
 
 \subsection{开源实现边界}
 
-SA 参考 \urlbreak{https://github.com/bu-icsg/TAP-2.5D}，解析式布局参考 \urlbreak{https://github.com/PKU-IDEA/ATPlace_pub}，RL/快速热模型参考 \urlbreak{https://github.com/weiweihook/RLPlanner}，掩码/热模型参考 \urlbreak{https://github.com/xunk33333/MaskPlace2.5D}，综合 2.5D 参考 \urlbreak{https://github.com/MicroSystemsDesignLab/STAMP2.5D}，热评估器参考 \urlbreak{https://github.com/uvahotspot/HotSpot}。运行前固定 commit/hash、许可证、依赖和输入适配边界，第三方 worker 的结果必须回到本项目统一 evaluator。
+    SA 参考 \urlbreak{https://github.com/bu-icsg/TAP-2.5D}，解析式布局参考 \urlbreak{https://github.com/Brilight/ATPlace_pub}，RL/快速热模型参考 \urlbreak{https://github.com/weiweihook/RLPlanner}，掩码/热模型参考 \urlbreak{https://github.com/xunk33333/MaskPlace2.5D}，综合 2.5D 参考 \urlbreak{https://github.com/MicroSystemsDesignLab/STAMP2.5D}，热评估器参考 \urlbreak{https://github.com/uvahotspot/HotSpot}。运行前固定 commit/hash、许可证、依赖和输入适配边界，第三方 worker 的结果必须回到本项目统一 evaluator。
 
 \subsection{冻结条件}
 
-v1.0 短期冻结以下内容：三类 Agent 的身份、order 的 priority/precedence 语义、macro-step 的决策粒度、有限 arm + 2D CNN + Contextual Bandit 的主路线，以及统一 evaluator 和资源预算。只有实现 bug、协议不可运行、定义不可识别或明确反证才能修改，并必须同步更新本 Markdown、LaTeX/PDF、状态设计、README、task-journal 和 GitHub。
+当前短期冻结以下内容：三类算法 Agent 的身份、fourmap v2 的四通道语义、macro-step 的决策粒度、有限 arm + 2D CNN + Contextual Bandit 的主路线，以及统一 evaluator 和资源预算。只有实现 bug、协议不可运行、定义不可识别或明确反证才能修改，并同步相应实现、状态版本和实验协议。
 
 \end{document}

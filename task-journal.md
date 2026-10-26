@@ -1,5 +1,14 @@
  # Task Journal / 任务日志
 
+## 四通道、网页和PDF同步（2026-10-26）
+
+- 按用户明确要求增加 M_overlap/legality，并逐项明确所有通道的含义、输入、计算公式、单位、配色、色条及图中表现。Priority为归一化incident-pin次数，非实际执行顺序；thermal仍标为proxy。
+- 主要实现在 `.worktrees/stage0-visualization` / `codex/stage0-visualization`：独立v2投影API、三种兼容绘图、129个状态sidecar、150个四通道检查点与190幅图。原始坐标、指标和历史三联图保留。
+- 网页增加完整通道图例与逐芯粒pin数/q值表，差分四列统一after-before；190图对齐/字体/碰撞审核通过，无失败或警告。全量658 passed、7 skipped，随后32项相关回归通过。
+- 主目录同步通道手册、fourmap设计、历史冻结/状态设计的版本说明与TeX/PDF。PDF为22页，覆盖公式、单位、视觉表现、同状态预算、消融与证据边界。
+- 三处PDF（工作树、主目录docs、F:/GAME根目录）SHA-256相同。此次用户明确要求更新主目录PDF，因而以新文稿替代此前的旧PDF删除状态；原外部PDF已备份在工作树build目录。
+- 保持main和可视化分支分别提交、推送与远端核验；部署后复查文档链接和网页实际资源，不宣称已训练CNN/Bandit。
+
 ## 同状态实验交付（2026-10-26）
 
 - 实现位于 `.worktrees/stage0-visualization` / `codex/stage0-visualization`，提交 `0e4c0fa`；主分支同步 README 入口与此日志。

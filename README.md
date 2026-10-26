@@ -1,5 +1,9 @@
 # 面向2.5D系统集成的芯粒布局方法
 
+2026-10-26 四通道状态与图例已同步：[通道计算与读图手册](docs/channel_reference.md)、[fourmap v2设计](docs/four_channel_state_design.md)、[22页实验方案PDF](docs/experimental_design_contextual_bandit_2p5d.pdf)。
+每个通道均明确输入、公式、单位、配色、色条与解释边界；网页增加逐芯粒 priority 数值表。实际代码与190幅四通道图在 `codex/stage0-visualization`，本地入口为 `.worktrees/stage0-visualization/docs/figures/stage0_real_trajectories/index.html`。
+当前状态为 `[priority, thermal_proxy, HPWL, legality]`；三类算法 Agent 仍为 SA、解析法、RL。
+
 2026-10-26 同状态实验已在 `codex/stage0-visualization` 完成并提交 `0e4c0fa`：
 [设计与复现](https://github.com/amirocok06-byte/chiplet-layout-2p5d/blob/codex/stage0-visualization/docs/same_state_experiment.md)、
 [逐 Case/配置结果](https://github.com/amirocok06-byte/chiplet-layout-2p5d/blob/codex/stage0-visualization/docs/figures/stage0_same_state/README.md)、

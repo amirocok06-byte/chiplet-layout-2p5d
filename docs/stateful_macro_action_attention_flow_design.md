@@ -1,5 +1,7 @@
 # 状态化宏动作、注意力与流程记忆：2.5D 芯粒布局扩展设计
 
+> 2026-10-26：当前可执行状态为 fourmap v2，形状 `[4,256,256]`，顺序 priority、thermal_proxy、HPWL、legality；priority 是关联 pin 数归一化后的连接度。公式、颜色、色条与读图边界见 [通道手册](channel_reference.md)。本文中的早期三图讨论作为设计沿革，后续 CNN/时序/注意力实验均应按 v2 四通道及相应消融执行。
+
 > 本文是 `experimental_design_contextual_bandit_2p5d.tex/pdf` 的扩展设计，补充近期关于决策步粒度、CNN 与注意力、循环记忆以及流程级影响建模的思考。它不替换现有 MVP-1，也不把当前的 RL-compatible worker 表述为正式 RL 复现。
 
 ## 1. 本次扩展要解决的核心问题
