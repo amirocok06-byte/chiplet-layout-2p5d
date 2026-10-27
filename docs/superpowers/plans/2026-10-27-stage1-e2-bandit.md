@@ -46,7 +46,7 @@
 **Files:** create `stage1_models.py`, create `test_stage1_models.py`, modify `pyproject.toml` only to增加可选 `stage1` 依赖。
 
 1. 先写失败测试：固定策略从训练集平均 reward 选择一个 arm；随机策略可用固定 seed 重放；Ridge 仅接收全局标量；CNN 输入 `[B,4,64,64]` 并输出 `[B,6]`。
-2. 实现 CPU-only 小型 CNN：两层 3×3 convolution、最大 32 个通道、adaptive average pooling 和 6-output head；地图从 256×256平均池化到64×64，避免大模型训练。
+2. 按 2026-10-28 用户硬件要求，实现本机单卡 CUDA 小型 CNN：两层 3×3 convolution、最大 32 个通道、4×4 adaptive average pooling 和 6-output head；CPU 仅供显式功能检查。模型输入由同一坐标在64×64重新投影，256×256展示图保留。实际结构、RTX 4060 8GB 限额和资源账本见 `docs/stage1_cnn_linucb_8gb.md`。
 3. 训练时只用 train Case；validation 只用于选择固定 epoch/regularization；测试 Case 不参与标准化、early stopping 或 arm 优先级估计。
 4. 加入每 arm MSE/MAE、top-1/top-k、oracle regret 的明确计算。
 5. 运行模型测试与全量回归。

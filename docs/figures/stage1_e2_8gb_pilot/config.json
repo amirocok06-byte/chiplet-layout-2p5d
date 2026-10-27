@@ -1,0 +1,23 @@
+{
+  "labels_root": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage1-e2-bandit\\docs\\figures\\stage0_same_state",
+  "output": "F:\\GAME\\Chiplet-Layout-2.5D\\.worktrees\\stage1-e2-bandit\\docs\\figures\\stage1_e2_8gb_pilot",
+  "train_cases": [
+    "Case1",
+    "Case3",
+    "Case4",
+    "Case5",
+    "Case6"
+  ],
+  "validation_cases": [
+    "Case7"
+  ],
+  "test_cases": [
+    "Case8",
+    "Case9",
+    "Case10"
+  ],
+  "device": "cuda",
+  "epochs": 100,
+  "batch_size": 8,
+  "seed": 11
+}

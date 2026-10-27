@@ -1,5 +1,14 @@
 # 面向2.5D系统集成的芯粒布局方法
 
+阶段 1（E2a）新增 [轻量 CNN + LinUCB 与本机 8GB 设计](docs/stage1_cnn_linucb_8gb.md)、
+[执行协议与宏动作定义](docs/stage1_e2_protocol.md)。首版 CNN 为 21,870 参数、
+四通道 `64×64` 输入、六个配置收益输出，训练入口为 `scripts/train_stage1_cnn.ps1`。
+正式训练显式要求单卡 CUDA，并按本机实际显存设置 allocator 限额与峰值账本。
+阶段 0 的 CPU worker、阶段 1 的 GPU 训练分别记录资源预算。
+2026-10-28 本机 [GPU首轮结果](docs/figures/stage1_e2_8gb_pilot/RESULTS.md)：
+PyTorch峰值allocated/reserved为19.65/24 MiB；本轮CNN与固定策略打平，
+LinUCB较差，[解释与下一批实验](docs/figures/stage1_e2_8gb_pilot/INTERPRETATION.md) 已记录。
+
 2026-10-26 状态表示更新为 fourmap v2：`[priority, thermal_proxy, HPWL, legality]`。
 [通道公式、单位与图例](docs/channel_reference.md) · [四通道网页](docs/figures/stage0_real_trajectories/index.html) · [更新的实验方案PDF](docs/experimental_design_contextual_bandit_2p5d.pdf)。
 已由原始坐标更新 150 个检查点、190 幅图，并为 129 个同状态布局导出四通道观察；原始动作收益与历史三通道记录保留。

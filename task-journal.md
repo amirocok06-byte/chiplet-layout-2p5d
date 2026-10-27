@@ -1,5 +1,15 @@
  # Task Journal / 任务日志
 
+## 轻量 CNN、LinUCB 与本机 8GB 验收（2026-10-28）
+
+- 按用户硬件要求将阶段1训练改为显式CUDA单卡；核验本机RTX4060 Laptop、8188MiB、driver560.94、i9-14900HX 24核32线程、32GB级RAM。在忽略目录build/stage1-gpu-env建立独立Python3.13/PyTorch2.8.0+cu126环境，保留原有环境。
+- 新增21,870参数CNN：4→16→32卷积、4×4空间池化、32维embedding、4标量、6收益输出；按Case训练，训练期归一化，validation选checkpoint。LinUCB用冻结特征的37维上下文，仅用所选arm收益在线更新，validation选择alpha。
+- GPU allocator上限按min(8GiB,物理总量,当前空闲量)-1GiB设置；记录allocated/reserved峰值及整卡逐batch采样值。首轮实际allocator限额6075MiB，allocated/reserved峰值19.65/24MiB，整卡采样1146.5MiB。该限额不宣称操作系统级GPU隔离。
+- 正式阶段0标签只读；首轮train/validation/test=33/7/21状态，train Case1/3/4/5/6，validation Case7，test Case8/9/10；seed11、100epochs，第9轮checkpoint最佳，训练约2.50秒。
+- 已生成固定/random/标量Ridge/CNN greedy/CNN+LinUCB/alpha0六组离线对照，输出路径docs/figures/stage1_e2_8gb_pilot。固定与CNN在21个测试状态都选analytical-large且regret=0；LinUCB regret=0.0715316，alpha0=0.074027。本轮支持GPU与链路可运行，尚无动态选择超过固定策略的证据。结果解释保留，不据此调测试集参数。
+- 独立GPU环境全量回归670 passed、7 skipped；正式输出源码hash无差异，Case切分无交叉，内存记录满足本机容量。此前将命令会话提前返回误认为30秒硬限制，已通过持续读取会话纠正并取得完整测试结果。
+- 同步复查README、执行协议、实施计划、设计、入口脚本、依赖、测试与结果文件；本轮按既有规则提交到codex/stage1-e2-bandit并推送后核验远端。
+
 ## 阶段 1 / E2a 启动（2026-10-27）
 
 - 阶段 0 按冻结审计再次核验：129 个独立状态、2,322 条 action 标签、6 arm × 3 seed 完整网格、150,930 次算法评价、坐标/指标重放与四通道投影审核均通过；本阶段只读该数据。
