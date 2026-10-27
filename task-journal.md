@@ -1,5 +1,13 @@
  # Task Journal / 任务日志
 
+## 阶段 1 / E2a 启动（2026-10-27）
+
+- 阶段 0 按冻结审计再次核验：129 个独立状态、2,322 条 action 标签、6 arm × 3 seed 完整网格、150,930 次算法评价、坐标/指标重放与四通道投影审核均通过；本阶段只读该数据。
+- 固定 Contextual Bandit 的“一步”为 `a_t=(worker, configuration, wiremask, H_eval=65)` 宏动作：1 次起点评价加 64 次候选评价；SA/解析/RL 的内部循环均为不可跨算法直接比较的微步。时间和内存为共同停止上限及成本字段，不替代 evaluator 预算。
+- 新增只读 E2 数据加载器：从阶段 0 的问题和坐标重建 `[priority, thermal_proxy, HPWL, legality]` 四通道，严格校验 `evaluator_calls=65`、完整 arm×seed 网格，并按 Case 切分，防止相邻 checkpoint 泄漏。
+- 正式合法态标签已做只读验收：61 个状态、9 个 Case、6 个 arm、`4×64×64` 输入和统一 65 次预算。E2a 只处理 `legal_optimization`；恢复任务保留给 E2b。
+- 本轮先实现固定/random/标量/CNN/LinUCB 的预注册对照接口；在完整验证、commit、push 与远端核验前，不声称已取得 CNN/Bandit 增益。
+
 ## 四通道状态与图例同步（2026-10-26）
 
 - 按用户明确要求加入 M_overlap/legality，状态版本为 connectivity-priority-thermal-hpwl-legality-v2；三类算法 Agent 不随通道数变化。
