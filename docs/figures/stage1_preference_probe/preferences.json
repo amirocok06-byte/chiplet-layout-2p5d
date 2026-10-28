@@ -1,0 +1,545 @@
+{
+  "65": {
+    "overall": {
+      "states": 61,
+      "winner_counts": {
+        "analytical-large": 58,
+        "rl-explore": 1,
+        "sa-explore": 1,
+        "analytical-small": 1
+      },
+      "tied_states": 0,
+      "best_fixed_arm": "analytical-large",
+      "best_fixed_mean_regret": 0.006640146371954289,
+      "mean_rewards": {
+        "analytical-large": 0.14590063105627407,
+        "analytical-small": 0.08408056534292391,
+        "rl-explore": 0.04106089981706034,
+        "rl-local": 0.027691597329857223,
+        "sa-explore": -0.0007083095561476332,
+        "sa-local": 0.007875335375308063
+      }
+    },
+    "by_case": {
+      "Case1": {
+        "states": 5,
+        "winner_counts": {
+          "analytical-large": 2,
+          "rl-explore": 1,
+          "sa-explore": 1,
+          "analytical-small": 1
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-small",
+        "best_fixed_mean_regret": 0.04299019202589989,
+        "mean_rewards": {
+          "analytical-large": 0.06254995102062821,
+          "analytical-small": 0.10056954473257065,
+          "rl-explore": 0.08592107162694447,
+          "rl-local": 0.04581546859117225,
+          "sa-explore": 0.04231436960399151,
+          "sa-local": 0.04744635564275086
+        }
+      },
+      "Case10": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.08463981534753527,
+          "analytical-small": 0.05396052449941635,
+          "rl-explore": 0.013274758056338345,
+          "rl-local": 0.00669323539893542,
+          "sa-explore": -0.00042934332408809235,
+          "sa-local": -0.003984626844092938
+        }
+      },
+      "Case3": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.32278613107545034,
+          "analytical-small": 0.17608067872268812,
+          "rl-explore": 0.13376778523836816,
+          "rl-local": 0.08574046859783786,
+          "sa-explore": 0.029970922374299595,
+          "sa-local": 0.02148321491677052
+        }
+      },
+      "Case4": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.24152408965996333,
+          "analytical-small": 0.09447382433739092,
+          "rl-explore": 0.05636268321956907,
+          "rl-local": 0.030566391934241568,
+          "sa-explore": -0.031950821434812884,
+          "sa-local": 0.000765186087976742
+        }
+      },
+      "Case5": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.19450089867625917,
+          "analytical-small": 0.09160125468458448,
+          "rl-explore": 0.025478939193167856,
+          "rl-local": 0.03278332842247827,
+          "sa-explore": -0.0017579845651718123,
+          "sa-local": 0.01574581098533859
+        }
+      },
+      "Case6": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.1081089877656528,
+          "analytical-small": 0.06826128544551986,
+          "rl-explore": 0.018731124299977506,
+          "rl-local": 0.016322713611381396,
+          "sa-explore": -0.01359809361331697,
+          "sa-local": 0.003212287722687636
+        }
+      },
+      "Case7": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.10221527942589351,
+          "analytical-small": 0.06736508065036365,
+          "rl-explore": 0.026578706290040697,
+          "rl-local": 0.022140614821442535,
+          "sa-explore": -0.0023836933999388877,
+          "sa-local": 0.0028856004999917267
+        }
+      },
+      "Case8": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.10424761208040374,
+          "analytical-small": 0.06320655612008912,
+          "rl-explore": 0.010589272449059146,
+          "rl-local": 0.006772888691297599,
+          "sa-explore": -0.0074192748538085395,
+          "sa-local": -0.000598660846662824
+        }
+      },
+      "Case9": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.06871843444449562,
+          "analytical-small": 0.04591747586216245,
+          "rl-explore": 0.01166094992575901,
+          "rl-local": 0.007567514831732426,
+          "sa-explore": -0.008828672746728574,
+          "sa-local": -0.004771143996289798
+        }
+      }
+    }
+  },
+  "17": {
+    "overall": {
+      "states": 61,
+      "winner_counts": {
+        "analytical-small": 19,
+        "analytical-large": 40,
+        "sa-explore": 2
+      },
+      "tied_states": 2,
+      "best_fixed_arm": "analytical-large",
+      "best_fixed_mean_regret": 0.004468491902931232,
+      "mean_rewards": {
+        "analytical-large": 0.0601549238240508,
+        "analytical-small": 0.03494406501514285,
+        "rl-explore": 0.010100522693722594,
+        "rl-local": 0.006142651339217801,
+        "sa-explore": -0.0064497014706598925,
+        "sa-local": -0.00047980740100482533
+      }
+    },
+    "changed_vs_65": 24,
+    "by_case": {
+      "Case1": {
+        "states": 5,
+        "winner_counts": {
+          "analytical-small": 1,
+          "analytical-large": 4
+        },
+        "tied_states": 2,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0013186210843658106,
+        "mean_rewards": {
+          "analytical-large": 0.12021725976753506,
+          "analytical-small": 0.10663803197826165,
+          "rl-explore": 0.019741135648094356,
+          "rl-local": 0.01101409416816372,
+          "sa-explore": 0.0033828261503636727,
+          "sa-local": 0.0014430614616697175
+        }
+      },
+      "Case10": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-small": 3,
+          "sa-explore": 2,
+          "analytical-large": 2
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.00905051517221986,
+        "mean_rewards": {
+          "analytical-large": 0.013738372111944177,
+          "analytical-small": 0.011305333808084574,
+          "rl-explore": 0.0030475082723324526,
+          "rl-local": 0.001482599926814249,
+          "sa-explore": 0.00215831973943746,
+          "sa-local": -0.001661328689203307
+        }
+      },
+      "Case3": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.17624781013906388,
+          "analytical-small": 0.07284041182060834,
+          "rl-explore": 0.04103564674236302,
+          "rl-local": 0.020975561794897533,
+          "sa-explore": -0.010910233093060676,
+          "sa-local": 0.004061980180402382
+        }
+      },
+      "Case4": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.0930062199641629,
+          "analytical-small": 0.0332533648731822,
+          "rl-explore": 0.004899748682736383,
+          "rl-local": 0.003026654348757683,
+          "sa-explore": -0.01873471406066776,
+          "sa-local": 0.0006095898220419375
+        }
+      },
+      "Case5": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 5,
+          "analytical-small": 2
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.007936675937828184,
+        "mean_rewards": {
+          "analytical-large": 0.06958322768061778,
+          "analytical-small": 0.0391504355415384,
+          "rl-explore": 0.002977536205498125,
+          "rl-local": 0.008946933368473823,
+          "sa-explore": -0.012995961261213619,
+          "sa-local": -0.0010658712671829924
+        }
+      },
+      "Case6": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-small": 6,
+          "analytical-large": 1
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-small",
+        "best_fixed_mean_regret": 0.002270101890727023,
+        "mean_rewards": {
+          "analytical-large": 0.009280873582960689,
+          "analytical-small": 0.018509608203065627,
+          "rl-explore": 0.00490818226149991,
+          "rl-local": 0.0003463414991746018,
+          "sa-explore": 0.00182851508125638,
+          "sa-local": 0.0037380195488014886
+        }
+      },
+      "Case7": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.041263605019238134,
+          "analytical-small": 0.022834667755659482,
+          "rl-explore": 0.006304403285609001,
+          "rl-local": 0.006247922896078693,
+          "sa-explore": -0.004830382109991281,
+          "sa-local": -0.00197262891162528
+        }
+      },
+      "Case8": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 5,
+          "analytical-small": 2
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.003974118821162763,
+        "mean_rewards": {
+          "analytical-large": 0.021556741633528782,
+          "analytical-small": 0.017666786059699114,
+          "rl-explore": 0.0034843820407755048,
+          "rl-local": 0.0021931629439602843,
+          "sa-explore": -0.008368717361965435,
+          "sa-local": -0.0016506482143748304
+        }
+      },
+      "Case9": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 2,
+          "analytical-small": 5
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.005537696508953818,
+        "mean_rewards": {
+          "analytical-large": 0.013660871929830093,
+          "analytical-small": 0.012781935657077316,
+          "rl-explore": 0.007260621948700815,
+          "rl-local": 0.0024424319149099045,
+          "sa-explore": -0.006767672714091037,
+          "sa-local": -0.007271049435951244
+        }
+      }
+    }
+  },
+  "257": {
+    "overall": {
+      "states": 61,
+      "winner_counts": {
+        "analytical-large": 58,
+        "rl-explore": 2,
+        "sa-explore": 1
+      },
+      "tied_states": 0,
+      "best_fixed_arm": "analytical-large",
+      "best_fixed_mean_regret": 0.005590775945849924,
+      "mean_rewards": {
+        "analytical-large": 0.24686225052964672,
+        "analytical-small": 0.1521101052187087,
+        "rl-explore": 0.10039143495425441,
+        "rl-local": 0.0829231956625616,
+        "sa-explore": 0.022178063008464623,
+        "sa-local": 0.033455073101471514
+      }
+    },
+    "changed_vs_65": 1,
+    "by_case": {
+      "Case1": {
+        "states": 5,
+        "winner_counts": {
+          "analytical-large": 2,
+          "rl-explore": 2,
+          "sa-explore": 1
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "rl-explore",
+        "best_fixed_mean_regret": 0.062278129363267466,
+        "mean_rewards": {
+          "analytical-large": 0.17467158248124998,
+          "analytical-small": 0.04184113343042609,
+          "rl-explore": 0.1806009196573516,
+          "rl-local": 0.11419093002991405,
+          "sa-explore": 0.12452877136544586,
+          "sa-local": 0.060975615722951335
+        }
+      },
+      "Case10": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.16417735808355466,
+          "analytical-small": 0.1090104700344691,
+          "rl-explore": 0.03842455788769302,
+          "rl-local": 0.033392255706378285,
+          "sa-explore": -0.019053895247182328,
+          "sa-local": -0.003659599222790793
+        }
+      },
+      "Case3": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.4327328524090475,
+          "analytical-small": 0.2984576263179108,
+          "rl-explore": 0.2318687667700501,
+          "rl-local": 0.2199023156308919,
+          "sa-explore": 0.18487946936318647,
+          "sa-local": 0.13206712969845275
+        }
+      },
+      "Case4": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.3745171014777345,
+          "analytical-small": 0.2500965552060094,
+          "rl-explore": 0.1639898013039521,
+          "rl-local": 0.11387239605054655,
+          "sa-explore": -0.022385996199143183,
+          "sa-local": 0.039858572917895185
+        }
+      },
+      "Case5": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.29733921185505807,
+          "analytical-small": 0.1599587583891977,
+          "rl-explore": 0.10615567101656867,
+          "rl-local": 0.0948225249068381,
+          "sa-explore": 0.04933595769191336,
+          "sa-local": 0.05027909512886682
+        }
+      },
+      "Case6": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.24768774931071666,
+          "analytical-small": 0.12661297139749614,
+          "rl-explore": 0.056623627421479146,
+          "rl-local": 0.052596656547398014,
+          "sa-explore": -0.03033371038113494,
+          "sa-local": 0.015431280291097338
+        }
+      },
+      "Case7": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.15484422842974785,
+          "analytical-small": 0.12123941042603312,
+          "rl-explore": 0.06413135762152088,
+          "rl-local": 0.0631341558256172,
+          "sa-explore": -0.00094067422597819,
+          "sa-local": 0.016469147687973484
+        }
+      },
+      "Case8": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.21174666911865653,
+          "analytical-small": 0.13361385040287385,
+          "rl-explore": 0.05897457947323515,
+          "rl-local": 0.03575562708303221,
+          "sa-explore": -0.0274782100165594,
+          "sa-local": 0.00621846611601441
+        }
+      },
+      "Case9": {
+        "states": 7,
+        "winner_counts": {
+          "analytical-large": 7
+        },
+        "tied_states": 0,
+        "best_fixed_arm": "analytical-large",
+        "best_fixed_mean_regret": 0.0,
+        "mean_rewards": {
+          "analytical-large": 0.14341759644436974,
+          "analytical-small": 0.09665475085302397,
+          "rl-explore": 0.0256706290658956,
+          "rl-local": 0.027575537573109977,
+          "sa-explore": -0.029706085743800018,
+          "sa-local": -0.008681038249651291
+        }
+      }
+    }
+  }
+}

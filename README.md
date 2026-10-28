@@ -1,5 +1,10 @@
 # 面向2.5D系统集成的芯粒布局方法
 
+2026-10-28 新增[配置偏好与选择器实测回答](docs/figures/stage1_preference_probe/RESULTS.md)：
+同61状态、17/65/257评价预算、每配置3seed；另完成65预算的9折Case留出×3训练seed。
+偏好随状态/预算变化，但当前CNN/LinUCB总体未超过固定配置。原pilot缩放风险经干预未改善结果，
+51/61状态的胜出配置至少一次需要公共合法化；结论适用于完整宏动作接口。
+
 阶段 1（E2a）新增 [轻量 CNN + LinUCB 与本机 8GB 设计](docs/stage1_cnn_linucb_8gb.md)、
 [执行协议与宏动作定义](docs/stage1_e2_protocol.md)。首版 CNN 为 21,870 参数、
 四通道 `64×64` 输入、六个配置收益输出，训练入口为 `scripts/train_stage1_cnn.ps1`。

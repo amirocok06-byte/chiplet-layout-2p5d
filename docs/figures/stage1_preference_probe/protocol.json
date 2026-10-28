@@ -1,0 +1,32 @@
+{
+  "budgets": [
+    17,
+    65,
+    257
+  ],
+  "seeds": [
+    11,
+    22,
+    33
+  ],
+  "epochs": 100,
+  "optimizer_seeds": [
+    20261025,
+    20261026,
+    20261027
+  ],
+  "cases": [
+    "Case1",
+    "Case10",
+    "Case3",
+    "Case4",
+    "Case5",
+    "Case6",
+    "Case7",
+    "Case8",
+    "Case9"
+  ],
+  "validation": "next Case in sorted cyclic order",
+  "test": "leave one Case out; exploratory existing-data analysis",
+  "original_test_cases_previously_inspected": true
+}

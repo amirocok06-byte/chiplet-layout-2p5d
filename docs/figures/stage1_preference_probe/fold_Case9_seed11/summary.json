@@ -1,0 +1,110 @@
+{
+  "fixed": {
+    "mean_reward": 0.06871843338012695,
+    "mean_oracle_reward": 0.06871843338012695,
+    "mean_regret": 0.0,
+    "set_top1": 1.0,
+    "mean_historical_action_seconds": 0.07524317502975464,
+    "by_case": {
+      "Case9": {
+        "mean_reward": 0.06871843338012695,
+        "mean_oracle_reward": 0.06871843338012695,
+        "mean_regret": 0.0,
+        "set_top1": 1.0
+      }
+    }
+  },
+  "random": {
+    "mean_reward": 0.029313156381249428,
+    "mean_oracle_reward": 0.06871843338012695,
+    "mean_regret": 0.039405278861522675,
+    "set_top1": 0.2857142857142857,
+    "mean_historical_action_seconds": 0.05341390520334244,
+    "by_case": {
+      "Case9": {
+        "mean_reward": 0.029313156381249428,
+        "mean_oracle_reward": 0.06871843338012695,
+        "mean_regret": 0.039405278861522675,
+        "set_top1": 0.2857142857142857
+      }
+    }
+  },
+  "scalar_ridge": {
+    "mean_reward": 0.06871843338012695,
+    "mean_oracle_reward": 0.06871843338012695,
+    "mean_regret": 0.0,
+    "set_top1": 1.0,
+    "mean_historical_action_seconds": 0.07524317502975464,
+    "by_case": {
+      "Case9": {
+        "mean_reward": 0.06871843338012695,
+        "mean_oracle_reward": 0.06871843338012695,
+        "mean_regret": 0.0,
+        "set_top1": 1.0
+      }
+    }
+  },
+  "cnn_greedy": {
+    "mean_reward": 0.06871843338012695,
+    "mean_oracle_reward": 0.06871843338012695,
+    "mean_regret": 0.0,
+    "set_top1": 1.0,
+    "mean_historical_action_seconds": 0.07524317502975464,
+    "by_case": {
+      "Case9": {
+        "mean_reward": 0.06871843338012695,
+        "mean_oracle_reward": 0.06871843338012695,
+        "mean_regret": 0.0,
+        "set_top1": 1.0
+      }
+    }
+  },
+  "cnn_linucb": {
+    "mean_reward": 0.06511522084474564,
+    "mean_oracle_reward": 0.06871843338012695,
+    "mean_regret": 0.0036032169591635466,
+    "set_top1": 0.7142857142857143,
+    "mean_historical_action_seconds": 0.07698240131139755,
+    "by_case": {
+      "Case9": {
+        "mean_reward": 0.06511522084474564,
+        "mean_oracle_reward": 0.06871843338012695,
+        "mean_regret": 0.0036032169591635466,
+        "set_top1": 0.7142857142857143
+      }
+    }
+  },
+  "cnn_linucb_alpha0": {
+    "mean_reward": 0.06511522084474564,
+    "mean_oracle_reward": 0.06871843338012695,
+    "mean_regret": 0.0036032169591635466,
+    "set_top1": 0.7142857142857143,
+    "mean_historical_action_seconds": 0.07698240131139755,
+    "by_case": {
+      "Case9": {
+        "mean_reward": 0.06511522084474564,
+        "mean_oracle_reward": 0.06871843338012695,
+        "mean_regret": 0.0036032169591635466,
+        "set_top1": 0.7142857142857143
+      }
+    }
+  },
+  "cnn_prediction": {
+    "per_arm_mae": [
+      0.10207601636648178,
+      0.04658704996109009,
+      0.035280656069517136,
+      0.020740507170557976,
+      0.009518583305180073,
+      0.010610799305140972
+    ],
+    "per_arm_mse": [
+      0.010945222340524197,
+      0.0023389433044940233,
+      0.0012927729403600097,
+      0.00044352150871418417,
+      0.00010420939361210912,
+      0.0001149310774053447
+    ]
+  }
+}

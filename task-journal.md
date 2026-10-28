@@ -1,5 +1,16 @@
  # Task Journal / 任务日志
 
+## 配置偏好与选择有效性实测（2026-10-28）
+
+- 新增preference_probe、preference_report和scaling_probe，原stage0标签与pilot保留。将17/65/257预算、9折Case留出、3训练seed等协议预先写入新结果目录protocol.json；此为已查看既有数据上的探索性研究，不声称新的确认性测试。
+- 从相同61合法状态完成17与257预算的6arm×3seed采集，各1098条，新增300852次算法评价。预算/起点/problem checksum/完整配置网格审核通过；原65预算继续使用同状态标签。
+- 17预算analytical-large/small/SA-explore按固定顺序打破并列计40/19/2；65预算为58/1/1/1（large/small/RL/SA）；257预算large/RL/SA=58/2/1。与65预算最优集合无交集的状态分别23与1个。偏好确随预算变化，但主要为解析法参数配置差异。
+- 65预算9折×3训练seed总体Case等权regret：fixed0.00900109、CNN0.0176059、LinUCB0.023498、scalar Ridge0.0244255。CNN没有一折seed严格胜过fixed；LinUCB3次优于fixed，但总体更差。训练均为本机CUDA单卡轻量CNN。
+- 原pilot标准化特征最大值由训练2.83变为测试611478.625，冻结CNN实施训练集低方差维度置零和[-5,5]截断：总体regret基本不变，原pilot反而0.0790737。该干预未支持“缩放是失败主因”的判断，未修改正式选择器。
+- 原65预算最优配置51/61状态至少一次原始输出非法，需合法化；报告明确当前收益针对worker+legalizer。17/257只比较偏好，尚未训练预算条件CNN；非法恢复、全流程与LLM选择未在此轮验证。
+- 原始动作、27套模型与fold配置/审计/决策、预算审计、缩放干预及中文结论入库docs/figures/stage1_preference_probe，README同步。按长期规定完成测试、diff、commit、push与远端核验。
+- 本轮全量回归673 passed、7 skipped；两种新预算均61状态/1098条且同起点同problem/完整网格通过；27折Case互斥、CUDA设备和显存上限核验通过，最高reserved为24MiB。
+
 ## 轻量 CNN、LinUCB 与本机 8GB 验收（2026-10-28）
 
 - 按用户硬件要求将阶段1训练改为显式CUDA单卡；核验本机RTX4060 Laptop、8188MiB、driver560.94、i9-14900HX 24核32线程、32GB级RAM。在忽略目录build/stage1-gpu-env建立独立Python3.13/PyTorch2.8.0+cu126环境，保留原有环境。

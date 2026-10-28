@@ -1,0 +1,23 @@
+{
+  "labels_root": "docs\\figures\\stage0_same_state",
+  "output": "docs\\figures\\stage1_preference_probe\\fold_Case4_seed33",
+  "train_cases": [
+    "Case1",
+    "Case10",
+    "Case3",
+    "Case6",
+    "Case7",
+    "Case8",
+    "Case9"
+  ],
+  "validation_cases": [
+    "Case5"
+  ],
+  "test_cases": [
+    "Case4"
+  ],
+  "device": "cuda",
+  "epochs": 100,
+  "batch_size": 8,
+  "seed": 33
+}
